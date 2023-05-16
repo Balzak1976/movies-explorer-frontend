@@ -1,0 +1,17 @@
+.menu {
+  display: flex;
+  gap: 50px;
+}
+
+.menu-films {
+  display: flex;
+  gap: 
+
+}
+
+.menu-films__link {
+}
+
+.menu-films__link_type_burger {
+  display: none;
+}
