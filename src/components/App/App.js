@@ -1,6 +1,6 @@
 import './App.css';
 import Header from '../parts/Header/Header';
-// import Footer from '../parts/Footer/Footer';
+import Footer from '../parts/Footer/Footer';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
 
         <div className="wrapper"></div>
 
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </div>
   );
