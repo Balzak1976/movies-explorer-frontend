@@ -1,5 +1,6 @@
 import './App.css';
 import Header from '../parts/Header/Header';
+import Main from '../Main/Main'
 import Footer from '../parts/Footer/Footer';
 
 function App() {
@@ -12,7 +13,9 @@ function App() {
           // onSignOut={handleSignOut}
         />
 
-        <div className="wrapper"></div>
+        <div className="wrapper">
+          <Main/>
+        </div>
 
         <Footer />
       </div>

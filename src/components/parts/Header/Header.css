@@ -1,4 +1,6 @@
 .header {
+  position: absolute;
+  top: 18px;
   background-color:blueviolet;
   width: 100%;
   display: flex;
