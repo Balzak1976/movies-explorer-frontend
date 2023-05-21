@@ -1,0 +1,22 @@
+.promo {
+  width: 100%;
+  min-height: 648px;
+  padding-top: 149px;
+  display: grid;
+  grid-template-columns: minmax(640px, 1fr) min-content;
+  grid-template-rows: auto auto;
+}
+
+.promo__title {
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 1.16;
+  color: #fff;
+}
+
+.promo__main-illustration {
+  display: inline;
+  max-width: 310px;
+  object-fit: cover;
+  object-position: center;
+}

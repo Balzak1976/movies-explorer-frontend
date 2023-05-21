@@ -9,8 +9,6 @@
 }
 
 .page {
-  /* padding-top: 18px; */
-  padding-bottom: 0;
   box-sizing: border-box;
   margin: 0 auto;
   max-width: 1280px;
@@ -18,7 +16,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
+}
+
+.page_width_l {
+  padding: 0 70px 0;
 }
 
 .wrapper {
@@ -30,4 +31,8 @@
 
 .logo {
   display: block;
+}
+
+.bg_blue {
+  background-color: #465dff;
 }

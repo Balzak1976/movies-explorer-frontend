@@ -4,7 +4,7 @@ function Footer() {
   const date = new Date();
 
   return (
-    <footer className="footer">
+    <footer className="footer page_width_l">
       <h3 className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</h3>
       <div className="footer__body">
         <p className="footer__copyright"> {date.getFullYear()}. Максим Скороходов</p>
