@@ -1,1 +1,4 @@
-
+.about-project {
+  min-height: 608px;
+  display: grid;
+}
