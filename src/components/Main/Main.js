@@ -10,7 +10,7 @@ function Main() {
     <main className="main">
       <Promo />
       <AboutProject />
-      {/* <Techs /> */}
+      <Techs />
       {/* <AboutMe /> */}
       {/* <Portfolio /> */}
     </main>
