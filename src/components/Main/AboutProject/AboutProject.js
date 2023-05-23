@@ -29,15 +29,15 @@ function AboutProject() {
       </ul>
       <ul className="timeline">
         <li>
-          <figure class="timeline__week">
-            <div class="timeline__graph bg_color_1">{TIMELINE_GRAPH[0]}</div>
-            <figcaption class="timeline__caption">{TIMELINE_CAPTION[0]}</figcaption>
+          <figure className="timeline__week">
+            <div className="timeline__graph bg_color_1">{TIMELINE_GRAPH[0]}</div>
+            <figcaption className="timeline__caption">{TIMELINE_CAPTION[0]}</figcaption>
           </figure>
         </li>
         <li>
-          <figure class="timeline__week">
-            <div class="timeline__graph">{TIMELINE_GRAPH[1]}</div>
-            <figcaption class="timeline__caption">{TIMELINE_CAPTION[1]}</figcaption>
+          <figure className="timeline__week">
+            <div className="timeline__graph">{TIMELINE_GRAPH[1]}</div>
+            <figcaption className="timeline__caption">{TIMELINE_CAPTION[1]}</figcaption>
           </figure>
         </li>
       </ul>

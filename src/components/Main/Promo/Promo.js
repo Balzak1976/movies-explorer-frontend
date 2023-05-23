@@ -9,7 +9,7 @@ function Promo() {
   return (
     <section className="promo page_width_l bg_blue">
       <h1 className="promo__title">{PROMO_TITLE}</h1>
-      <img class="promo__main-illustration" src={imgLink} alt="иллюстрация земного шара" />
+      <img className="promo__main-illustration" src={imgLink} alt="иллюстрация земного шара" />
       <p className="promo__subtitle">{PROMO_SUBTITLE}</p>
       <a href="#aboutMe" className="promo__link">
         {PROMO_BTN}

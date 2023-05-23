@@ -7,7 +7,7 @@ function Footer() {
     <footer className="footer page_width_l">
       <h3 className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</h3>
       <div className="footer__body">
-        <p className="footer__copyright"> {date.getFullYear()}. Максим Скороходов</p>
+        <p className="footer__copyright">&copy; {date.getFullYear()}. Максим Скороходов</p>
 
         <nav>
           <ul className="footer__links">
