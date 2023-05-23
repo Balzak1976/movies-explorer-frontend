@@ -1,26 +1,10 @@
-.techs {
-  width: 100%;
-  box-sizing: border-box;
+.section_techs {
   padding-top: 103px;
   min-height: 625px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   background-color: #f5f5f5;
 }
 
-.techs__header {
-  width: 100%;
-  margin: 0;
-  padding-bottom: 23px;
-  font-weight: 400;
-  font-size: 22px;
-  line-height: 1.125;
-  letter-spacing: -0.04em;
-  border-bottom: 1px solid #000;
-}
-
-.techs__description {
+.techs {
   padding-top: 90px;
   display: flex;
   flex-direction: column;
@@ -50,7 +34,7 @@
 
 .techs__list {
   width: 100%;
-  padding-top: 100px;
+  padding-top: 74px;
   display: flex;
   justify-content: center;
   gap: 10px;

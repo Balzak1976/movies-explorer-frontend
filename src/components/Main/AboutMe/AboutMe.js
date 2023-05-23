@@ -1,5 +1,6 @@
 import './AboutMe.css';
 import avatar from '../../../images/myPhoto.png';
+import Section from '../Section/Section';
 
 const ABOUT_HEADER = 'Студент';
 const ABOUT_TITLE = 'Виталий';
@@ -11,13 +12,12 @@ const ABOUT_LINKS = [{ link: 'https://github.com/Balzak1976', text: 'Github' }];
 
 function AboutMe() {
   return (
-    <section className="section section_about page_width_l">
-      <h2 className="section__header">{ABOUT_HEADER}</h2>
+    <Section classMix={'section_about'} title={ABOUT_HEADER}>
       <article className="about">
         <h3 className="about__title">{ABOUT_TITLE}</h3>
         <p className="about__subtitle">{ABOUT_SUBTITLE}</p>
         <p className="about__description">{ABOUT_DESCRIPTION}</p>
-        <nav className='nav nav_about'>
+        <nav className="nav nav_about">
           <ul className="nav__links">
             {ABOUT_LINKS.map((v, i) => (
               <li className="about__item" key={i}>
@@ -30,7 +30,7 @@ function AboutMe() {
         </nav>
         <img src={avatar} alt="фото владельца сайта" className="about__avatar" />
       </article>
-    </section>
+    </Section>
   );
 }
 

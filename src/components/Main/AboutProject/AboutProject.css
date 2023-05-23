@@ -1,22 +1,6 @@
-.project {
-  width: 100%;
-  box-sizing: border-box;
+.section_project {
   padding-top: 112px;
   min-height: 608px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.project__header {
-  width: 100%;
-  margin: 0;
-  padding-bottom: 23px;
-  font-weight: 400;
-  font-size: 22px;
-  line-height: 1.125;
-  letter-spacing: -0.04em;
-  border-bottom: 1px solid #000;
 }
 
 .project__list {

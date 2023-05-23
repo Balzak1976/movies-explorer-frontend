@@ -1,4 +1,5 @@
 import './AboutProject.css';
+import Section from '../Section/Section';
 
 const PROJECT_HEADER = 'О проекте';
 const PROJECT_LIST = [
@@ -17,31 +18,32 @@ const TIMELINE_CAPTION = ['Back-end', 'Front-end'];
 
 function AboutProject() {
   return (
-    <section className="project page_width_l">
-      <h2 className="project__header">{PROJECT_HEADER}</h2>
-      <ul className="project__list">
-        {PROJECT_LIST.map((v, i) => (
-          <li className="project__item" key={i}>
-            <h3 className="project__title">{v.title}</h3>
-            <p className="project__subtitle">{v.subtitle}</p>
+    <Section classMix={'section_project'} title={PROJECT_HEADER}>
+      <article className="project">
+        <ul className="project__list">
+          {PROJECT_LIST.map((v, i) => (
+            <li className="project__item" key={i}>
+              <h3 className="project__title">{v.title}</h3>
+              <p className="project__subtitle">{v.subtitle}</p>
+            </li>
+          ))}
+        </ul>
+        <ul className="timeline">
+          <li>
+            <figure className="timeline__week">
+              <div className="timeline__graph bg_color_1">{TIMELINE_GRAPH[0]}</div>
+              <figcaption className="timeline__caption">{TIMELINE_CAPTION[0]}</figcaption>
+            </figure>
           </li>
-        ))}
-      </ul>
-      <ul className="timeline">
-        <li>
-          <figure className="timeline__week">
-            <div className="timeline__graph bg_color_1">{TIMELINE_GRAPH[0]}</div>
-            <figcaption className="timeline__caption">{TIMELINE_CAPTION[0]}</figcaption>
-          </figure>
-        </li>
-        <li>
-          <figure className="timeline__week">
-            <div className="timeline__graph">{TIMELINE_GRAPH[1]}</div>
-            <figcaption className="timeline__caption">{TIMELINE_CAPTION[1]}</figcaption>
-          </figure>
-        </li>
-      </ul>
-    </section>
+          <li>
+            <figure className="timeline__week">
+              <div className="timeline__graph">{TIMELINE_GRAPH[1]}</div>
+              <figcaption className="timeline__caption">{TIMELINE_CAPTION[1]}</figcaption>
+            </figure>
+          </li>
+        </ul>
+      </article>
+    </Section>
   );
 }
 
