@@ -12,9 +12,10 @@ const PROJECT_LIST = [
     subtitle: 'У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься.',
   },
 ];
-
-const TIMELINE_GRAPH = ['1 неделя', '4 неделя'];
-const TIMELINE_CAPTION = ['Back-end', 'Front-end'];
+const TIMELINE_LIST = [
+  { graph: '1 неделя', caption: 'Back-end' },
+  { graph: '4 неделя', caption: 'Front-end' },
+];
 
 function AboutProject() {
   return (
@@ -29,18 +30,14 @@ function AboutProject() {
           ))}
         </ul>
         <ul className="timeline">
-          <li>
-            <figure className="timeline__week">
-              <div className="timeline__graph bg_color_1">{TIMELINE_GRAPH[0]}</div>
-              <figcaption className="timeline__caption">{TIMELINE_CAPTION[0]}</figcaption>
-            </figure>
-          </li>
-          <li>
-            <figure className="timeline__week">
-              <div className="timeline__graph">{TIMELINE_GRAPH[1]}</div>
-              <figcaption className="timeline__caption">{TIMELINE_CAPTION[1]}</figcaption>
-            </figure>
-          </li>
+          {TIMELINE_LIST.map((v, i) => (
+            <li>
+              <figure className="timeline__week">
+                <div className="timeline__graph">{v.graph}</div>
+                <figcaption className="timeline__caption">{v.caption}</figcaption>
+              </figure>
+            </li>
+          ))}
         </ul>
       </article>
     </Section>
