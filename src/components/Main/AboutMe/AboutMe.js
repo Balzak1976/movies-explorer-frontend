@@ -17,11 +17,11 @@ function AboutMe() {
         <h3 className="about__title">{ABOUT_TITLE}</h3>
         <p className="about__subtitle">{ABOUT_SUBTITLE}</p>
         <p className="about__description">{ABOUT_DESCRIPTION}</p>
-        <nav className="nav nav_about">
-          <ul className="nav__links">
+        <nav className="about__nav">
+          <ul className="about__links">
             {ABOUT_LINKS.map((v, i) => (
-              <li className="about__item" key={i}>
-                <a href={v.link} className="nav__link">
+              <li key={i}>
+                <a href={v.link} className="about__link">
                   {v.text}
                 </a>
               </li>

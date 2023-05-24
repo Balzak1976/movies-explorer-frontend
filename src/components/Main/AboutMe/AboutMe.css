@@ -58,11 +58,11 @@
   object-position: center;
 }
 
-.nav_about {
+.about__nav {
   align-self: flex-end;
 }
 
-.nav__links {
+.about__links {
   display: flex;
   gap: 20px;
   list-style-type: none;
@@ -70,8 +70,7 @@
   padding-left: 0;
 }
 
-.nav__link {
-  color: inherit;
+.about__link {
   text-decoration: none;
   font-weight: 400;
   font-size: 13px;
