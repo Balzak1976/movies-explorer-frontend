@@ -1,10 +1,10 @@
 import './Nav.css';
 
-function Nav({ class: { nav, ul, li, a }, LINKS, children }) {
+function Nav({ class: { nav, ul, li, a }, links, children }) {
   return (
     <nav className={nav}>
       <ul className={`${ul} reset-ul`}>
-        {LINKS.map((v, i) => (
+        {links.map((v, i) => (
           <li className={li} key={i}>
             <a href={v.link} className={`${a} reset-a`}>
               {v.text}

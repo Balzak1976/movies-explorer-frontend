@@ -1,3 +1,4 @@
+import Nav from '../../parts/Nav/Nav';
 import './Portfolio.css';
 
 const PORTFOLIO_HEADER = 'Портфолио';
@@ -6,24 +7,15 @@ const PORTFOLIO_LINKS = [
   { text: 'Адаптивный сайт', link: 'https://balzak1976.github.io/russian-travel/' },
   { text: 'Одностраничное приложение', link: 'https://balzak1976.github.io/react-mesto-auth/' },
 ];
+const NAV_CLASS = { ul: 'portfolio__links', li: 'portfolio__item', a: 'portfolio__link' };
 
 function Portfolio() {
   return (
-    <section className='portfolio page_width_l' >
+    <section className="portfolio page_width_l">
       <h2 className="portfolio__header">{PORTFOLIO_HEADER}</h2>
-      <nav>
-        <ul className="portfolio__links nav_portfolio">
-          {PORTFOLIO_LINKS.map((v, i) => (
-            <li key={i}>
-              <a href={v.link} className="portfolio__link">
-                {v.text}
-                <span className="portfolio__icon">↗</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
-      
+      <Nav class={NAV_CLASS} links={PORTFOLIO_LINKS}>
+        <span className="portfolio__icon">↗</span>
+      </Nav>
     </section>
   );
 }

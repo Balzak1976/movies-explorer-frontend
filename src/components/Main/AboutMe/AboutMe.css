@@ -49,15 +49,6 @@
   white-space: pre-line;
 }
 
-.about__avatar {
-  grid-column: 2/-1;
-  grid-row: 1/-1;
-  display: inline;
-  max-width: 270px;
-  object-fit: cover;
-  object-position: center;
-}
-
 .about__nav {
   align-self: flex-end;
 }
@@ -65,15 +56,19 @@
 .about__links {
   display: flex;
   gap: 20px;
-  list-style-type: none;
-  margin: 0;
-  padding-left: 0;
 }
 
 .about__link {
-  text-decoration: none;
   font-weight: 400;
   font-size: 13px;
   line-height: 1.23;
-  color: #000;
+}
+
+.about__avatar {
+  grid-column: 2/-1;
+  grid-row: 1/-1;
+  display: inline;
+  max-width: 270px;
+  object-fit: cover;
+  object-position: center;
 }

@@ -7,7 +7,6 @@
   justify-content: flex-end;
   align-items: center;
   background-color: #fafafa;
-  background-color: aquamarine;
 }
 
 .footer__title {
@@ -27,7 +26,6 @@
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  background-color: aqua;
 }
 
 .footer__copyright {
@@ -41,16 +39,10 @@
 .footer__links {
   display: flex;
   gap: 20px;
-  list-style-type: none;
-  margin: 0;
-  padding-left: 0;
 }
 
 .footer__link {
-  color: inherit;
-  text-decoration: none;
   font-weight: 400;
   font-size: 13px;
   line-height: 1.23;
-  color: #000;
 }
