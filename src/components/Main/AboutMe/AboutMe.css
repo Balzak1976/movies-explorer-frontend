@@ -1,11 +1,3 @@
-.section {
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .section_about {
   padding-top: 112px;
   min-height: 604px;
