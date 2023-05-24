@@ -1,3 +1,7 @@
+:root {
+  --bg-color: #2BE080;
+}
+
 .app {
   padding: 0 20px 0;
   background-color: #fff;
