@@ -13,7 +13,7 @@ const PROJECT_LIST = [
   },
 ];
 const TIMELINE_LIST = [
-  { graph: '1 неделя', caption: 'Back-end' },
+  { graph: '1 неделя', caption: 'Back-end', modifier: 'timeline__graph_type_bg-color' },
   { graph: '4 неделя', caption: 'Front-end' },
 ];
 
@@ -33,7 +33,7 @@ function AboutProject() {
           {TIMELINE_LIST.map((v, i) => (
             <li>
               <figure className="timeline__week">
-                <div className="timeline__graph">{v.graph}</div>
+                <div className={`timeline__graph ${v.modifier}`}>{v.graph}</div>
                 <figcaption className="timeline__caption">{v.caption}</figcaption>
               </figure>
             </li>

@@ -66,7 +66,7 @@
   font-weight: 400;
 }
 
-.timeline__graph:first-child {
+.timeline__graph_type_bg-color {
   background-color: var(--bg-color);
 }
 
