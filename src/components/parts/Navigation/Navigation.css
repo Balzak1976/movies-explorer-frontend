@@ -1,12 +1,12 @@
 .menu {
-  background-color: aqua;
+  /* background-color: aqua; */
   display: flex;
   align-items: baseline;
   gap: 50px;
 }
 
 .menu-films {
-  background-color: aquamarine;
+  /* background-color: aquamarine; */
   display: flex;
   align-items: baseline;
   gap: 20px;

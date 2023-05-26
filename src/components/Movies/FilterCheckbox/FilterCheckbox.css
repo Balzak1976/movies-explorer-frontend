@@ -1,0 +1,20 @@
+.filterCheckbox {
+  /* background-color: aqua; */
+  width: 100%;
+}
+
+.form__submit_type_filter-movie {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background-color: #ff6838;
+  background-image: url(../../../images/icon-arrow-btn.svg);
+  background-size: 5px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.form__filter {
+  min-height: 40px;
+  border-left: 1px solid #e8e8e8;
+}
