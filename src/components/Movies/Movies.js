@@ -6,9 +6,9 @@ function Movies() {
   return (
     <div className="movies">
       <section className="search-panel page_width_l">
-        <div className="form-wrapper">
+        <div className="form-row">
           <SearchForm />
-          {/* <FilterCheckbox /> */}
+          <FilterCheckbox />
         </div>
       </section>
     </div>
