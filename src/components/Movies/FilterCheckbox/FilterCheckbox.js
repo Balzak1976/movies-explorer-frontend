@@ -10,7 +10,7 @@ function FilterCheckbox() {
           name="filter"
         />
         <div className="checkbox__content">
-          <div className="checkbox__switch"></div>
+          <div className="checkbox__switch"/>
         </div>
         <div className="checkbox__text">Короткометражки</div>
       </label>
