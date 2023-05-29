@@ -1,13 +1,13 @@
 .card {
-  max-width: 270px;
   min-height: 218px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 14px;
-  background-color: #fff;
   border-radius: 10px;
   overflow: hidden;
+  background-color: #fdfdfd;
+  box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.05);
 }
 
 .card__img {
@@ -51,6 +51,7 @@
   height: 16px;
   border-radius: 50%;
   border: 2px solid #fff;
+  box-sizing: border-box;
   background-color: #f9f9f9;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.09);
 }

@@ -6,28 +6,96 @@ const testImg =
 
 const MOVIES = [
   {
-    _id: 1,
     link: testImg,
     name: '33 слова о дизайне',
     duration: '1ч42м',
     isShortMovie: false,
   },
   {
-    _id: 2,
     link: testImg,
     name: '33 слова о дизайне',
     duration: '1ч42м',
     isShortMovie: true,
   },
   {
-    _id: 3,
     link: testImg,
     name: '33 слова о дизайне',
     duration: '1ч42м',
     isShortMovie: false,
   },
   {
-    _id: 4,
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: false,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: false,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: true,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: false,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: false,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: false,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: true,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: false,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: false,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: false,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: true,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: false,
+  },
+  {
     link: testImg,
     name: '33 слова о дизайне',
     duration: '1ч42м',
@@ -37,10 +105,10 @@ const MOVIES = [
 
 function MoviesCardList() {
   return (
-    <section className="movies">
-      <ul className="reset-ul">
-        {MOVIES.map((v) => (
-          <li key={v._id}>
+    <section className="cards page_width_l">
+      <ul className="cards__list reset-ul">
+        {MOVIES.map((v, i) => (
+          <li key={i}>
             <MoviesCard props={v} />
           </li>
         ))}
