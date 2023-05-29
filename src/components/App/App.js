@@ -1,6 +1,6 @@
 import './App.css';
 import Header from '../parts/Header/Header';
-import Main from '../Main/Main'
+// import Main from '../Main/Main'
 import Footer from '../parts/Footer/Footer';
 import Movies from '../Movies/Movies'
 

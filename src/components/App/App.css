@@ -40,3 +40,14 @@
 .bg_blue {
   /* background-color: #465dff; */
 }
+
+.reset-ul {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.reset-a {
+  color: inherit;
+  text-decoration: none;
+}
