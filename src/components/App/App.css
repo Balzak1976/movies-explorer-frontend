@@ -1,5 +1,5 @@
 :root {
-  --bg-color: #2BE080;
+  --bg-color: #2be080;
 }
 
 .app {
@@ -25,10 +25,6 @@
 .page_width_l {
   padding: 0 70px 0;
   box-sizing: border-box;
-}
-
-.logo {
-  display: block;
 }
 
 .bg_blue {

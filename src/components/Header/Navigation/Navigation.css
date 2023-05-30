@@ -1,8 +1,29 @@
 .menu {
   /* background-color: aqua; */
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 50px;
+}
+
+.menu__logo {
+  flex-grow: 1;
+}
+
+.logo {
+  display: block;
+}
+
+.menu-auth {
   display: flex;
   align-items: baseline;
-  gap: 50px;
+}
+
+.menu-auth__list {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
 }
 
 .menu-films {
@@ -37,29 +58,18 @@
   align-items: baseline;
 }
 
-.menu-login {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-}
-
-.menu-login__link {
-  color: inherit;
-  text-decoration: none;
+.menu-auth__link_type_register {
   font-weight: 500;
   font-size: 14px;
   line-height: 1.14;
   transition: opacity 0.5s ease-in;
 }
 
-.menu-login__btn {
-  padding: 0;
+.menu-auth__link_type_login {
   width: 76px;
   height: 32px;
-  border: 0;
   border-radius: 3px;
   background-color: var(--bg-color);
-  background-repeat: no-repeat;
   font-weight: 500;
   font-size: 12px;
   line-height: 1.33;
@@ -81,7 +91,7 @@
   transition: opacity 0.5s ease-in;
 }
 
-.menu-profile__btn {
+.menu-auth__icon {
   padding: 0;
   width: 30px;
   height: 30px;
@@ -93,25 +103,3 @@
   background-repeat: no-repeat;
   background-size: 34.6%;
 }
-
-/* .menu-profile {
-  margin: 0 43px 0 0;
-  position: relative;
-} */
-
-/* .menu-profile__btn {
-  padding: 0;
-  width: 30px;
-  height: 30px;
-  right: -43px;
-  bottom: -32%;
-  position: absolute;
-  border: 0;
-  border-radius: 6px;
-  background-color: #F9F9F9;
-  background-image: url(../../../images/icon-logout-btn.svg);
-  background-position: 50%;
-  background-repeat: no-repeat;
-  background-size: 34.6%;
-  transition: opacity 0.5s ease-in;
-} */

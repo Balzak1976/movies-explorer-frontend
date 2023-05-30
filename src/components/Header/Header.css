@@ -2,6 +2,10 @@
   width: 100%;
   min-height: 74px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+}
+
+.header_bg_blue {
+  background-color: #465dff;
+  color: #fff;
 }

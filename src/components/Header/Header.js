@@ -1,19 +1,28 @@
-import { Link } from 'react-router-dom';
-import logo from '../../images/logo.svg';
-import Navigation from '../parts/Navigation/Navigation';
 import './Header.css';
+import { Routes, Route } from 'react-router-dom';
+import Navigation from './Navigation/Navigation';
 
-function Header({loggedIn}) {
+function Header({ loggedIn }) {
   return (
-    
-    <header className="header page_width_l bg_blue">
-      <Link to='/'>
-        <img className="logo" src={logo} alt="логотип" />
-      </Link>
-
-      <Navigation/>
-    </header>
-  )
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <header className="header header_bg_blue page_width_l">
+            <Navigation loggedIn={loggedIn}/>
+          </header>
+        }
+      />
+      <Route
+        path="*"
+        element={
+          <header className="header page_width_l">
+            <Navigation loggedIn={loggedIn}/>
+          </header>
+        }
+      />
+    </Routes>
+  );
 }
 
 export default Header;
