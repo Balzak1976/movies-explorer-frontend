@@ -1,13 +1,12 @@
-import './Header.css';
 import { Link } from 'react-router-dom';
-import { ROOT_URL } from '../../../utils/settings';
-import Navigation from '../Navigation/Navigation';
-import logo from '../../../images/logo.svg';
+import logo from '../../images/logo.svg';
+import Navigation from '../parts/Navigation/Navigation';
+import './Header.css';
 
-function Header() {
+function Header({loggedIn}) {
   return (
     <header className="header page_width_l bg_blue">
-      <Link to={ROOT_URL}>
+      <Link to='/'>
         <img className="logo" src={logo} alt="логотип" />
       </Link>
 

@@ -1,5 +1,5 @@
+import Nav from '../parts/Nav/Nav';
 import './Footer.css';
-import Nav from '../Nav/Nav';
 
 const FOOTER_LINKS = [
   { text: 'Яндекс Практикум', link: 'https://practicum.yandex.ru/profile/web/' },

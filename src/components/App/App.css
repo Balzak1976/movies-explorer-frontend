@@ -27,19 +27,12 @@
   box-sizing: border-box;
 }
 
-.wrapper {
-  width: 100%;
-  flex: 1 1 auto;
-  display: flex;
-  justify-content: center;
-}
-
 .logo {
   display: block;
 }
 
 .bg_blue {
-  /* background-color: #465dff; */
+  background-color: #465dff;
 }
 
 .reset-ul {
