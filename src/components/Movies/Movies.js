@@ -12,7 +12,15 @@ function Movies() {
           <FilterCheckbox />
         </div>
       </section>
+
       <MoviesCardList />
+      
+      <section className="pagination page_width_l">
+        <button
+          className="pagination__btn"
+          type="button"
+          aria-label="переход на следующую страницу">Ещё</button>
+      </section>
     </div>
   );
 }

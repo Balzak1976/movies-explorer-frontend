@@ -24,6 +24,7 @@
 
 .page_width_l {
   padding: 0 70px 0;
+  box-sizing: border-box;
 }
 
 .wrapper {
