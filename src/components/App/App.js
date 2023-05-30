@@ -1,9 +1,9 @@
+import './App.css';
 import { useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import './App.css';
 
-import Footer from '../Footer/Footer';
-import Header from '../Header/Header';
+
+import HeaderWithFooter from '../HeaderWithFooter/HeaderWithFooter';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import Login from '../auth/Login/Login';
@@ -20,33 +20,35 @@ function App() {
   return (
     <div className="app">
       <div className="page">
-        <Header
-          loggedIn={loggedIn}
-          // userData={email}
-          // onSignOut={handleSignOut}
-        />
-
         <Routes>
           <Route
             path="/"
-            element={<Main />}
+            element={
+              <HeaderWithFooter loggedIn={loggedIn}>
+                <Main />
+              </HeaderWithFooter>
+            }
           />
           <Route
             path="/movies"
             element={
-              <ProtectedRouteElement
-                component={Movies}
-                loggedIn={loggedIn}
-              />
+              <HeaderWithFooter loggedIn={loggedIn}>
+                <ProtectedRouteElement
+                  component={Movies}
+                  loggedIn={loggedIn}
+                />
+              </HeaderWithFooter>
             }
           />
           <Route
             path="/saved-movies"
             element={
-              <ProtectedRouteElement
-                // component={SavedMovies}
-                loggedIn={loggedIn}
-              />
+              <HeaderWithFooter loggedIn={loggedIn}>
+                <ProtectedRouteElement
+                  // component={SavedMovies}
+                  loggedIn={loggedIn}
+                />
+              </HeaderWithFooter>
             }
           />
           <Route
@@ -83,8 +85,6 @@ function App() {
             element={<Navigate to="/" />}
           />
         </Routes>
-
-        <Footer />
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import './Header.css';
 
 function Header({loggedIn}) {
   return (
+    
     <header className="header page_width_l bg_blue">
       <Link to='/'>
         <img className="logo" src={logo} alt="логотип" />
