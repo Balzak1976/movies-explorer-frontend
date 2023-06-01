@@ -1,3 +1,9 @@
+.menu-profile {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .menu-profile__list {
   display: flex;
   align-items: center;

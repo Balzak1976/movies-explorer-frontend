@@ -1,9 +1,11 @@
 import './MenuProfile.css';
 import { NavLink } from 'react-router-dom';
+import Logo from '../../Logo/Logo';
 
 function MenuProfile() {
   return (
     <nav className="menu-profile">
+      <Logo/>
       <ul className="menu-profile__list reset-ul">
         <li>
           <NavLink
