@@ -7,7 +7,7 @@ const PROMO_BTN = 'Узнать больше';
 
 function Promo() {
   return (
-    <section className="promo page_width_l bg_blue">
+    <section className="promo page_width_l">
       <h1 className="promo__title">{PROMO_TITLE}</h1>
       <img className="promo__main-illustration" src={imgLink} alt="иллюстрация земного шара" />
       <p className="promo__subtitle">{PROMO_SUBTITLE}</p>

@@ -1,13 +1,14 @@
 .promo {
   width: 100%;
-
-  min-height: 574px;
-  padding-top: 75px;
+  margin-top: -74px;
+  min-height: 648px;
+  padding-top: 149px;
   display: grid;
   grid-template-columns: auto auto;
   grid-template-rows: min-content auto auto;
   justify-content: space-between;
   row-gap: 36px;
+  background-color: #465dff;
 }
 
 .promo__title {

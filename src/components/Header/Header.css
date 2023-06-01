@@ -3,9 +3,5 @@
   min-height: 74px;
   display: flex;
   align-items: center;
-}
-
-.header_bg_blue {
-  background-color: #465dff;
-  color: #fff;
+  z-index: 10;
 }

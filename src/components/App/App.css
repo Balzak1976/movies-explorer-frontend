@@ -27,10 +27,6 @@
   box-sizing: border-box;
 }
 
-.bg_blue {
-  background-color: #465dff;
-}
-
 .reset-ul {
   list-style-type: none;
   margin: 0;

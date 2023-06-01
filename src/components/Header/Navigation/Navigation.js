@@ -4,22 +4,30 @@ import { Link } from 'react-router-dom';
 
 function Navigation() {
   return (
-    <div className="menu">
+    <div className="navigation">
       <Link to="/" className="menu__logo">
         <img className="logo" src={logo} alt="логотип" />
       </Link>
-      {/* <ul className="menu-films">
-        <li>
-          <Link to="/movies" className="menu-films__link menu-films__link_active">
-            Фильмы
-          </Link>
-        </li>
-        <li>
-          <Link to="/saved-movies" className="menu-films__link">
-            Сохраненные фильмы
-          </Link>
-        </li>
-      </ul> */}
+      {/* <nav className="menu-profile">
+        <ul className="menu-profile__list">
+          <li>
+            <Link to="/movies" className="menu-films__link">
+              Фильмы
+            </Link>
+          </li>
+          <li>
+            <Link to="/saved-movies" className="menu-films__link">
+              Сохраненные фильмы
+            </Link>
+          </li>
+          <li>
+            <Link to="/profile" className="menu-auth__link menu-auth__link_type_profile">
+              Аккаунт
+              <span className="menu-auth__icon" />
+            </Link>
+          </li>
+        </ul>
+      </nav> */}
 
       <nav className="menu-auth">
         <ul className="menu-auth__list reset-ul">
@@ -33,12 +41,6 @@ function Navigation() {
               Войти
             </Link>
           </li>
-          {/* <li>
-            <Link to="/profile" className="menu-auth__link menu-auth__link_type_profile">
-              Аккаунт
-              <span className="menu-auth__icon" />
-            </Link>
-          </li> */}
         </ul>
       </nav>
     </div>
