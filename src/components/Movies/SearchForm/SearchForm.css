@@ -3,7 +3,7 @@
 }
 
 .form_type_search-movie {
-  padding: 0 30px 0;
+  padding: 0 31px 0;
   display: flex;
   align-items: center;
   gap: 20px;
@@ -32,9 +32,14 @@
 
 .form__submit {
   border: 0;
+  padding: 0;
+  width: 80px;
+  display: flex;
+  justify-content: flex-end;
+  background-color: transparent;
 }
 
-.form__submit_type_search-movie {
+.form__submit-inner {
   width: 34px;
   height: 34px;
   border-radius: 50%;

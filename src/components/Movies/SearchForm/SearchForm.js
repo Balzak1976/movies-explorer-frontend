@@ -11,9 +11,8 @@ function FilterCheckbox() {
         name=""
       />
       <button
-        className="form__submit form__submit_type_search-movie"
-        type="submit"
-      />
+        className="form__submit"
+        type="submit"><span className="form__submit-inner"/></button>
     </form>
   );
 }

@@ -1,15 +1,14 @@
-import './App.css';
 import { useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import './App.css';
 
-
-import HeaderWithFooter from '../HeaderWithFooter/HeaderWithFooter';
+import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
+import PageWithFooter from '../PageWithFooter/PageWithFooter';
 import Login from '../auth/Login/Login';
 import Register from '../auth/Register/Register';
 import ProtectedRouteElement from '../parts/ProtectedRoute';
-
 function App() {
   // ============================ STATES =======================================
 
@@ -20,35 +19,37 @@ function App() {
   return (
     <div className="app">
       <div className="page">
+        <Header loggedIn={loggedIn} />
+        
         <Routes>
           <Route
             path="/"
             element={
-              <HeaderWithFooter loggedIn={loggedIn}>
+              <PageWithFooter loggedIn={loggedIn}>
                 <Main />
-              </HeaderWithFooter>
+              </PageWithFooter>
             }
           />
           <Route
             path="/movies"
             element={
-              <HeaderWithFooter loggedIn={loggedIn}>
+              <PageWithFooter loggedIn={loggedIn}>
                 <ProtectedRouteElement
                   component={Movies}
                   loggedIn={loggedIn}
                 />
-              </HeaderWithFooter>
+              </PageWithFooter>
             }
           />
           <Route
             path="/saved-movies"
             element={
-              <HeaderWithFooter loggedIn={loggedIn}>
+              <PageWithFooter loggedIn={loggedIn}>
                 <ProtectedRouteElement
-                  // component={SavedMovies}
+                  component={Movies}
                   loggedIn={loggedIn}
                 />
-              </HeaderWithFooter>
+              </PageWithFooter>
             }
           />
           <Route

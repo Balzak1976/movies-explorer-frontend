@@ -1,48 +1,17 @@
 import './Navigation.css';
-import logo from '../../../images/logo.svg';
-import { Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import ProtectedRouteElement from '../../parts/ProtectedRoute';
+import MenuAuth from './MenuAuth/MenuAuth';
+import MenuProfile from './MenuProfile/MenuProfile';
 
-function Navigation() {
+function Navigation({ loggedIn }) {
   return (
     <div className="navigation">
-      <Link to="/" className="menu__logo">
-        <img className="logo" src={logo} alt="логотип" />
-      </Link>
-      {/* <nav className="menu-profile">
-        <ul className="menu-profile__list">
-          <li>
-            <Link to="/movies" className="menu-films__link">
-              Фильмы
-            </Link>
-          </li>
-          <li>
-            <Link to="/saved-movies" className="menu-films__link">
-              Сохраненные фильмы
-            </Link>
-          </li>
-          <li>
-            <Link to="/profile" className="menu-auth__link menu-auth__link_type_profile">
-              Аккаунт
-              <span className="menu-auth__icon" />
-            </Link>
-          </li>
-        </ul>
-      </nav> */}
-
-      <nav className="menu-auth">
-        <ul className="menu-auth__list reset-ul">
-          <li>
-            <Link to="/signin" className="menu-auth__link menu-auth__link_type_register reset-a">
-              Регистрация
-            </Link>
-          </li>
-          <li>
-            <Link to="/signup" className="menu-auth__link menu-auth__link_type_login reset-a">
-              Войти
-            </Link>
-          </li>
-        </ul>
-      </nav>
+      <Routes>
+        <Route path="/" element={<MenuAuth />} />
+        <Route path={'/movies'} element={<ProtectedRouteElement component={MenuProfile} loggedIn={loggedIn} />} />
+        <Route path={'/saved-movies'} element={<ProtectedRouteElement component={MenuProfile} loggedIn={loggedIn} />} />
+      </Routes>
     </div>
   );
 }
