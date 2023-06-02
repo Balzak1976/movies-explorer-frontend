@@ -6,9 +6,12 @@ import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import PageWithFooter from '../PageWithFooter/PageWithFooter';
+import Profile from '../Profile/Profile';
 import Login from '../auth/Login/Login';
 import Register from '../auth/Register/Register';
 import ProtectedRouteElement from '../parts/ProtectedRoute';
+import PageNotFound from '../PageNotFound/PageNotFound';
+
 function App() {
   // ============================ STATES =======================================
 
@@ -56,7 +59,7 @@ function App() {
             path="/profile"
             element={
               <ProtectedRouteElement
-                // component={Profile}
+                component={Profile}
                 loggedIn={loggedIn}
               />
             }
@@ -83,7 +86,7 @@ function App() {
           />
           <Route
             path="*"
-            element={<Navigate to="/" />}
+            element={<PageNotFound />}
           />
         </Routes>
       </div>
