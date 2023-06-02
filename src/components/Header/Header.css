@@ -1,6 +1,5 @@
 .header {
   width: 100%;
-  min-height: 74px;
   display: flex;
   z-index: 10;
 }

@@ -8,12 +8,12 @@ function MenuAuth() {
       <Logo/>
       <ul className="menu-auth__list reset-ul">
         <li>
-          <Link to="/signin" className="menu-auth__link menu-auth__link_type_register">
+          <Link to="/signup" className="menu-auth__link menu-auth__link_type_register">
             Регистрация
           </Link>
         </li>
         <li>
-          <Link to="/signup" className="menu-auth__link menu-auth__link_type_login">
+          <Link to="/signin" className="menu-auth__link menu-auth__link_type_login">
             Войти
           </Link>
         </li>

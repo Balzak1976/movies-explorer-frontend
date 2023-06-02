@@ -23,7 +23,7 @@ function App() {
     <div className="app">
       <div className="page">
         <Header loggedIn={loggedIn} />
-        
+
         <Routes>
           <Route
             path="/"
@@ -37,10 +37,7 @@ function App() {
             path="/movies"
             element={
               <PageWithFooter loggedIn={loggedIn}>
-                <ProtectedRouteElement
-                  component={Movies}
-                  loggedIn={loggedIn}
-                />
+                <ProtectedRouteElement component={Movies} loggedIn={loggedIn} />
               </PageWithFooter>
             }
           />
@@ -48,22 +45,11 @@ function App() {
             path="/saved-movies"
             element={
               <PageWithFooter loggedIn={loggedIn}>
-                <ProtectedRouteElement
-                  component={Movies}
-                  loggedIn={loggedIn}
-                />
+                <ProtectedRouteElement component={Movies} loggedIn={loggedIn} />
               </PageWithFooter>
             }
           />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRouteElement
-                component={Profile}
-                loggedIn={loggedIn}
-              />
-            }
-          />
+          <Route path="/profile" element={<ProtectedRouteElement component={Profile} loggedIn={loggedIn} />} />
           <Route
             path="/signin"
             element={
@@ -78,16 +64,12 @@ function App() {
             path="/signup"
             element={
               <Register
-              // config={authConfig.register}
               // buttonSubmitState={isBtnSubmitSaving}
               // onRegister={handleRegister}
               />
             }
           />
-          <Route
-            path="*"
-            element={<PageNotFound />}
-          />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>
     </div>

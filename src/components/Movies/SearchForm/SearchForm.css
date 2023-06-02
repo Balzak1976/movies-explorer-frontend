@@ -1,36 +1,30 @@
-.form {
+.search-form {
   width: 100%;
-}
-
-.form_type_search-movie {
   padding: 0 31px 0;
   display: flex;
   align-items: center;
   gap: 20px;
 }
 
-.form__search-icon {
+.search-form__icon {
   width: 13px;
   height: 14px;
   background-image: url(../../../images/icon-search.svg);
   background-size: cover;
 }
 
-.form__input {
+.search-form__input {
   width: 100%;
   outline: none;
   border: none;
   background-color: inherit;
-}
-
-.form__input_type_search-movie {
   font-weight: 400;
   font-size: 18px;
   line-height: 1.11;
   color: #a0a0a0;
 }
 
-.form__submit {
+.search-form__submit {
   border: 0;
   padding: 0;
   width: 80px;
@@ -39,7 +33,7 @@
   background-color: transparent;
 }
 
-.form__submit-inner {
+.search-form__submit-inner {
   width: 34px;
   height: 34px;
   border-radius: 50%;

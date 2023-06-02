@@ -1,4 +1,5 @@
 .menu-auth {
+  min-height: 74px;
   width: 100%;
   display: flex;
   justify-content: space-between;
