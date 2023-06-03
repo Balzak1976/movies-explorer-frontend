@@ -1,4 +1,4 @@
-.auth {
+.user-form {
   padding-top: 70px;
   flex: 0 1 396px;
   display: flex;
@@ -6,7 +6,7 @@
 
 }
 
-.auth__title {
+.user-form__title {
   margin-top: 40px;
   margin-bottom: 40px;
   font-weight: 500;
@@ -14,7 +14,7 @@
   line-height: 1.2;
 }
 
-.auth__text {
+.user-form__text {
   margin: 16px 0;
   display: flex;
   justify-content: center;
@@ -26,6 +26,6 @@
   color: #a0a0a0;
 }
 
-.button_type_auth {
+.button_type_user-form {
   color: #FF6838;
 }

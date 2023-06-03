@@ -1,4 +1,4 @@
-import Auth from '../Auth/Auth';
+import UserForm from '../UserForm/UserForm';
 
 const LOGIN = {
   name: 'login',
@@ -30,7 +30,7 @@ const LOGIN = {
 function Login({ buttonSubmitState, onLogin, info }) {
   return (
     <div className="wrapper">
-      <Auth config={LOGIN} buttonSubmitState={buttonSubmitState} onAuth={onLogin} info={info}/>
+      <UserForm config={LOGIN} buttonSubmitState={buttonSubmitState} onUserForm={onLogin} info={info}/>
     </div>
   );
 }

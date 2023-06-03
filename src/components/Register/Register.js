@@ -1,4 +1,4 @@
-import Auth from '../Auth/Auth';
+import UserForm from '../UserForm/UserForm';
 
 const REGISTER = {
   name: 'register',
@@ -37,7 +37,7 @@ const REGISTER = {
 function Register({ buttonSubmitState, onRegister, info }) {
   return (
     <div className="wrapper">
-      <Auth config={REGISTER} buttonSubmitState={buttonSubmitState} onAuth={onRegister} info={info} />
+      <UserForm config={REGISTER} buttonSubmitState={buttonSubmitState} onUserForm={onRegister} info={info} />
     </div>
   );
 }

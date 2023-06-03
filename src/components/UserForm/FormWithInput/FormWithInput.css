@@ -20,7 +20,7 @@
 
 .form__info {
   flex-grow: 1;
-  transform: translateY(-22px);
+  transform: translateY(-19px);
   visibility: hidden;
 }
 
