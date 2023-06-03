@@ -7,8 +7,8 @@ import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
 import PageWithFooter from '../PageWithFooter/PageWithFooter';
 import Profile from '../Profile/Profile';
-import Login from '../auth/Login/Login';
-import Register from '../auth/Register/Register';
+import Login from '../Login/Login';
+import Register from '../Register/Register';
 import ProtectedRouteElement from '../parts/ProtectedRoute';
 import PageNotFound from '../PageNotFound/PageNotFound';
 
