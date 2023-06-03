@@ -11,12 +11,25 @@
 }
 
 .form__container {
-  flex-grow: 1;
   margin: 0;
   padding: 0;
   border: 0;
   display: flex;
   flex-direction: column;
+}
+
+.form__info {
+  flex-grow: 1;
+  transform: translateY(-22px);
+  visibility: hidden;
+}
+
+.form__info_active {
+  visibility: visible;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.2;
+  color: #ee3465;
 }
 
 .form__submit {

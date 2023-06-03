@@ -57,6 +57,7 @@ function App() {
               // config={authConfig.login}
               // buttonSubmitState={isBtnSubmitSaving}
               // onLogin={handleLogin}
+              // info={infoToolTip}
               />
             }
           />
@@ -66,6 +67,7 @@ function App() {
               <Register
               // buttonSubmitState={isBtnSubmitSaving}
               // onRegister={handleRegister}
+              // info={infoToolTip}
               />
             }
           />

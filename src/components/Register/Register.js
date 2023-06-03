@@ -34,10 +34,10 @@ const REGISTER = {
   ],
 };
 
-function Register({ buttonSubmitState, onRegister }) {
+function Register({ buttonSubmitState, onRegister, info }) {
   return (
     <div className="wrapper">
-      <Auth config={REGISTER} buttonSubmitState={buttonSubmitState} onAuth={onRegister} />
+      <Auth config={REGISTER} buttonSubmitState={buttonSubmitState} onAuth={onRegister} info={info} />
     </div>
   );
 }

@@ -31,7 +31,7 @@ function AboutProject() {
         </ul>
         <ul className="timeline">
           {TIMELINE_LIST.map((v, i) => (
-            <li>
+            <li key={i}>
               <figure className="timeline__week">
                 <div className={`timeline__graph ${v.modifier}`}>{v.graph}</div>
                 <figcaption className="timeline__caption">{v.caption}</figcaption>

@@ -27,10 +27,10 @@ const LOGIN = {
   ],
 };
 
-function Login({ buttonSubmitState, onLogin }) {
+function Login({ buttonSubmitState, onLogin, info }) {
   return (
     <div className="wrapper">
-      <Auth config={LOGIN} buttonSubmitState={buttonSubmitState} onAuth={onLogin} />
+      <Auth config={LOGIN} buttonSubmitState={buttonSubmitState} onAuth={onLogin} info={info}/>
     </div>
   );
 }

@@ -8,7 +8,7 @@ import Logo from '../Header/Logo/Logo';
 
 
 
-function Auth({ config: {title, text, link, ...rest}, buttonSubmitState, onAuth }) {
+function Auth({ config: {title, text, link, ...rest}, buttonSubmitState, onAuth, info }) {
   const { values, handleChange, errors, isValid } = useFormAndValidation();
 
   const onSubmit = (e) => {
@@ -24,7 +24,7 @@ function Auth({ config: {title, text, link, ...rest}, buttonSubmitState, onAuth 
       <h2 className="auth__title">{title}</h2>
 
       <ValidationContext.Provider value={[isValid, values, handleChange, errors]}>
-        <FormWithInput config={rest} onSubmit={onSubmit} buttonSubmitState={buttonSubmitState} />
+        <FormWithInput config={rest} onSubmit={onSubmit} buttonSubmitState={buttonSubmitState} info={info} />
       </ValidationContext.Provider>
 
       <p className="auth__text">

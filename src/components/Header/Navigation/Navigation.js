@@ -12,6 +12,8 @@ function Navigation({ loggedIn }) {
         <Route path={'/movies'} element={<ProtectedRouteElement component={MenuProfile} loggedIn={loggedIn} />} />
         <Route path={'/saved-movies'} element={<ProtectedRouteElement component={MenuProfile} loggedIn={loggedIn} />} />
         <Route path={'/profile'} element={<ProtectedRouteElement component={MenuProfile} loggedIn={loggedIn} />} />
+        <Route path="/signin" element={null} />
+        <Route path="/signup" element={null} />
       </Routes>
     </div>
   );
