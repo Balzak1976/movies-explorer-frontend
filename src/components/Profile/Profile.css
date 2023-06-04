@@ -1,5 +1,24 @@
 .profile {
-  display: flex;
+  width: 100%;
+  padding-top: 74px;
+  display: grid;
+  grid-template-columns:  minmax(auto, 410px);
   justify-content: center;
-  align-items: center;
+}
+
+.profile__logout {
+  margin-top: 15px;
+  border: 0;
+  background-color: inherit;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.23;
+  text-align: center;
+  color: #ee3465;
+  transition: color 0.5s ease-in;
+}
+
+.profile__logout:hover {
+  cursor: pointer;
+  color: #000;
 }

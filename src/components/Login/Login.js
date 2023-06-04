@@ -1,4 +1,6 @@
 import UserForm from '../UserForm/UserForm';
+import Logo from '../Header/Logo/Logo';
+import './Login.css';
 
 const LOGIN = {
   name: 'login',
@@ -12,14 +14,14 @@ const LOGIN = {
       id: 2,
       type: 'email',
       name: 'email',
-      placeholder: 'E-mail',
+      title: 'E-mail',
       typeAttribute: 'email',
     },
     {
       id: 3,
       type: 'password',
       name: 'password',
-      placeholder: 'Пароль',
+      title: 'Пароль',
       typeAttribute: 'password',
       minLength: '2',
       maxLength: '14',
@@ -29,7 +31,9 @@ const LOGIN = {
 
 function Login({ buttonSubmitState, onLogin, info }) {
   return (
-    <div className="wrapper">
+    <div className="login">
+      <Logo />
+      
       <UserForm config={LOGIN} buttonSubmitState={buttonSubmitState} onUserForm={onLogin} info={info}/>
     </div>
   );

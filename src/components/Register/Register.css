@@ -1,0 +1,7 @@
+.register {
+  width: 100%;
+  padding-top: 70px;
+  display: grid;
+  grid-template-columns:  minmax(auto, 396px);
+  justify-content: center;
+}

@@ -1,4 +1,6 @@
+import './Register.css';
 import UserForm from '../UserForm/UserForm';
+import Logo from '../Header/Logo/Logo';
 
 const REGISTER = {
   name: 'register',
@@ -12,21 +14,21 @@ const REGISTER = {
       id: 1,
       type: 'name',
       name: 'name',
-      placeholder: 'Имя',
+      title: 'Имя',
       typeAttribute: 'text',
     },
     {
       id: 2,
       type: 'email',
       name: 'email',
-      placeholder: 'E-mail',
+      title: 'E-mail',
       typeAttribute: 'email',
     },
     {
       id: 3,
       type: 'password',
       name: 'password',
-      placeholder: 'Пароль',
+      title: 'Пароль',
       typeAttribute: 'password',
       minLength: '2',
       maxLength: '14',
@@ -36,7 +38,9 @@ const REGISTER = {
 
 function Register({ buttonSubmitState, onRegister, info }) {
   return (
-    <div className="wrapper">
+    <div className="register">
+      <Logo />
+      
       <UserForm config={REGISTER} buttonSubmitState={buttonSubmitState} onUserForm={onRegister} info={info} />
     </div>
   );

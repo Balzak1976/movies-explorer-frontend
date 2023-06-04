@@ -1,9 +1,6 @@
 .user-form {
-  padding-top: 70px;
-  flex: 0 1 396px;
   display: flex;
   flex-direction: column;
-
 }
 
 .user-form__title {
@@ -12,6 +9,15 @@
   font-weight: 500;
   font-size: 24px;
   line-height: 1.2;
+}
+
+.user-form__title_type_profile {
+  margin-top: 0;
+  margin-bottom: 103px;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.2;
+  text-align: center;
 }
 
 .user-form__text {
@@ -27,5 +33,13 @@
 }
 
 .button_type_user-form {
-  color: #FF6838;
+  color: #ff6838;
+}
+
+.button_type_profile {
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.23;
+  text-align: center;
+  color: #ee3465;
 }

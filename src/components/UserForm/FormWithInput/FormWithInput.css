@@ -4,6 +4,10 @@
   flex-direction: column;
 }
 
+.form_type_profile {
+  min-height: 320px;
+}
+
 @media screen and (max-width: 550px) {
   .form {
     gap: 10px;
@@ -22,6 +26,10 @@
   flex-grow: 1;
   transform: translateY(-19px);
   visibility: hidden;
+}
+
+.form__info_type_profile {
+  transform: translateY(0);
 }
 
 .form__info_active {
@@ -66,4 +74,21 @@
   opacity: 0.2;
   pointer-events: none;
   user-select: none;
+}
+
+.form__submit_type_profile {
+  min-height: auto;
+  background-color: inherit;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.23;
+  color: #000;
+  transition: color 0.5s ease-in;
+}
+.form__submit_type_profile:hover {
+  color: #ee3465;
+}
+
+.form__submit_type_profile-inactive {
+  border: 0;
 }

@@ -24,13 +24,13 @@ function FormWithInput({ config, onSubmit, buttonSubmitState, info = true }) {
         </fieldset>
       )}
 
-      <div className={`form__info ${info && 'form__info_active'}`}>
+      <div className={`form__info form__info_type_${config.name} ${info && 'form__info_active'}`}>
         {'Что-то пошло не так...'}
       </div>
 
       <button
         className={`form__submit form__submit_type_${config.name}
-        ${!isValid && 'form__submit_inactive'}
+        ${!isValid && `form__submit_inactive form__submit_type_${config.name}-inactive`}
       `}
         name="submit"
         type="submit"
