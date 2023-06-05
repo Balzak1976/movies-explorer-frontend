@@ -8,12 +8,6 @@
   min-height: 320px;
 }
 
-@media screen and (max-width: 550px) {
-  .form {
-    gap: 10px;
-  }
-}
-
 .form__container {
   margin: 0;
   padding: 0;
@@ -41,9 +35,6 @@
 }
 
 .form__submit {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
   min-height: 45px;
   border: 0;
@@ -59,12 +50,6 @@
 .form__submit:hover {
   cursor: pointer;
   opacity: 0.8;
-}
-
-@media screen and (max-width: 550px) {
-  .form__submit {
-    font-size: 14px;
-  }
 }
 
 .form__submit_inactive {
@@ -91,4 +76,15 @@
 
 .form__submit_type_profile-inactive {
   border: 0;
+}
+
+@media screen and (max-width: 450px) {
+  .form {
+    min-height: 468px;
+  }
+
+  .form__submit {
+    font-size: 12px;
+    line-height: 1.25;
+  }
 }
