@@ -78,9 +78,19 @@
   border: 0;
 }
 
+@media screen and (max-width: 770px) {
+  .form_type_profile {
+    min-height: 310px;
+  }
+}
+
 @media screen and (max-width: 450px) {
   .form {
     min-height: 468px;
+  }
+
+  .form_type_profile {
+    min-height: 476px;
   }
 
   .form__submit {

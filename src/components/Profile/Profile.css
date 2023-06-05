@@ -2,7 +2,7 @@
   width: 100%;
   padding-top: 74px;
   display: grid;
-  grid-template-columns:  minmax(auto, 410px);
+  grid-template-columns: minmax(auto, 410px);
   justify-content: center;
 }
 
@@ -21,4 +21,22 @@
 .profile__logout:hover {
   cursor: pointer;
   color: #000;
+}
+
+@media screen and (max-width: 770px) {
+  .profile {
+    padding-top: 236px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .profile {
+    justify-items: center;
+    padding-top: 56px;
+  }
+
+  .profile__logout {
+    font-size: 12px;
+    line-height: 1.25;
+  }
 }

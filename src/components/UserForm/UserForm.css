@@ -46,6 +46,12 @@
   color: #ee3465;
 }
 
+@media screen and (max-width: 770px) {
+  .user-form__title_type_profile {
+    margin-bottom: 75px;
+  }
+}
+
 @media screen and (max-width: 450px) {
   .user-form {
     padding: 0 20px ;
@@ -55,6 +61,11 @@
     margin-top: 50px;
     margin-bottom: 80px;
     text-align: center;
+  }
+
+  .user-form__title_type_profile {
+    margin-top: 14px;
+    margin-bottom: 60px;
   }
 
   .user-form__text {

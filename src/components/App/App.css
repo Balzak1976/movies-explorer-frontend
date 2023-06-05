@@ -3,13 +3,18 @@
 }
 
 .app {
-  padding: 0 10px 0;
   background-color: #fff;
   font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   color: #000;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@media screen and (max-width: 450px) {
+  .app {
+    padding: 0 10px 0;
+  }
 }
 
 .page {
