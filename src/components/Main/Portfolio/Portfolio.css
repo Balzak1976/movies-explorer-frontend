@@ -42,3 +42,18 @@
 .portfolio__icon {
   line-height: 2;
 }
+
+@media screen and (max-width: 770px) {
+  .portfolio {
+    min-height: 439px;
+  }
+
+  .portfolio__links {
+    gap: 14px;
+  }
+
+  .portfolio__link {
+    font-size: 28px;
+    line-height: 1.78;
+  }
+}

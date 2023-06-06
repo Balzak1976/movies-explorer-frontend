@@ -5,6 +5,7 @@
 }
 
 .techs {
+  width: 100%;
   padding-top: 90px;
   display: flex;
   flex-direction: column;
@@ -59,4 +60,34 @@
   line-height: 1.21;
   text-align: center;
   letter-spacing: -0.04em;
+}
+
+@media screen and (max-width: 770px) {
+  .section_techs {
+    padding-top: 92px;
+    min-height: 567px;
+  }
+
+  .techs {
+    padding-top: 80px;
+    gap: 22px;
+  }
+
+  .techs__subtitle {
+    max-width: 460px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .techs__list {
+    padding-top: 61px;
+    flex-wrap: wrap;
+  }
+  
+  .techs__item {
+    min-width: 84px;
+    min-height: 57px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
 }

@@ -11,7 +11,7 @@ function Footer() {
   const date = new Date();
 
   return (
-    <footer className="footer page_width_l">
+    <footer className="footer edge-padding">
       <h3 className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</h3>
       <div className="footer__body">
         <p className="footer__copyright">&copy; {date.getFullYear()}. Максим Скороходов</p>

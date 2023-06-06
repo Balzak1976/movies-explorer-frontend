@@ -78,3 +78,27 @@
   font-weight: 500;
   color: #A0A0A0;
 }
+
+@media screen and (max-width: 770px) {
+  .section_project {
+    padding-top: 92px;
+    min-height: 585px;
+  }
+
+  .project__list {
+    gap: 36px;
+  }
+
+  .project__item {
+    gap: 21px;
+  }
+
+  .project__subtitle {
+    font-size: 12px;
+    line-height: 1.5; 
+  }
+
+  .timeline {
+    padding-top: 94px;
+  }
+}
