@@ -16,11 +16,11 @@ function AboutMe() {
   return (
     <Section classMix={'section_about'} title={ABOUT_HEADER}>
       <article className="about">
+        <img src={avatar} alt="фото владельца сайта" className="about__avatar" />
         <h3 className="about__title">{ABOUT_TITLE}</h3>
         <p className="about__subtitle">{ABOUT_SUBTITLE}</p>
         <p className="about__description">{ABOUT_DESCRIPTION}</p>
         <Nav class={NAV_CLASS} links={ABOUT_LINKS} />
-        <img src={avatar} alt="фото владельца сайта" className="about__avatar" />
       </article>
     </Section>
   );

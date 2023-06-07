@@ -105,7 +105,7 @@ const MOVIES = [
 
 function MoviesCardList() {
   return (
-    <section className="cards edge-padding">
+    <section className="cards">
       <ul className="cards__list reset-ul">
         {MOVIES.map((v, i) => (
           <li key={i}>

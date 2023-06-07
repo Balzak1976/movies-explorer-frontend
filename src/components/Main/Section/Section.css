@@ -1,5 +1,6 @@
 .section {
   width: 100%;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,4 +15,12 @@
   line-height: 1.227;
   letter-spacing: -0.04em;
   border-bottom: 1px solid #000;
+}
+
+@media screen and (max-width: 440px) {
+  .section__header {
+    font-size: 18px;
+    line-height: 1.22;
+    padding-bottom: 28px;
+  }
 }

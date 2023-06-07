@@ -6,7 +6,7 @@ import MoviesCardList from './MoviesCardList/MoviesCardList';
 function Movies() {
   return (
     <div className="movies">
-      <section className="search-panel edge-padding">
+      <section className="search-panel">
         <div className="form-row">
           <SearchForm />
           <FilterCheckbox />
@@ -15,7 +15,7 @@ function Movies() {
 
       <MoviesCardList />
       
-      <section className="pagination edge-padding">
+      <section className="pagination">
         <button
           className="pagination__btn"
           type="button"

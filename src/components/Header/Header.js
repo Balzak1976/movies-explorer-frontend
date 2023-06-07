@@ -3,7 +3,7 @@ import Navigation from './Navigation/Navigation';
 
 function Header({ loggedIn }) {
   return (
-    <header className="header edge-padding">
+    <header className="header">
       <Navigation loggedIn={loggedIn} />
     </header>
   );

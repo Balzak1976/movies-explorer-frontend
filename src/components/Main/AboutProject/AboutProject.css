@@ -1,5 +1,7 @@
 .section_project {
-  padding-top: 112px;
+  padding-top: 110px;
+  padding-right: 70px;
+  padding-left: 70px;
   min-height: 608px;
 }
 
@@ -37,7 +39,7 @@
 
 .timeline {
   width: 100%;
-  padding-top: 110px;
+  padding-top: 108px;
   display: grid;
   grid-template-columns: 1fr 4fr;
   grid-template-rows: auto auto;
@@ -52,10 +54,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
   font-size: 14px;
   line-height: 1.21;
 }
+
 .timeline__graph {
   width: 100%;
   min-height: 36px;
@@ -67,21 +69,23 @@
 }
 
 .timeline__graph_type_bg-color {
-  background-color: var(--bg-color);
+  background-color: var(--btn-color);
 }
 
 .timeline__caption {
-  min-height: 36px;
+  min-height: 43px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: 500;
-  color: #A0A0A0;
+  color: #a0a0a0;
 }
 
 @media screen and (max-width: 770px) {
   .section_project {
-    padding-top: 92px;
+    padding-top: 90px;
+    padding-right: 50px;
+    padding-left: 50px;
     min-height: 585px;
   }
 
@@ -95,10 +99,62 @@
 
   .project__subtitle {
     font-size: 12px;
-    line-height: 1.5; 
+    line-height: 1.5;
   }
 
   .timeline {
-    padding-top: 94px;
+    padding-top: 92px;
+    grid-template-columns: 1fr 3.77fr;
+  }
+
+  .timeline__caption {
+    min-height: 45px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .section_project {
+    padding-top: 70px;
+    padding-right: 18px;
+    padding-left: 18px;
+    min-height: 641px;
+  }
+
+  .project__list {
+    padding-top: 61px;
+    flex-direction: column;
+    gap: 56px;
+  }
+
+  .project__item {
+    gap: 16px;
+  }
+
+  .project__title {
+    font-size: 18px;
+    line-height: 1.22;
+  }
+
+  .project__subtitle {
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .timeline {
+    padding-top: 60px;
+    grid-template-columns: 1fr 1.84fr;
+  }
+
+  .timeline__week {
+    font-size: 11px;
+    line-height: 1.18;
+  }
+
+  .timeline__graph {
+    min-height: 35px;
+  }
+
+  .timeline__caption {
+    min-height: 33px;
   }
 }

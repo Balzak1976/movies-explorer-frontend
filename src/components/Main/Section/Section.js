@@ -3,7 +3,7 @@ import './Section.css';
 
 function Section( {classMix, title, children}) {
   return (
-    <section className={`section edge-padding ${classMix}`}>
+    <section className={`section ${classMix}`}>
       <h2 className="section__header">{title}</h2>
       { children}
     </section>

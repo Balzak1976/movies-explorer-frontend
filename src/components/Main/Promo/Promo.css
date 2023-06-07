@@ -2,13 +2,14 @@
   width: 100%;
   margin-top: -74px;
   min-height: 648px;
-  padding-top: 149px;
+  padding: 149px 70px 0;
+  box-sizing: border-box;
   display: grid;
   grid-template-columns: auto auto;
   grid-template-rows: min-content auto auto;
   justify-content: space-between;
   row-gap: 36px;
-  background-color: #465dff;
+  background-color: var(--bg-color);
 }
 
 .promo__main-illustration {
@@ -60,8 +61,7 @@
 
 @media screen and (max-width: 770px) {
   .promo {
-    padding-top: 214px;
-    padding-bottom: 74px;
+    padding: 214px 50px 74px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -81,5 +81,27 @@
     margin-bottom: 92px;
     text-align: center;
     white-space: pre-line;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .promo {
+    padding: 144px 18px 31px;
+  }
+
+  .promo__main-illustration {
+    max-width: 210px;
+  }
+    
+  .promo__title {
+    margin-top: 44px;
+    margin-bottom: 24px;
+    font-size: 30px;
+    line-height: 1.27;
+    letter-spacing: -0.04em;
+  }
+
+  .promo__subtitle {
+    margin-bottom: 79px;
   }
 }

@@ -57,5 +57,5 @@
 }
 
 .card__mark_type_marked {
-  background-color: var(--bg-color);
+  background-color: var(--btn-color);
 }

@@ -1,7 +1,7 @@
 .cards {
   width: 100%;
-  padding-top: 70px;
-  padding-bottom: 30px;
+  padding: 70px 70px 30px;
+  box-sizing: border-box;
 }
 
 .cards__list {

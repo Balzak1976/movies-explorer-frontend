@@ -31,9 +31,27 @@
   width: 76px;
   height: 32px;
   border-radius: 3px;
-  background-color: var(--bg-color);
+  background-color: var(--btn-color);
   font-weight: 500;
   font-size: 12px;
   line-height: 1.33;
   color: black;
+}
+
+@media screen and (max-width: 450px) {
+  .menu-auth__list {
+    gap: 14px;
+  }
+
+  .menu-auth__link_type_register {
+    font-size: 10px;
+    line-height: 1.6;
+  }
+
+  .menu-auth__link_type_login {
+    width: 54px;
+    height: 26px;
+    font-size: 10px;
+    line-height: 1.6;
+  }
 }

@@ -1,5 +1,3 @@
-import './Nav.css';
-
 function Nav({ class: { nav, ul, li, a }, links, children }) {
   return (
     <nav className={nav}>

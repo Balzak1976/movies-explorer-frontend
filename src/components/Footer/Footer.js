@@ -11,10 +11,10 @@ function Footer() {
   const date = new Date();
 
   return (
-    <footer className="footer edge-padding">
+    <footer className="footer">
       <h3 className="footer__title">Учебный проект Яндекс.Практикум х BeatFilm.</h3>
       <div className="footer__body">
-        <p className="footer__copyright">&copy; {date.getFullYear()}. Максим Скороходов</p>
+        <p className="footer__copyright">&copy; {date.getFullYear()}</p>
         <Nav class={NAV_CLASS} links={FOOTER_LINKS} />
       </div>
     </footer>

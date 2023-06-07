@@ -3,7 +3,7 @@ import Section from '../Section/Section';
 
 const TECHS_HEADER = 'Технологии';
 const TECHS_TITLE = '7 технологий';
-const TECHS_SUBTITLE = 'На курсе веб-разработки мы освоили технологии, которые применили \n в дипломном проекте.';
+const TECHS_SUBTITLE = 'На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.';
 const TECHS_LIST = ['HTML', 'CSS', 'JS', 'React', 'Git', 'Express.js', 'mongoDB'];
 
 function Techs() {

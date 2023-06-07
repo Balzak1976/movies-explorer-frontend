@@ -1,7 +1,8 @@
 .portfolio {
   width: 100%;
   min-height: 475px;
-  padding-top: 50px;
+  padding: 50px 70px 0;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 50px;
@@ -18,7 +19,7 @@
 .portfolio__links {
   display: flex;
   flex-direction: column;
-  gap: 11px;
+  gap: 21px;
 }
 
 .portfolio__item {
@@ -40,20 +41,49 @@
 }
 
 .portfolio__icon {
-  line-height: 2;
+  line-height: inherit;
 }
 
 @media screen and (max-width: 770px) {
   .portfolio {
     min-height: 439px;
+    padding-right: 50px;
+    padding-left: 50px;
+  }
+
+  .portfolio__links {
+    gap: 20px;
+  }
+
+  .portfolio__link {
+    font-size: 28px;
+    line-height: 1.78;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .portfolio {
+    min-height: 343px;
+    padding-right: 14px;
+    padding-left: 14px;
+    gap: 40px;
+  }
+
+  .portfolio__header {
+    font-size: 14px;
+    line-height: 1.42;
   }
 
   .portfolio__links {
     gap: 14px;
   }
 
+  .portfolio__item {
+    padding-bottom: 25px;
+  }
+
   .portfolio__link {
-    font-size: 28px;
-    line-height: 1.78;
+    font-size: 18px;
+    line-height: 1.56;
   }
 }
