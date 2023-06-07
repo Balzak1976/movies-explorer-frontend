@@ -3,15 +3,22 @@ import { Routes, Route } from 'react-router-dom';
 import ProtectedRouteElement from '../../parts/ProtectedRoute';
 import MenuAuth from './MenuAuth/MenuAuth';
 import MenuProfile from './MenuProfile/MenuProfile';
+import Logo from '../Logo/Logo';
 
 function Navigation({ loggedIn }) {
   return (
     <div className="navigation">
       <Routes>
-        <Route path="/" element={<MenuAuth />} />
-        <Route path={'/movies'} element={<ProtectedRouteElement component={MenuProfile} loggedIn={loggedIn} />} />
-        <Route path={'/saved-movies'} element={<ProtectedRouteElement component={MenuProfile} loggedIn={loggedIn} />} />
-        <Route path={'/profile'} element={<ProtectedRouteElement component={MenuProfile} loggedIn={loggedIn} />} />
+        <Route path="/" element={<><Logo/> <MenuAuth /></>}/>
+        <Route path={'/movies'} element={<>
+          <Logo /><ProtectedRouteElement component={MenuProfile} loggedIn={loggedIn} />
+        </>} />
+        <Route path={'/saved-movies'} element={<>
+          <Logo /><ProtectedRouteElement component={MenuProfile} loggedIn={loggedIn} />
+        </>} />
+        <Route path={'/profile'} element={<>
+          <Logo /><ProtectedRouteElement component={MenuProfile} loggedIn={loggedIn} />
+        </>} />
         <Route path="*" element={null} />
       </Routes>
     </div>

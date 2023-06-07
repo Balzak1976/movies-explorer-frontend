@@ -1,0 +1,23 @@
+@media screen and (max-width: 770px) {
+  .burger__shutter {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 100vw;
+    left: 0;
+    transition: z-index 0.5s ease-in-out;
+    z-index: 80;
+  }
+
+  .burger__shutter_active {
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  
+  .btn-burger_burger {
+    position: fixed;
+    top: 15px;
+    right: 30px;
+  }
+}

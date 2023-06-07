@@ -1,11 +1,10 @@
 import './MenuAuth.css';
 import { Link } from 'react-router-dom';
-import Logo from '../../Logo/Logo';
+
 
 function MenuAuth() {
   return (
     <nav className="menu-auth">
-      <Logo/>
       <ul className="menu-auth__list reset-ul">
         <li>
           <Link to="/signup" className="menu-auth__link menu-auth__link_type_register">

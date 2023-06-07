@@ -1,11 +1,3 @@
-.menu-auth {
-  min-height: 74px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .menu-auth__list {
   display: flex;
   align-items: baseline;
