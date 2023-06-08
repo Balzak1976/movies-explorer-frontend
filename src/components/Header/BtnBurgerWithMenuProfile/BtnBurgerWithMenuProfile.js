@@ -11,10 +11,10 @@ function BtnBurgerWithMenuProfile() {
   };
 
   return (
-    <div className={`burger ${isMenuOpen && 'burger_active'}`}>
-      <div className={`burger__shutter ${isMenuOpen && 'burger__shutter_active'}`} />
+    <div className="hidden-menu">
+      <div className={`hidden-menu__shutter ${isMenuOpen && 'hidden-menu__shutter_active'}`} />
 
-      <BtnBurger classMix={'btn-burger_burger '} onClick={handelBtnBurgerClick} isOpen={isMenuOpen} />
+      <BtnBurger classMix={'btn-burger_hidden-menu '} onClick={handelBtnBurgerClick} isOpen={isMenuOpen} />
 
       <MenuProfile isOpen={isMenuOpen} />
     </div>

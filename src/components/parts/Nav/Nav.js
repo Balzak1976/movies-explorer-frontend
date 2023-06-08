@@ -4,7 +4,7 @@ function Nav({ class: { nav, ul, li, a }, links, children }) {
       <ul className={`${ul} reset-ul`}>
         {links.map((v, i) => (
           <li className={li} key={i}>
-            <a href={v.link} className={`button ${a}`}>
+            <a href={v.link} target="_blank" rel="noreferrer" className={`button ${a}`}>
               {v.text}
               {children}
             </a>

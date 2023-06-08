@@ -4,9 +4,9 @@ import { NavLink } from 'react-router-dom';
 function MenuProfile({ isOpen }) {
   return (
     <nav className={`menu-profile ${isOpen && 'menu-profile_type_burger'}`}>
-      <h3 className={`menu-profile__title ${isOpen && 'menu-profile__title_type_burger'}`}>Главная</h3>
+      <h3 className="menu-profile__title">Главная</h3>
 
-      <ul className={`menu-profile__list reset-ul`}>
+      <ul className="menu-profile__list reset-ul">
         <li>
           <NavLink
             to="/movies"

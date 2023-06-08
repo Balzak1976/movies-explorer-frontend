@@ -1,8 +1,4 @@
 .btn-burger {
-  --btn-w: 28px;
-  --btn-h: 23px;
-  --strip-h: 3px;
-
   height: 44px;
   padding: 8px;
   display: none;
@@ -59,12 +55,12 @@
   }
 
   .btn-burger__inner_active::before {
-    transform: translateX(17px) translateY(-50%) rotate(45deg);
+    transform: translateX(var(--offset-x)) translateY(-50%) rotate(45deg);
     width: calc(var(--btn-w) - 6px);
   }
 
   .btn-burger__inner_active::after {
-    transform:  translateX(17px) translateY(-50%) rotate(-45deg);
+    transform:  translateX(var(--offset-x)) translateY(-50%) rotate(-45deg);
     width: calc(var(--btn-w) - 6px);
   }
 }

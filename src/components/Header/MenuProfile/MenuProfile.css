@@ -1,6 +1,4 @@
 .menu-profile {
-  display: flex;
-  align-items: center;
 }
 
 .menu-profile__title {
@@ -12,7 +10,6 @@
   align-items: center;
   gap: 20px;
 }
-
 
 .menu-profile__link {
   color: inherit;
@@ -52,7 +49,10 @@
   .menu-profile {
     padding-top: 160px;
     padding-bottom: 89px;
+    display: flex;
+    align-items: center;
     flex-direction: column;
+    gap: 28px;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -63,26 +63,21 @@
     z-index: 90;
   }
 
+  .menu-profile_type_burger {
+    right: 0;
+  }
+
   .menu-profile__title {
     display: block;
-    margin-top: 0;
-    margin-bottom: 28px;
+    margin: 0;
+    
     font-weight: 500;
     font-size: 18px;
     line-height: 1.22;
   }
 
-  .menu-profile_type_burger {
-    right: 0;
-  }
-
-  .btn-burger_menu-profile {
-    position: fixed;
-    top: 15px;
-    right: 30px;
-  }
-
   .menu-profile__list {
+    flex: 1;
     flex-direction: column;
     gap: 28px;
   }
@@ -115,8 +110,12 @@
 
 @media screen and (max-width: 440px) {
   .menu-profile {
-    padding-top: 145px;
-    padding-bottom: 89px;
     min-width: 100vw;
+    padding-top: 145px;
+    padding-bottom: 40px;
+    gap: 24px;
+  }
+  .menu-profile__list {
+    gap: 24px;
   }
 }
