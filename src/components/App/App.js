@@ -5,6 +5,7 @@ import './App.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
+import SavedMovies from '../Movies/SavedMovies/SavedMovies';
 import PageWithFooter from '../PageWithFooter/PageWithFooter';
 import Profile from '../Profile/Profile';
 import Login from '../Login/Login';
@@ -45,7 +46,7 @@ function App() {
             path="/saved-movies"
             element={
               <PageWithFooter loggedIn={loggedIn}>
-                <ProtectedRouteElement component={Movies} loggedIn={loggedIn} />
+                <ProtectedRouteElement component={SavedMovies} loggedIn={loggedIn} />
               </PageWithFooter>
             }
           />
@@ -54,7 +55,6 @@ function App() {
             path="/signin"
             element={
               <Login
-              // config={authConfig.login}
               // buttonSubmitState={isBtnSubmitSaving}
               // onLogin={handleLogin}
               // info={infoToolTip}

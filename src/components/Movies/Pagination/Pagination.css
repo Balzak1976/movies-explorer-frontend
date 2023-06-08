@@ -1,0 +1,22 @@
+.pagination {
+  width: 100%;
+  padding: 61px 70px 79px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.pagination__btn {
+  margin-top: -10px;
+  flex-basis: 320px;
+  min-height: 36px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9f9f9;
+  border: 0;
+}

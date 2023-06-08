@@ -1,26 +1,117 @@
 import './Movies.css';
-import SearchForm from './SearchForm/SearchForm';
-import FilterCheckbox from './FilterCheckbox/FilterCheckbox';
+import SearchPanel from './SearchPanel/SearchPanel';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
+import Pagination from './Pagination/Pagination';
+
+const testImg =
+  'https://vsegda-pomnim.com/uploads/posts/2022-04/1648929945_58-vsegda-pomnim-com-p-avatar-les-foto-68.jpg';
+
+const movies = [
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: false,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: true,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: false,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: false,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: false,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: true,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: false,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: false,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: false,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: true,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: false,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: false,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: false,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: true,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: false,
+  },
+  {
+    link: testImg,
+    name: '33 слова о дизайне',
+    duration: '1ч42м',
+    isShortMovie: false,
+  },
+];
 
 function Movies() {
+
   return (
     <div className="movies">
-      <section className="search-panel">
-        <div className="form-row">
-          <SearchForm />
-          <FilterCheckbox />
-        </div>
-      </section>
-
-      <MoviesCardList />
-      
-      <section className="pagination">
-        <button
-          className="pagination__btn"
-          type="button"
-          aria-label="переход на следующую страницу">Ещё</button>
-      </section>
+      <SearchPanel />
+      <MoviesCardList movies={movies} />
+      <Pagination isNextPage={true} />
     </div>
   );
 }

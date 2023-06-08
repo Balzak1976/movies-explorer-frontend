@@ -1,0 +1,26 @@
+.search-panel {
+  width: 100%;
+  padding: 70px;
+  box-sizing: border-box;
+  min-height: 222px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.form-row {
+  width: 100%;
+  min-height: 72px;
+  background-color: #f9f9f9;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 770px) {
+  .search-panel {
+    padding: 80px 30px 30px;
+    box-sizing: border-box;
+    min-height: 272px;
+  }
+}
