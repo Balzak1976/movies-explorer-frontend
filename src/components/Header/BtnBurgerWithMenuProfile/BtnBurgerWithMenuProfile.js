@@ -14,7 +14,12 @@ function BtnBurgerWithMenuProfile() {
     <div className="hidden-menu">
       <div className={`hidden-menu__shutter ${isMenuOpen && 'hidden-menu__shutter_active'}`} />
 
-      <BtnBurger classMix={'btn-burger_hidden-menu '} onClick={handelBtnBurgerClick} isOpen={isMenuOpen} />
+      <BtnBurger
+        classMix={'btn-burger_hidden-menu'}
+        classMixActive={'btn-burger_hidden-menu-active'}
+        onClick={handelBtnBurgerClick}
+        isOpen={isMenuOpen}
+      />
 
       <MenuProfile isOpen={isMenuOpen} />
     </div>

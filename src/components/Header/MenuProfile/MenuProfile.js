@@ -4,9 +4,16 @@ import { NavLink } from 'react-router-dom';
 function MenuProfile({ isOpen }) {
   return (
     <nav className={`menu-profile ${isOpen && 'menu-profile_type_burger'}`}>
-      <h3 className="menu-profile__title">Главная</h3>
-
       <ul className="menu-profile__list reset-ul">
+        <li className="menu-profile__item menu-profile__item_type_main">
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `menu-profile__link menu-profile__link_type_main ${isActive ? 'menu-profile__link_active' : ''}`
+            }>
+            Главная
+          </NavLink>
+        </li>
         <li>
           <NavLink
             to="/movies"

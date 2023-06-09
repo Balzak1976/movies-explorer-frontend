@@ -20,6 +20,12 @@
     --strip-h: 3px;
     --offset-x: 17px;
 
+    position: absolute;
+    top: 15px;
+    right: 30px;
+  }
+
+  .btn-burger_hidden-menu-active {
     position: fixed;
     top: 15px;
     right: 30px;
@@ -33,7 +39,6 @@
     --strip-h: 2.5px;
     --offset-x: 0;
 
-    position: fixed;
     top: 15px;
     right: 15px;
   }
