@@ -1,6 +1,6 @@
 .register {
   width: 100%;
-  padding-top: 70px;
+  padding-top: 34px;
   display: grid;
   grid-template-columns: minmax(auto, 396px);
   justify-content: center;
@@ -8,13 +8,13 @@
 
 @media screen and (max-width: 770px) {
   .register {
-    padding-top: 232px;
+    padding-top: 196px;
   }
 }
 
 @media screen and (max-width: 450px) {
   .register {
     justify-items: center;
-    padding-top: 56px;
+    padding-top: 20px;
   }
 }

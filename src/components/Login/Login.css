@@ -15,6 +15,6 @@
 @media screen and (max-width: 450px) {
   .login {
     justify-items: center;
-    padding-top: 56px;
+    padding-top: 20px;
   }
 }
