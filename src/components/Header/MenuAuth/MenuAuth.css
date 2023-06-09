@@ -6,6 +6,12 @@
 
 .menu-auth__link {
   text-decoration: none;
+  transition: opacity 0.5s ease-in;
+}
+
+.menu-auth__link:hover {
+  cursor: pointer;
+  opacity: 0.5;
 }
 
 .menu-auth__link_type_register {

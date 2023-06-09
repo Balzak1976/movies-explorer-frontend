@@ -36,11 +36,11 @@
   color: inherit;
   text-decoration: none;
   border-radius: 9px;
-  transition: background-color 0.5s ease-in;
+  transition: opacity 0.5s ease-in;
 }
 
 .button:hover {
   cursor: pointer;
-  background-color: rgb(240, 240, 240);
+  opacity: 0.5;
 }
 

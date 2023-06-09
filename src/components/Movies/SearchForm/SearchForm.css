@@ -39,6 +39,12 @@
   display: flex;
   justify-content: flex-end;
   background-color: transparent;
+  transition: opacity 0.5s ease-in;
+}
+
+.search-form__submit:hover {
+  cursor: pointer;
+  opacity: 0.5;
 }
 
 .search-form__submit-inner {

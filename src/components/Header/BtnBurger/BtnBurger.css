@@ -10,8 +10,7 @@
 
 .btn-burger:hover {
   cursor: pointer;
-  transition: opacity 0.5s ease-in-out;
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 @media screen and (max-width: 770px) {
@@ -28,6 +27,12 @@
     background-color: #000;
     margin-left: auto;
     margin-right: auto;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .btn-burger__inner:hover {
+    cursor: pointer;
+    opacity: 0.5;
   }
 
   .btn-burger__inner::before,

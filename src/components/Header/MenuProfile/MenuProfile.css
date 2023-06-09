@@ -13,6 +13,11 @@
   transition: opacity 0.5s ease-in;
 }
 
+.menu-profile__link:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
 .menu-profile__link_active {
   font-weight: 500;
 }
