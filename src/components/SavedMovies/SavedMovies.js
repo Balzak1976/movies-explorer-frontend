@@ -27,11 +27,13 @@ const movies = [
   },
 ];
 
+const isSavedMovie = true;
+
 function SavedMovies() {
   return (
     <div className="movies">
       <SearchPanel />
-      <MoviesCardList movies={movies} />
+      <MoviesCardList movies={movies} isSavedMovie={isSavedMovie} />
       <Pagination isNextPage={false} />
     </div>
   );

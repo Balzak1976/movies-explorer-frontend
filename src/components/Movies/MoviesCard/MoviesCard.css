@@ -44,6 +44,26 @@
   color: #a0a0a0;
 }
 
+.card__delete {
+  padding: 0;
+  border: none;
+  grid-column: 2/-1;
+  grid-row: 1/-1;
+  width: 16px;
+  height: 16px;
+  background-size: 50%;
+  background-position: 50% center;
+  background-repeat: no-repeat;
+  background-image: url(../../../images/icon-del-btn.svg);
+  background-color: transparent;
+  transition: background-size 0.5s ease-in;
+}
+
+.card__delete:hover {
+  cursor: pointer;
+  background-size: 100%;
+}
+
 .card__mark {
   grid-column: 2/-1;
   grid-row: 1/-1;
