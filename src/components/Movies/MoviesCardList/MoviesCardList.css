@@ -7,7 +7,32 @@
 .cards__list {
   display: grid;
   grid-template-columns: repeat(auto-fit, 270px);
-  justify-content: center;
   column-gap: 20px;
   row-gap: 32px;
+}
+
+@media screen and (max-width: 770px) {
+  .cards {
+    padding-right: 30px;
+    padding-left: 30px;
+  }
+
+  .cards__list {
+    grid-template-columns: repeat(auto-fit, minmax(270px, 339px));
+    column-gap: 30px;
+    row-gap: 36px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .cards {
+    padding-top: 40px;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .cards__list {
+    justify-content: space-between;
+    row-gap: 20px;
+  }
 }
