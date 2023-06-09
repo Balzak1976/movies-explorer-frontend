@@ -3,7 +3,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 
 function MoviesCardList({ movies }) {
   return (
-    <section className="cards">
+    <div className="cards">
       <ul className="cards__list reset-ul">
         {movies.map((v, i) => (
           <li key={i}>
@@ -11,7 +11,7 @@ function MoviesCardList({ movies }) {
           </li>
         ))}
       </ul>
-    </section>
+    </div>
   );
 }
 

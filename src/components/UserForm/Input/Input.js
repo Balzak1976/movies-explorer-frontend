@@ -8,7 +8,7 @@ function Input({
 }) {
   return (
     <label className={`form__field form__field_type_${type}`}>
-      <div className={`form__input-title form__input-title_type_${type}`}>{title}</div>
+      <span className={`form__input-title form__input-title_type_${type}`}>{title}</span>
       <input
         value={value ?? ''}
         onChange={onChange}

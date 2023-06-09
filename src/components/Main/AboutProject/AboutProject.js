@@ -1,5 +1,4 @@
 import './AboutProject.css';
-import Section from '../Section/Section';
 
 const PROJECT_HEADER = 'О проекте';
 const PROJECT_LIST = [
@@ -19,28 +18,27 @@ const TIMELINE_LIST = [
 
 function AboutProject() {
   return (
-    <Section classMix={'section_project'} title={PROJECT_HEADER}>
-      <article className="project" id='AboutProject'>
-        <ul className="project__list">
-          {PROJECT_LIST.map((v, i) => (
-            <li className="project__item" key={i}>
-              <h3 className="project__title">{v.title}</h3>
-              <p className="project__subtitle">{v.subtitle}</p>
-            </li>
-          ))}
-        </ul>
-        <ul className="timeline">
-          {TIMELINE_LIST.map((v, i) => (
-            <li key={i}>
-              <figure className="timeline__week">
-                <div className={`timeline__graph ${v.modifier}`}>{v.graph}</div>
-                <figcaption className="timeline__caption">{v.caption}</figcaption>
-              </figure>
-            </li>
-          ))}
-        </ul>
-      </article>
-    </Section>
+    <section className="project" id="AboutProject">
+      <h2 className="project__header">{PROJECT_HEADER}</h2>
+      <ul className="project__list">
+        {PROJECT_LIST.map((v, i) => (
+          <li className="project__item" key={i}>
+            <h3 className="project__title">{v.title}</h3>
+            <p className="project__subtitle">{v.subtitle}</p>
+          </li>
+        ))}
+      </ul>
+      <ul className="timeline">
+        {TIMELINE_LIST.map((v, i) => (
+          <li key={i}>
+            <figure className="timeline__week">
+              <div className={`timeline__graph ${v.modifier}`}>{v.graph}</div>
+              <figcaption className="timeline__caption">{v.caption}</figcaption>
+            </figure>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }
 
