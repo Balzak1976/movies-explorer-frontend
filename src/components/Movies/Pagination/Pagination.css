@@ -19,4 +19,10 @@
   align-items: center;
   background-color: #f9f9f9;
   border: 0;
+  transition: opacity 0.5s ease-in;
+}
+
+.pagination__btn:hover {
+  cursor: pointer;
+  opacity: 0.5;
 }
