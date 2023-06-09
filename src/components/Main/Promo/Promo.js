@@ -11,7 +11,7 @@ function Promo() {
       <img className="promo__main-illustration" src={imgLink} alt="иллюстрация земного шара" />
       <h1 className="promo__title">{PROMO_TITLE}</h1>
       <p className="promo__subtitle">{PROMO_SUBTITLE}</p>
-      <a href="#aboutMe" className="promo__link">
+      <a href="#AboutProject" className="promo__link">
         {PROMO_BTN}
       </a>
     </section>

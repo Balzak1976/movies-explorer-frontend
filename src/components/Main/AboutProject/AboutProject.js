@@ -20,7 +20,7 @@ const TIMELINE_LIST = [
 function AboutProject() {
   return (
     <Section classMix={'section_project'} title={PROJECT_HEADER}>
-      <article className="project">
+      <article className="project" id='AboutProject'>
         <ul className="project__list">
           {PROJECT_LIST.map((v, i) => (
             <li className="project__item" key={i}>

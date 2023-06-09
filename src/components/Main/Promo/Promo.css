@@ -6,7 +6,7 @@
   box-sizing: border-box;
   display: grid;
   grid-template-columns: auto auto;
-  grid-template-rows: min-content auto auto;
+  grid-template-rows: min-content min-content auto;
   justify-content: space-between;
   row-gap: 36px;
   background-color: var(--bg-color);
@@ -44,6 +44,8 @@
 }
 
 .promo__link {
+  margin-top: 75px;
+  margin-bottom: 75px;
   width: 129px;
   height: 36px;
   display: flex;
@@ -61,7 +63,7 @@
 
 @media screen and (max-width: 770px) {
   .promo {
-    padding: 214px 50px 74px;
+    padding: 214px 50px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -82,11 +84,15 @@
     text-align: center;
     white-space: pre-line;
   }
+  .promo__link {
+    margin-top: 0;
+    margin-bottom: 74px;
+  }
 }
 
 @media screen and (max-width: 450px) {
   .promo {
-    padding: 144px 18px 31px;
+    padding: 144px 18px 0;
   }
 
   .promo__main-illustration {
@@ -103,5 +109,8 @@
 
   .promo__subtitle {
     margin-bottom: 79px;
+  }
+  .promo__link {
+    margin-bottom: 31px;
   }
 }
