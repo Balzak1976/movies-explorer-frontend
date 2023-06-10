@@ -1,10 +1,12 @@
 import './PageWithFooter.css';
 import Footer from '../Footer/Footer';
 
-function PageWithFooter({ children }) {
+function PageWithFooter({ children, isHidden }) {
   return (
     <>
-      <div className="wrapper">{children}</div>
+      <main className="main" hidden={isHidden}>
+        {children}
+      </main>
       <Footer />
     </>
   );

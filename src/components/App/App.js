@@ -37,7 +37,7 @@ function App() {
           <Route
             path="/movies"
             element={
-              <PageWithFooter loggedIn={loggedIn}>
+              <PageWithFooter loggedIn={loggedIn} isHidden={true}>
                 <ProtectedRouteElement component={Movies} loggedIn={loggedIn} />
               </PageWithFooter>
             }
@@ -45,7 +45,7 @@ function App() {
           <Route
             path="/saved-movies"
             element={
-              <PageWithFooter loggedIn={loggedIn}>
+              <PageWithFooter loggedIn={loggedIn} isHidden={true}>
                 <ProtectedRouteElement component={SavedMovies} loggedIn={loggedIn} />
               </PageWithFooter>
             }
