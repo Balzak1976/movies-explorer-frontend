@@ -2,7 +2,7 @@
   width: 100%;
   margin-top: -74px;
   min-height: 648px;
-  padding: 149px 70px 0;
+  padding: 149px 70px 30px;
   box-sizing: border-box;
   display: grid;
   grid-template-columns: auto auto;
@@ -45,7 +45,6 @@
 
 .promo__link {
   margin-top: 75px;
-  margin-bottom: 75px;
   width: 129px;
   height: 36px;
   display: flex;
@@ -69,9 +68,11 @@
 
 @media screen and (max-width: 770px) {
   .promo {
-    padding: 214px 50px 0;
+    padding: 214px 50px 30px;
+    min-height: 924px;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
     row-gap: 0;
   }
@@ -92,19 +93,19 @@
   }
   .promo__link {
     margin-top: 0;
-    margin-bottom: 74px;
   }
 }
 
 @media screen and (max-width: 450px) {
   .promo {
-    padding: 144px 18px 0;
+    padding: 144px 18px 30px;
+    min-height: 710px;
   }
 
   .promo__main-illustration {
     max-width: 210px;
   }
-    
+
   .promo__title {
     margin-top: 44px;
     margin-bottom: 24px;
@@ -115,8 +116,5 @@
 
   .promo__subtitle {
     margin-bottom: 79px;
-  }
-  .promo__link {
-    margin-bottom: 31px;
   }
 }

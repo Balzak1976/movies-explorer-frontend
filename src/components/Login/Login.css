@@ -1,6 +1,7 @@
 .login {
   width: 100%;
   padding-top: 70px;
+  padding-bottom: 30px;
   display: grid;
   grid-template-columns: minmax(auto, 396px);
   justify-content: center;

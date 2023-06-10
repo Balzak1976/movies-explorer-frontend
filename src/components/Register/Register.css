@@ -1,6 +1,7 @@
 .register {
   width: 100%;
   padding-top: 34px;
+  padding-bottom: 30px;
   display: grid;
   grid-template-columns: minmax(auto, 396px);
   justify-content: center;
