@@ -11,7 +11,7 @@
   row-gap: 32px;
 }
 
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 1024px) {
   .cards {
     padding-right: 30px;
     padding-left: 30px;
@@ -19,6 +19,7 @@
 
   .cards__list {
     grid-template-columns: repeat(auto-fit, minmax(270px, 339px));
+    justify-content: center;
     column-gap: 30px;
     row-gap: 36px;
   }
@@ -32,7 +33,6 @@
   }
 
   .cards__list {
-    justify-content: space-between;
     row-gap: 20px;
   }
 }
