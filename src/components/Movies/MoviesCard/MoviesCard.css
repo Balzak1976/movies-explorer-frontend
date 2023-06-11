@@ -1,0 +1,101 @@
+.card {
+  min-height: 218px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fdfdfd;
+  box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.05);
+}
+
+.card__img {
+  display: block;
+  width: 100%;
+  max-height: 151px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.card__body {
+  width: 100%;
+  padding: 0 12px 0;
+  box-sizing: border-box;
+  min-height: 38px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  gap: 10px;
+}
+
+.card__title {
+  margin: 0;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.23;
+  color: #000;
+}
+
+.card__duration {
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 1.18;
+  color: #a0a0a0;
+}
+
+.card__delete {
+  padding: 0;
+  border: none;
+  grid-column: 2/-1;
+  grid-row: 1/-1;
+  width: 16px;
+  height: 16px;
+  background-size: 50%;
+  background-position: 50% center;
+  background-repeat: no-repeat;
+  background-image: url(../../../images/icon-del-btn.svg);
+  background-color: transparent;
+  transition: background-size 0.5s ease-in;
+}
+
+.card__delete:hover {
+  cursor: pointer;
+  background-size: 100%;
+}
+
+.card__mark {
+  grid-column: 2/-1;
+  grid-row: 1/-1;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.09);
+}
+
+.card__mark_type_marked {
+  background-color: var(--btn-color);
+}
+
+@media screen and (max-width: 770px) {
+  .card {
+    min-height: 257px;
+  }
+
+  .card__img {
+    max-height: 190px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .card {
+    min-height: 235px;
+  }
+
+  .card__img {
+    max-height: 168px;
+  }
+}

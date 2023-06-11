@@ -1,0 +1,21 @@
+.header {
+  width: 100%;
+  padding: 18px 70px;
+  box-sizing: border-box;
+  display: flex;
+  z-index: 10;
+}
+
+@media screen and (max-width: 770px) {
+  .header {
+    padding-right: 30px;
+    padding-left: 30px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .header {
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+}

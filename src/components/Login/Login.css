@@ -1,0 +1,21 @@
+.login {
+  width: 100%;
+  padding-top: 70px;
+  padding-bottom: 30px;
+  display: grid;
+  grid-template-columns: minmax(auto, 396px);
+  justify-content: center;
+}
+
+@media screen and (max-width: 770px) {
+  .login {
+    padding-top: 232px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .login {
+    justify-items: center;
+    padding-top: 20px;
+  }
+}

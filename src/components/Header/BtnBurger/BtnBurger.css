@@ -1,0 +1,71 @@
+.btn-burger {
+  height: 44px;
+  padding: 8px;
+  display: none;
+  border: 0;
+  background-color: inherit;
+  transition: opacity 0.5s ease-in-out;
+  z-index: 100;
+}
+
+.btn-burger:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 770px) {
+  .btn-burger {
+    display: flex;
+    align-items: center;
+  }
+
+  .btn-burger__inner {
+    display: block;
+    position: relative;
+    height: var(--strip-h);
+    width: var(--btn-w);
+    background-color: #000;
+    margin-left: auto;
+    margin-right: auto;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .btn-burger__inner:hover {
+    cursor: pointer;
+    opacity: 0.5;
+  }
+
+  .btn-burger__inner::before,
+  .btn-burger__inner::after {
+    content: '';
+    position: absolute;
+    height: var(--strip-h);
+    width: var(--btn-w);
+    left: 0;
+    top: 50%;
+    background-color: #000;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .btn-burger__inner::before {
+    transform: translateY(calc(-50% - (var(--btn-h) - var(--strip-h))/2));
+  }
+
+  .btn-burger__inner::after {
+    transform: translateY(calc(-50% + (var(--btn-h) - var(--strip-h))/2));
+  }
+
+  .btn-burger__inner_active {
+    background: transparent;
+  }
+
+  .btn-burger__inner_active::before {
+    transform: translateX(var(--offset-x)) translateY(-50%) rotate(45deg);
+    width: calc(var(--btn-w) - 6px);
+  }
+
+  .btn-burger__inner_active::after {
+    transform:  translateX(var(--offset-x)) translateY(-50%) rotate(-45deg);
+    width: calc(var(--btn-w) - 6px);
+  }
+}

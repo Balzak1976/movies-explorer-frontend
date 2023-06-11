@@ -1,0 +1,120 @@
+.promo {
+  width: 100%;
+  margin-top: -74px;
+  min-height: 648px;
+  padding: 149px 70px 30px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: min-content min-content auto;
+  justify-content: space-between;
+  row-gap: 36px;
+  background-color: var(--bg-color);
+}
+
+.promo__main-illustration {
+  grid-column: 2/-1;
+  grid-row: 1/-1;
+  display: inline;
+  max-width: 310px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.promo__title {
+  margin: 0;
+  max-width: 640px;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 1.16;
+  color: #fff;
+  /* перенос текста на новую строку */
+  white-space: pre-line;
+}
+
+.promo__subtitle {
+  margin-top: 0;
+  margin-bottom: 34px;
+  max-width: 310px;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.23;
+  color: #fff;
+  opacity: 0.5;
+}
+
+.promo__link {
+  margin-top: 75px;
+  width: 129px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 3px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+  color: #fff;
+  text-decoration: none;
+  transition: opacity 0.5s ease-in;
+}
+
+.promo__link:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 770px) {
+  .promo {
+    padding: 214px 50px 30px;
+    min-height: 924px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    row-gap: 0;
+  }
+
+  .promo__title {
+    margin-top: 50px;
+    margin-bottom: 22px;
+    font-size: 40px;
+    line-height: 1.25;
+    white-space: unset;
+    text-align: center;
+  }
+
+  .promo__subtitle {
+    margin-bottom: 92px;
+    text-align: center;
+    white-space: pre-line;
+  }
+  .promo__link {
+    margin-top: 0;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .promo {
+    padding: 144px 18px 30px;
+    min-height: 710px;
+  }
+
+  .promo__main-illustration {
+    max-width: 210px;
+  }
+
+  .promo__title {
+    margin-top: 44px;
+    margin-bottom: 24px;
+    font-size: 30px;
+    line-height: 1.27;
+    letter-spacing: -0.04em;
+  }
+
+  .promo__subtitle {
+    margin-bottom: 79px;
+  }
+}

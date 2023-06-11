@@ -1,0 +1,17 @@
+import './FilterCheckbox.css';
+
+function FilterCheckbox() {
+  return (
+    <div className="filter">
+      <label className="checkbox">
+        <input className="checkbox__input" type="checkbox" name="filter" />
+        <span className="checkbox__content">
+          <span className="checkbox__switch" />
+        </span>
+        <span className="checkbox__text">Короткометражки</span>
+      </label>
+    </div>
+  );
+}
+
+export default FilterCheckbox;

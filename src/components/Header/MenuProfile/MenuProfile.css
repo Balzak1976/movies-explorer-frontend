@@ -1,0 +1,119 @@
+.menu-profile__list {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.menu-profile__link {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.29;
+  transition: opacity 0.5s ease-in;
+}
+
+.menu-profile__link:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.menu-profile__link_active {
+  font-weight: 500;
+}
+
+.menu-profile__link_type_main {
+  display: none;
+}
+
+.menu-profile__link_type_profile {
+  height: 30px;
+  margin-left: 32px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.menu-profile__icon {
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  background-image: url(../../../images/icon-logout-btn.svg);
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: 34.6%;
+}
+
+@media screen and (max-width: 770px) {
+  .menu-profile {
+    padding-top: 160px;
+    padding-bottom: 89px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: -100vw;
+    min-width: 67.7vw;
+    background-color: #fff;
+    transition: right 0.5s ease-in-out;
+    z-index: 90;
+  }
+
+  .menu-profile_type_burger {
+    right: 0;
+  }
+
+  .menu-profile__list {
+    flex: 1;
+    flex-direction: column;
+    gap: 26px;
+  }
+
+  .menu-profile__item_type_profile {
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .menu-profile__link {
+    padding-bottom: 4px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.22;
+  }
+
+  .menu-profile__link_active {
+    border-bottom: 2px solid #000;
+  }
+  .menu-profile__link_type_main {
+    display: block;
+  }
+
+  .menu-profile__link_type_profile {
+    margin-left: 0;
+    gap: 13px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.14;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .menu-profile {
+    min-width: 100vw;
+    padding-top: 145px;
+    padding-bottom: 44px;
+  }
+  .menu-profile__list {
+    gap: 20px;
+  }
+
+  .menu-profile__item_type_main {
+    padding-bottom: 2px;
+  }
+}

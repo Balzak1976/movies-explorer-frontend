@@ -1,0 +1,46 @@
+:root {
+  --btn-color: #2be080;
+  --bg-color: #465dff;
+}
+
+.app {
+  background-color: #fff;
+  font-family: 'Inter', Arial, sans-serif;
+  font-style: normal;
+  color: #000;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.page {
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: 1280px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  display: block;
+}
+
+.reset-ul {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 0;
+}
+
+.button {
+  color: inherit;
+  text-decoration: none;
+  border-radius: 9px;
+  transition: opacity 0.5s ease-in;
+}
+
+.button:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+

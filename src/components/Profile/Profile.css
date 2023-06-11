@@ -1,0 +1,43 @@
+.profile {
+  width: 100%;
+  padding-top: 74px;
+  padding-bottom: 40px;
+  display: grid;
+  grid-template-columns: minmax(auto, 410px);
+  justify-content: center;
+}
+
+.profile__logout {
+  margin-top: 15px;
+  border: 0;
+  background-color: inherit;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.23;
+  text-align: center;
+  color: #ee3465;
+  transition: opacity 0.5s ease-in;
+}
+
+.profile__logout:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 770px) {
+  .profile {
+    padding-top: 236px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .profile {
+    justify-items: center;
+    padding-top: 56px;
+  }
+
+  .profile__logout {
+    font-size: 12px;
+    line-height: 1.25;
+  }
+}

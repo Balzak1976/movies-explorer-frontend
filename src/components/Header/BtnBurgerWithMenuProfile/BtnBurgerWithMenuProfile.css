@@ -1,0 +1,45 @@
+@media screen and (max-width: 770px) {
+  .hidden-menu__shutter {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 100vw;
+    left: 0;
+    transition: z-index 0.5s ease-in-out;
+    z-index: 80;
+  }
+
+  .hidden-menu__shutter_active {
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  .btn-burger_hidden-menu {
+    --btn-w: 28px;
+    --btn-h: 23px;
+    --strip-h: 3px;
+    --offset-x: 17px;
+
+    position: absolute;
+    top: 15px;
+    right: 30px;
+  }
+
+  .btn-burger_hidden-menu-active {
+    position: fixed;
+    top: 15px;
+    right: 30px;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .btn-burger_hidden-menu {
+    --btn-w: 22px;
+    --btn-h: 21px;
+    --strip-h: 2.5px;
+    --offset-x: 0;
+
+    top: 15px;
+    right: 15px;
+  }
+}
