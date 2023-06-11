@@ -58,7 +58,6 @@
 }
 
 .form__input-error {
-  display: block;
   padding-top: 1px;
   box-sizing: border-box;
   display: block;
