@@ -1,7 +1,10 @@
 .card {
   min-height: 218px;
+  padding-bottom: 14px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   gap: 14px;
   border-radius: 10px;
@@ -31,6 +34,10 @@
 
 .card__title {
   margin: 0;
+  width: 80%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   font-weight: 500;
   font-size: 13px;
   line-height: 1.23;
@@ -64,7 +71,9 @@
   background-size: 100%;
 }
 
-.card__mark {
+.card__like {
+  padding: 0;
+  border: none;
   grid-column: 2/-1;
   grid-row: 1/-1;
   width: 16px;
@@ -74,9 +83,15 @@
   box-sizing: border-box;
   background-color: #f9f9f9;
   box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.09);
+  transition: background-color 0.5s ease-in;
 }
 
-.card__mark_type_marked {
+.card__like:hover {
+  cursor: pointer;
+  background-color: var(--btn-color);
+}
+
+.card__like_active {
   background-color: var(--btn-color);
 }
 

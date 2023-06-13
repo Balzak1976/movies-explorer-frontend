@@ -2,11 +2,11 @@ import './SearchPanel.css';
 import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchPanel() {
+function SearchPanel({onSearchForm}) {
   return (
     <div className="search-panel">
       <div className="form-row">
-        <SearchForm />
+        <SearchForm onSearchForm={onSearchForm}/>
         <FilterCheckbox />
       </div>
     </div>

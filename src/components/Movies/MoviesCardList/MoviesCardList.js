@@ -1,13 +1,18 @@
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ movies, isSavedMovie }) {
+function MoviesCardList({ movies, onCardClick, onCardDelete, onCardLike}) {
   return (
     <div className="cards">
       <ul className="cards__list reset-ul">
-        {movies.map((v, i) => (
-          <li key={i}>
-            <MoviesCard props={v} isSavedMovie={isSavedMovie} />
+        {movies.map((movie) => (
+          <li key={movie.id}>
+            <MoviesCard
+              movie={movie}
+              onCardClick={onCardClick}
+              onCardDelete={onCardDelete}
+              onCardLike={onCardLike}
+            />
           </li>
         ))}
       </ul>

@@ -7,7 +7,7 @@ function FilterCheckbox({ onSearchForm }) {
   const onSubmit = (e) => {
     e.preventDefault();
 
-    onSearchForm(values);
+    onSearchForm(values.movie);
   };
   return (
     <form className="search-form" name={'search-form'} onSubmit={onSubmit} noValidate>
