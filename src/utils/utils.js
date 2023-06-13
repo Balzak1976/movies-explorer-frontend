@@ -1,6 +1,6 @@
 const addAllMoviesToStorage = (res) => {
   const url = 'https://api.nomoreparties.co';
-  res.splice(8);
+  res.splice(20);
   const movies = res.map((v) => {
     return {
       id: v?.id,
@@ -18,4 +18,4 @@ const getAllMoviesFromStorage = () => JSON.parse(localStorage.getItem('allMovies
 
 const filterMovies = (req, movies) => movies.filter((movie) => movie.name.toLowerCase().includes(req.toLowerCase()));
 
-export { addAllMoviesToStorage, getAllMoviesFromStorage, filterMovies };
+export { addAllMoviesToStorage, getAllMoviesFromStorage, filterMovies  };

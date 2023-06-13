@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
 
 import Header from '../Header/Header';
@@ -13,7 +13,7 @@ import Register from '../Register/Register';
 import ProtectedRouteElement from '../parts/ProtectedRoute';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import { moviesApi } from '../../utils/MoviesApi';
-import { addAllMoviesToStorage, filterMovies, getAllMoviesFromStorage } from '../../utils/utils';
+import { addAllMoviesToStorage, filterMovies, getAllMoviesFromStorage,  } from '../../utils/utils';
 import { MovieCard } from '../../utils/MovieCard';
 
 function App() {
