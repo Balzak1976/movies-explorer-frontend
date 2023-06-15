@@ -123,7 +123,15 @@ function App() {
             path="/saved-movies"
             element={
               <PageWithFooter loggedIn={loggedIn} isHidden={true}>
-                <ProtectedRouteElement component={SavedMovies} loggedIn={loggedIn} />
+                <ProtectedRouteElement
+                  component={SavedMovies}
+                  onSearchForm={handleRequestMovies}
+                  dataMovies={dataMovies}
+                  onCardClick={handleCardClick}
+                  onCardDelete={handleCardDelete}
+                  onCardLike={handleCardLike}
+                  loggedIn={loggedIn}
+                />
               </PageWithFooter>
             }
           />

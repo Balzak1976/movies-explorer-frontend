@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const getScreenWidth = () => window.screen.width;
 
-export function useLimitedNumberOfCards(dataCards) {
+export function useLimitedRenderCards(dataCards) {
   const [limitCards, setLimitCards] = useState([]);
   const [currentWidth, setCurrentWidth] = useState(getScreenWidth());
 
@@ -12,11 +12,11 @@ export function useLimitedNumberOfCards(dataCards) {
     const startsWith = limitCards.length; // откуда резать
     let endsWith = 0;
 
-    if (currentWidth > 1280) {
+    if (currentWidth >= 1280) {
       endsWith = startsWith + 4; // до куда резать
-    } else if (currentWidth < 1280 && currentWidth > 1024) {
+    } else if (currentWidth < 1280 && currentWidth >= 1024) {
       endsWith = startsWith + 3;
-    } else if (currentWidth < 1024 && currentWidth > 768) {
+    } else if (currentWidth < 1024 && currentWidth >= 768) {
       endsWith = startsWith + 2;
     } else if (currentWidth < 768) {
       endsWith = startsWith + 1;
@@ -29,11 +29,11 @@ export function useLimitedNumberOfCards(dataCards) {
     const isDataCards = dataCards.length;
 
     if (isDataCards) {
-      if (currentWidth > 1280) {
+      if (currentWidth >= 1280) {
         setLimitCards(dataCards.slice(0, 16));
-      } else if (currentWidth < 1280 && currentWidth > 1024) {
+      } else if (currentWidth < 1280 && currentWidth >= 1024) {
         setLimitCards(dataCards.slice(0, 12));
-      } else if (currentWidth < 1024 && currentWidth > 768) {
+      } else if (currentWidth < 1024 && currentWidth >= 768) {
         setLimitCards(dataCards.slice(0, 8));
       } else if (currentWidth < 768) {
         setLimitCards(dataCards.slice(0, 5));

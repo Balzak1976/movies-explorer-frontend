@@ -1,13 +1,13 @@
+import { useLimitedRenderCards } from '../../hooks/useLimitedRenderCards';
 import './Movies.css';
-import SearchPanel from './SearchPanel/SearchPanel';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import Pagination from './Pagination/Pagination';
-import { useLimitedNumberOfCards } from '../../hooks/useLimitedNumberOfCards';
+import SearchPanel from './SearchPanel/SearchPanel';
 
 
-function Movies({ onSearchForm, dataMovies: dataCards, onCardClick, onCardDelete, onCardLike }) {
+function Movies({ onSearchForm, dataMovies, onCardClick, onCardDelete, onCardLike }) {
 
-  const { limitCards, isNextPageBtn, handelAddNextCards } = useLimitedNumberOfCards(dataCards);
+  const { limitCards, isNextPageBtn, handelAddNextCards } = useLimitedRenderCards(dataMovies);
 
   return (
     <div className="movies">
