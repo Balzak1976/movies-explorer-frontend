@@ -1,6 +1,6 @@
 const addAllMoviesToStorage = (res) => {
   const url = 'https://api.nomoreparties.co';
-  res.splice(100);
+  res.splice(10);
   const movies = res.map((v) => {
     return {
       id: v?.id,

@@ -4,9 +4,7 @@ import MoviesCardList from './MoviesCardList/MoviesCardList';
 import Pagination from './Pagination/Pagination';
 import SearchPanel from './SearchPanel/SearchPanel';
 
-
-function Movies({ onSearchForm, dataMovies, onCardClick, onCardDelete, onCardLike }) {
-
+function Movies({ onSearchForm, dataMovies, onCardClick, onCardDelete, onCardLike, isPreload, infoToolTip, error }) {
   const { limitCards, isNextPageBtn, handelAddNextCards } = useLimitedRenderCards(dataMovies);
 
   return (
@@ -17,8 +15,11 @@ function Movies({ onSearchForm, dataMovies, onCardClick, onCardDelete, onCardLik
         onCardClick={onCardClick}
         onCardDelete={onCardDelete}
         onCardLike={onCardLike}
+        isPreload={isPreload}
+        infoToolTip={infoToolTip}
+        error={error}
       />
-      <Pagination onAddNextCards={handelAddNextCards} isNextPageBtn={isNextPageBtn} />
+      {infoToolTip.isSuccess && <Pagination onAddNextCards={handelAddNextCards} isNextPageBtn={isNextPageBtn} />}
     </div>
   );
 }

@@ -13,20 +13,26 @@ import Register from '../Register/Register';
 import ProtectedRouteElement from '../parts/ProtectedRoute';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import { moviesApi } from '../../utils/MoviesApi';
-import { addAllMoviesToStorage, filterMovies, getAllMoviesFromStorage,  } from '../../utils/utils';
+import { addAllMoviesToStorage, filterMovies, getAllMoviesFromStorage } from '../../utils/utils';
 import { MovieCard } from '../../utils/MovieCard';
 
 function App() {
   // ============================ STATES =======================================
-
+  // const [infoToolTip, setInfoToolTip] = useState({});
   const [loggedIn, setLoggedIn] = useState(true);
-  const [isBtnSubmitSaving, setBtnSubmitSaving] = useState(false);
+  const [isPreload, setIsPreload] = useState(false);
+  const [infoToolTip, setInfoToolTip] = useState({  });
+  const [error, setError] = useState({  });
   const [dataMovies, setDataMovies] = useState([]);
 
   // ============================ MOVIES =======================================
 
   const handleRequestMovies = (submittedValue) => {
-    setBtnSubmitSaving(true);
+    console.log('submittedValue: ', submittedValue);
+
+    setIsPreload(true);
+    setInfoToolTip({ isSuccess: false, notFound: false });
+    setError({status: null, message: null})
 
     moviesApi
       .getAllMovies()
@@ -36,12 +42,14 @@ function App() {
         const moviesCard = filtered.map((v) => new MovieCard(v));
 
         setDataMovies([...moviesCard]);
+        setInfoToolTip({ ...infoToolTip, isSuccess: moviesCard.length > 0, notFound: moviesCard.length === 0 });
       })
       .catch((err) => {
         console.log(err);
+        setError({status: err.status, message: true });
       })
       .finally(() => {
-        setBtnSubmitSaving(false);
+        setIsPreload(false);
       });
   };
 
@@ -114,6 +122,9 @@ function App() {
                   onCardClick={handleCardClick}
                   onCardDelete={handleCardDelete}
                   onCardLike={handleCardLike}
+                  isPreload={isPreload}
+                  infoToolTip={infoToolTip}
+                  error={error}
                   loggedIn={loggedIn}
                 />
               </PageWithFooter>
