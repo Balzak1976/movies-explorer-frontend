@@ -2,14 +2,15 @@ import { useEffect, useState } from 'react';
 
 const getScreenWidth = () => window.screen.width;
 
-export function useLimitedRenderCards(dataCards) {
-  const [limitCards, setLimitCards] = useState([]);
+export function useLimitedRenderCards() {
+  const [inputData, setInputData] = useState([]);
+  const [limitedNumberOfCards, setLimitedNumberOfCards] = useState([]);
   const [currentWidth, setCurrentWidth] = useState(getScreenWidth());
 
-  const isNextPageBtn = limitCards.length < dataCards.length;
+  const isNextPageBtn = limitedNumberOfCards.length < inputData?.length;
 
   const handelAddNextCards = () => {
-    const startsWith = limitCards.length; // откуда резать
+    const startsWith = limitedNumberOfCards.length; // откуда резать
     let endsWith = 0;
 
     if (currentWidth >= 1280) {
@@ -22,24 +23,24 @@ export function useLimitedRenderCards(dataCards) {
       endsWith = startsWith + 1;
     }
 
-    setLimitCards([...limitCards, ...dataCards.slice(startsWith, endsWith)]);
+    setLimitedNumberOfCards([...limitedNumberOfCards, ...inputData.slice(startsWith, endsWith)]);
   };
 
   useEffect(() => {
-    const isDataCards = dataCards.length;
+    const isDataCards = inputData?.length;
 
     if (isDataCards) {
       if (currentWidth >= 1280) {
-        setLimitCards(dataCards.slice(0, 16));
+        setLimitedNumberOfCards(inputData.slice(0, 16));
       } else if (currentWidth < 1280 && currentWidth >= 1024) {
-        setLimitCards(dataCards.slice(0, 12));
+        setLimitedNumberOfCards(inputData.slice(0, 12));
       } else if (currentWidth < 1024 && currentWidth >= 768) {
-        setLimitCards(dataCards.slice(0, 8));
+        setLimitedNumberOfCards(inputData.slice(0, 8));
       } else if (currentWidth < 768) {
-        setLimitCards(dataCards.slice(0, 5));
+        setLimitedNumberOfCards(inputData.slice(0, 5));
       }
     }
-  }, [dataCards, currentWidth]);
+  }, [inputData, currentWidth]);
 
   useEffect(() => {
     let timeOutId = null;
@@ -58,5 +59,5 @@ export function useLimitedRenderCards(dataCards) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  return { limitCards, isNextPageBtn, handelAddNextCards };
+  return { limitedNumberOfCards, isNextPageBtn, handelAddNextCards, setInputData };
 }

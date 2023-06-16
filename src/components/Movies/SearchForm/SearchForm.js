@@ -1,7 +1,7 @@
 import './SearchForm.css';
 import { useFormAndValidation } from '../../../hooks/useFormAndValidation';
 
-function FilterCheckbox({ onSearchForm }) {
+function FilterCheckbox({ onSearchForm, savedReq }) {
   const { values, handleChange, errors, isValid } = useFormAndValidation();
 
   const onSubmit = (e) => {
@@ -14,7 +14,7 @@ function FilterCheckbox({ onSearchForm }) {
       <label className="search-form__field">
         <span className="search-form__icon" />
         <input
-          value={values.movie ?? ''}
+          value={values.movie ?? savedReq ?? ''}
           onChange={handleChange}
           className="search-form__input"
           placeholder="Фильм"
@@ -23,7 +23,7 @@ function FilterCheckbox({ onSearchForm }) {
           required
         />
         <span className={`search-form__input-error ${errors && 'search-form__input-error_active'}`}>
-          {errors.movie && "Нужно ввести ключевое слово"}
+          {errors.movie && 'Нужно ввести ключевое слово'}
         </span>
       </label>
       <button

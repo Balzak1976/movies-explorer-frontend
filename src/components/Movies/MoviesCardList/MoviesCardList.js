@@ -12,7 +12,7 @@ function MoviesCardList({ movies, onCardClick, onCardDelete, onCardLike, isPrelo
 
       {error?.status && <InfoToolTip infoToolTip={infoToolTip} error={error} />}
 
-      {infoToolTip.isSuccess && (
+      {movies && (
         <ul className="cards__list reset-ul">
           {movies.map((movie) => (
             <li key={movie.id}>

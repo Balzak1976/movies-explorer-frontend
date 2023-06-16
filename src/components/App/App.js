@@ -13,7 +13,7 @@ import Register from '../Register/Register';
 import ProtectedRouteElement from '../parts/ProtectedRoute';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import { moviesApi } from '../../utils/MoviesApi';
-import { addAllMoviesToStorage, filterMovies, getAllMoviesFromStorage } from '../../utils/utils';
+import { addAllMoviesToStorage, addMovieSearchResultToStorage, filterMovies, getAllMoviesFromStorage } from '../../utils/utils';
 import { MovieCard } from '../../utils/MovieCard';
 
 function App() {
@@ -27,8 +27,7 @@ function App() {
 
   // ============================ MOVIES =======================================
 
-  const handleRequestMovies = (submittedValue) => {
-    console.log('submittedValue: ', submittedValue);
+  const handleSearchMovies = (submitted) => {
 
     setIsPreload(true);
     setInfoToolTip({ isSuccess: false, notFound: false });
@@ -38,10 +37,11 @@ function App() {
       .getAllMovies()
       .then(addAllMoviesToStorage)
       .then(() => {
-        const filtered = filterMovies(submittedValue, [...getAllMoviesFromStorage()]);
-        const moviesCard = filtered.map((v) => new MovieCard(v));
+        const filtered = filterMovies(submitted.savedReq, [...getAllMoviesFromStorage()]);
+        const moviesCard = filtered.map((v) => new MovieCard(v)); // добавляем методы работы с карточкой
+        addMovieSearchResultToStorage(submitted, moviesCard); // добавляем результаты поиска фильмов в хранилище
 
-        setDataMovies([...moviesCard]);
+        setDataMovies([...filtered]);
         setInfoToolTip({ ...infoToolTip, isSuccess: moviesCard.length > 0, notFound: moviesCard.length === 0 });
       })
       .catch((err) => {
@@ -52,6 +52,8 @@ function App() {
         setIsPreload(false);
       });
   };
+
+  
 
   const handleCardClick = (e) => {
     /* setSelectedCard({ cardLink: e.target.src, cardTitle: e.target.alt });
@@ -117,7 +119,7 @@ function App() {
               <PageWithFooter loggedIn={loggedIn} isHidden={true}>
                 <ProtectedRouteElement
                   component={Movies}
-                  onSearchForm={handleRequestMovies}
+                  onSearchForm={handleSearchMovies}
                   dataMovies={dataMovies}
                   onCardClick={handleCardClick}
                   onCardDelete={handleCardDelete}
@@ -136,7 +138,7 @@ function App() {
               <PageWithFooter loggedIn={loggedIn} isHidden={true}>
                 <ProtectedRouteElement
                   component={SavedMovies}
-                  onSearchForm={handleRequestMovies}
+                  onSearchForm={handleSearchMovies}
                   dataMovies={dataMovies}
                   onCardClick={handleCardClick}
                   onCardDelete={handleCardDelete}

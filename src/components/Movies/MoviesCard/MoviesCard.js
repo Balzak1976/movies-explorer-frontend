@@ -19,7 +19,7 @@ function MoviesCard({ movie, onCardClick, onCardDelete, onCardLike }) {
       <img className="card__img" src={movie.link} alt={movie.name} />
       <div className="card__body">
         <h2 className="card__title">{movie.name}</h2>
-        <div className="card__duration">{movie.getFormattedDuration()}</div>
+        <div className="card__duration">{/* movie.getFormattedDuration() */}</div>
         {false ? (
           <button className="card__delete" onClick={onCardDelete} type="button" aria-label="удалить карточку" />
         ) : (

@@ -18,4 +18,16 @@ const getAllMoviesFromStorage = () => JSON.parse(localStorage.getItem('allMovies
 
 const filterMovies = (req, movies) => movies.filter((movie) => movie.name.toLowerCase().includes(req.toLowerCase()));
 
-export { addAllMoviesToStorage, getAllMoviesFromStorage, filterMovies  };
+const addMovieSearchResultToStorage = (searchData, movies) => {
+  localStorage.setItem('foundMovies', JSON.stringify({ searchData, movies }));
+};
+
+const getMovieSearchResultFromStorage = () => JSON.parse(localStorage.getItem('foundMovies')) || [];
+
+export {
+  addAllMoviesToStorage,
+  getAllMoviesFromStorage,
+  filterMovies,
+  addMovieSearchResultToStorage,
+  getMovieSearchResultFromStorage,
+};
