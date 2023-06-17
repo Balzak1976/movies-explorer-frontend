@@ -22,7 +22,7 @@ const addMovieSearchResultToStorage = (searchData, movies) => {
   localStorage.setItem('foundMovies', JSON.stringify({ searchData, movies }));
 };
 
-const getMovieSearchResultFromStorage = () => JSON.parse(localStorage.getItem('foundMovies')) || [];
+const getMovieSearchResultFromStorage = () => JSON.parse(localStorage.getItem('foundMovies')) || {};
 
 export {
   addAllMoviesToStorage,

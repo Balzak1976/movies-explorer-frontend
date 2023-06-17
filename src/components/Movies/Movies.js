@@ -5,6 +5,8 @@ import MoviesCardList from './MoviesCardList/MoviesCardList';
 import Pagination from './Pagination/Pagination';
 import SearchPanel from './SearchPanel/SearchPanel';
 import { getMovieSearchResultFromStorage } from '../../utils/utils';
+import Preloader from '../Preloader/Preloader';
+import InfoToolTip from '../InfoToolTip/InfoToolTip';
 
 const foundMovies = getMovieSearchResultFromStorage();
 
@@ -19,16 +21,26 @@ function Movies({ onSearchForm, dataMovies, onCardClick, onCardDelete, onCardLik
   return (
     <div className="movies">
       <SearchPanel onSearchForm={onSearchForm} searchData={foundMovies.searchData || {}} />
-      <MoviesCardList
-        movies={limitedNumberOfCards}
-        onCardClick={onCardClick}
-        onCardDelete={onCardDelete}
-        onCardLike={onCardLike}
-        isPreload={isPreload}
-        infoToolTip={infoToolTip}
-        error={error}
-      />
-      {infoToolTip.isSuccess && <Pagination onAddNextCards={handelAddNextCards} isNextPageBtn={isNextPageBtn} />}
+
+      {isPreload && <Preloader />}
+      {infoToolTip.notFound && <InfoToolTip infoToolTip={infoToolTip} error={error} />}
+      {error?.status && <InfoToolTip infoToolTip={infoToolTip} error={error} />}
+
+      {!isPreload && !infoToolTip.notFound && limitedNumberOfCards &&(
+        <MoviesCardList
+          movies={limitedNumberOfCards}
+          onCardClick={onCardClick}
+          onCardDelete={onCardDelete}
+          onCardLike={onCardLike}
+          isPreload={isPreload}
+          infoToolTip={infoToolTip}
+          error={error}
+        />
+      )}
+
+      {!isPreload && !infoToolTip.notFound && (
+        <Pagination onAddNextCards={handelAddNextCards} isNextPageBtn={isNextPageBtn} />
+      )}
     </div>
   );
 }

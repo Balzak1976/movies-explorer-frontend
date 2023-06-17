@@ -13,7 +13,12 @@ import Register from '../Register/Register';
 import ProtectedRouteElement from '../parts/ProtectedRoute';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import { moviesApi } from '../../utils/MoviesApi';
-import { addAllMoviesToStorage, addMovieSearchResultToStorage, filterMovies, getAllMoviesFromStorage } from '../../utils/utils';
+import {
+  addAllMoviesToStorage,
+  addMovieSearchResultToStorage,
+  filterMovies,
+  getAllMoviesFromStorage,
+} from '../../utils/utils';
 import { MovieCard } from '../../utils/MovieCard';
 
 function App() {
@@ -21,17 +26,16 @@ function App() {
   // const [infoToolTip, setInfoToolTip] = useState({});
   const [loggedIn, setLoggedIn] = useState(true);
   const [isPreload, setIsPreload] = useState(false);
-  const [infoToolTip, setInfoToolTip] = useState({  });
-  const [error, setError] = useState({  });
+  const [infoToolTip, setInfoToolTip] = useState({});
+  const [error, setError] = useState({});
   const [dataMovies, setDataMovies] = useState([]);
 
   // ============================ MOVIES =======================================
 
   const handleSearchMovies = (submitted) => {
-
     setIsPreload(true);
-    setInfoToolTip({ isSuccess: false, notFound: false });
-    setError({status: null, message: null})
+    setInfoToolTip({ notFound: false });
+    setError({ status: null, message: null });
 
     moviesApi
       .getAllMovies()
@@ -42,18 +46,16 @@ function App() {
         addMovieSearchResultToStorage(submitted, moviesCard); // добавляем результаты поиска фильмов в хранилище
 
         setDataMovies([...filtered]);
-        setInfoToolTip({ ...infoToolTip, isSuccess: moviesCard.length > 0, notFound: moviesCard.length === 0 });
+        setInfoToolTip({ notFound: moviesCard.length === 0 });
       })
       .catch((err) => {
         console.log(err);
-        setError({status: err.status, message: true });
+        setError({ status: err.status, message: true });
       })
       .finally(() => {
         setIsPreload(false);
       });
   };
-
-  
 
   const handleCardClick = (e) => {
     /* setSelectedCard({ cardLink: e.target.src, cardTitle: e.target.alt });
