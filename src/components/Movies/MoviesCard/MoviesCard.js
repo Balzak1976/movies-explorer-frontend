@@ -16,7 +16,7 @@ function MoviesCard({ movie, onCardClick, onCardDelete, onCardLike }) {
 
   return (
     <article className="card">
-      <img className="card__img" src={movie.link} alt={movie.name} />
+      <img className="card__img" src={movie.link} alt={movie.name} onClick={onCardClick}/>
       <div className="card__body">
         <h2 className="card__title">{movie.name}</h2>
         <div className="card__duration">{/* movie.getFormattedDuration() */}</div>

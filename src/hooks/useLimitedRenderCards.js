@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 const getScreenWidth = () => window.screen.width;
 
 export function useLimitedRenderCards() {
   const [inputData, setInputData] = useState([]);
-  const [limitedNumberOfCards, setLimitedNumberOfCards] = useState([]);
+  const [cardsLimit, setCardsLimit] = useState([]);
   const [currentWidth, setCurrentWidth] = useState(getScreenWidth());
 
-  const isNextPageBtn = limitedNumberOfCards.length < inputData?.length;
+  const isNextPageBtn = cardsLimit.length < inputData?.length;
 
   const handelAddNextCards = () => {
-    const startsWith = limitedNumberOfCards.length; // откуда резать
+    const startsWith = cardsLimit.length; // откуда резать
     let endsWith = 0;
 
     if (currentWidth >= 1280) {
@@ -23,7 +23,7 @@ export function useLimitedRenderCards() {
       endsWith = startsWith + 1;
     }
 
-    setLimitedNumberOfCards([...limitedNumberOfCards, ...inputData.slice(startsWith, endsWith)]);
+    setCardsLimit([...cardsLimit, ...inputData.slice(startsWith, endsWith)]);
   };
 
   useEffect(() => {
@@ -31,13 +31,13 @@ export function useLimitedRenderCards() {
 
     if (isDataCards) {
       if (currentWidth >= 1280) {
-        setLimitedNumberOfCards(inputData.slice(0, 16));
+        setCardsLimit(inputData.slice(0, 16));
       } else if (currentWidth < 1280 && currentWidth >= 1024) {
-        setLimitedNumberOfCards(inputData.slice(0, 12));
+        setCardsLimit(inputData.slice(0, 12));
       } else if (currentWidth < 1024 && currentWidth >= 768) {
-        setLimitedNumberOfCards(inputData.slice(0, 8));
+        setCardsLimit(inputData.slice(0, 8));
       } else if (currentWidth < 768) {
-        setLimitedNumberOfCards(inputData.slice(0, 5));
+        setCardsLimit(inputData.slice(0, 5));
       }
     }
   }, [inputData, currentWidth]);
@@ -59,5 +59,11 @@ export function useLimitedRenderCards() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  return { limitedNumberOfCards, isNextPageBtn, handelAddNextCards, setInputData };
+  const resetCardList = useCallback(
+    (newData = []) => {
+      setCardsLimit(newData);
+    },[setCardsLimit]
+  );
+
+  return { cardsLimit, isNextPageBtn, handelAddNextCards, setInputData, resetCardList };
 }

@@ -11,7 +11,7 @@ import InfoToolTip from '../InfoToolTip/InfoToolTip';
 const foundMovies = getMovieSearchResultFromStorage();
 
 function Movies({ onSearchForm, dataMovies, onCardClick, onCardDelete, onCardLike, isPreload, infoToolTip, error }) {
-  const { limitedNumberOfCards, isNextPageBtn, handelAddNextCards, setInputData } = useLimitedRenderCards();
+  const { cardsLimit, isNextPageBtn, handelAddNextCards, setInputData, resetCardList } = useLimitedRenderCards();
 
   useEffect(() => {
     const data = dataMovies.length === 0 ? foundMovies?.movies : dataMovies;
@@ -26,15 +26,12 @@ function Movies({ onSearchForm, dataMovies, onCardClick, onCardDelete, onCardLik
       {infoToolTip.notFound && <InfoToolTip infoToolTip={infoToolTip} error={error} />}
       {error?.status && <InfoToolTip infoToolTip={infoToolTip} error={error} />}
 
-      {!isPreload && !infoToolTip.notFound && limitedNumberOfCards &&(
+      {!isPreload && !infoToolTip.notFound && cardsLimit && (
         <MoviesCardList
-          movies={limitedNumberOfCards}
+          movies={cardsLimit}
           onCardClick={onCardClick}
           onCardDelete={onCardDelete}
           onCardLike={onCardLike}
-          isPreload={isPreload}
-          infoToolTip={infoToolTip}
-          error={error}
         />
       )}
 
