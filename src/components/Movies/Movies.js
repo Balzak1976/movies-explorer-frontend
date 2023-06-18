@@ -13,6 +13,12 @@ const foundMovies = getMovieSearchResultFromStorage();
 function Movies({ onSearchForm, dataMovies, onCardClick, onCardDelete, onCardLike, isPreload, infoToolTip, error }) {
   const { cardsLimit, isNextPageBtn, handelAddNextCards, setInputData, resetCardList } = useLimitedRenderCards();
 
+  const handleSearchForm = (v) => {
+    onSearchForm(v);
+    // очищаем cardList, чтобы не мелькали старые карточки
+    resetCardList();
+  };
+
   useEffect(() => {
     const data = dataMovies.length === 0 ? foundMovies?.movies : dataMovies;
     setInputData(data);
@@ -20,7 +26,7 @@ function Movies({ onSearchForm, dataMovies, onCardClick, onCardDelete, onCardLik
 
   return (
     <div className="movies">
-      <SearchPanel onSearchForm={onSearchForm} searchData={foundMovies.searchData || {}} />
+      <SearchPanel onSearchForm={handleSearchForm} searchData={foundMovies.searchData || {}} />
 
       {isPreload && <Preloader />}
       {infoToolTip.notFound && <InfoToolTip infoToolTip={infoToolTip} error={error} />}
