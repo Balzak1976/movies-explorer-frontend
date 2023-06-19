@@ -1,18 +1,27 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { ValidationContext } from '../../contexts/ValidationContext';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 import FormWithInput from './FormWithInput/FormWithInput';
 import './UserForm.css';
+import { useContext, useEffect, useState } from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function UserForm({ config: { title, text, link, ...rest }, buttonSubmitState, onUserForm, info, userData }) {
-  const { values, handleChange, errors, isValid } = useFormAndValidation();
+function UserForm({ config: { title, text, link, ...rest }, buttonSubmitState, onUserForm, info }) {
+  const { values, handleChange, errors, isValid, resetForm, setValues } = useFormAndValidation();
+  const currentUser = useContext(CurrentUserContext);
+  const [userInfo, setUserInfo] = useState({});
 
   const onSubmit = (e) => {
     e.preventDefault();
 
     onUserForm(values);
   };
+
+  useEffect(() => {
+    setUserInfo({ ...info });
+    resetForm();
+    setValues({ name: currentUser.name, email: currentUser.email });
+  }, [currentUser, info]);
 
   return (
     <section className="user-form">
@@ -23,8 +32,7 @@ function UserForm({ config: { title, text, link, ...rest }, buttonSubmitState, o
           config={rest}
           onSubmit={onSubmit}
           buttonSubmitState={buttonSubmitState}
-          info={info}
-          userData={userData}
+          info={userInfo}
         />
       </ValidationContext.Provider>
 

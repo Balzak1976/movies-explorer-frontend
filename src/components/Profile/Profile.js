@@ -1,9 +1,11 @@
-import UserForm from '../UserForm/UserForm';
 import './Profile.css';
+import UserForm from '../UserForm/UserForm';
+import { useContext } from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 const PROFILE = {
   name: 'profile',
-  title: 'Привет, Виталий!',
+  title: '',
   link: null,
   btnTitleSaving: 'Редактировать...',
   btnTitle: 'Редактировать',
@@ -13,7 +15,6 @@ const PROFILE = {
       type: 'profile',
       name: 'name',
       title: 'Имя',
-      placeholder: 'Виталий',
       typeAttribute: 'text',
     },
     {
@@ -21,24 +22,30 @@ const PROFILE = {
       type: 'profile',
       name: 'email',
       title: 'E-mail',
-      placeholder: 'pochta@yandex.ru',
       typeAttribute: 'email',
     },
   ],
 };
-// userData={email} onSignOut={handleSignOut}
-function Profile({ onLogout, buttonSubmitState, onProfile, info, userData }) {
+
+function Profile({ buttonSubmitState, onUpdateUser, onLogout, info }) {
+  const currentUser = useContext(CurrentUserContext);
+
+  PROFILE.title = `Привет, ${currentUser.name}`;
+
   return (
     <div className="profile">
       <UserForm
         config={PROFILE}
         buttonSubmitState={buttonSubmitState}
-        onUserForm={onProfile}
+        onUserForm={onUpdateUser}
         info={info}
-        userData={userData}
       />
 
-      <button className="profile__logout" onClick={onLogout} type="button" aria-label="управление выходом из профиля">
+      <button
+        className="profile__logout"
+        onClick={onLogout}
+        type="button"
+        aria-label="управление выходом из профиля">
         Выйти из аккаунта
       </button>
     </div>

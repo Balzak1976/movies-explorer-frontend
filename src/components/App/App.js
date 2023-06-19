@@ -21,6 +21,7 @@ import {
 } from '../../utils/utils';
 import { MovieCard } from '../../utils/MovieCard';
 import { mainApi } from '../../utils/MainApi';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function App() {
   // ============================ STATES =======================================
@@ -28,18 +29,18 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isPreload, setIsPreload] = useState(false);
   const [infoToolTip, setInfoToolTip] = useState({});
-  const [error, setError] = useState({});
+  const [moviesError, setMoviesError] = useState({});
   const [dataMovies, setDataMovies] = useState([]);
   const [isBtnSubmitSaving, setBtnSubmitSaving] = useState(false);
-  const [email, setEmail] = useState({});
-  const [infoAuth, setInfoAuth] = useState({});
+  const [currentUser, setCurrentUser] = useState({});
+  const [userError, setUserError] = useState({});
 
   // ============================ MOVIES =======================================
 
   const handleSearchMovies = (submitted) => {
     setIsPreload(true);
     setInfoToolTip({ notFound: false });
-    setError({ status: null, message: null });
+    setMoviesError({ status: null, message: null });
 
     moviesApi
       .getAllMovies()
@@ -54,7 +55,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        setError({ ...error, status: err.status, message: true });
+        setMoviesError({ ...moviesError, status: err.status, message: true });
       })
       .finally(() => {
         setIsPreload(false);
@@ -92,13 +93,13 @@ function App() {
         console.log(err);
       }); */
   };
-  // ============================= AUTH =======================================
+  // ============================= USER =======================================
 
   const navigate = useNavigate();
 
   const handleRegister = (options) => {
     setBtnSubmitSaving(true);
-    setInfoAuth({ ...infoAuth, isError: false });
+    setUserError({ ...userError, isError: false });
 
     mainApi
       .register(options)
@@ -107,7 +108,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        setInfoAuth({ ...infoAuth, isError: true });
+        setUserError({ ...userError, isError: true });
       })
       .finally(() => {
         setBtnSubmitSaving(false);
@@ -116,7 +117,7 @@ function App() {
 
   const handleLogin = (options) => {
     setBtnSubmitSaving(true);
-    setInfoAuth({ ...infoAuth, isError: false });
+    setUserError({ ...userError, isError: false });
 
     return mainApi
       .authorize(options)
@@ -125,13 +126,11 @@ function App() {
           localStorage.setItem('jwt', data.token);
           setLoggedIn(true);
           navigate('/movies', { replace: true });
-          // очищаем форму в Login.js
-          return data;
         }
       })
       .catch((err) => {
         console.log(err);
-        setInfoAuth({ ...infoAuth, isError: true });
+        setUserError({ ...userError, isError: true });
       })
       .finally(() => {
         setBtnSubmitSaving(false);
@@ -143,7 +142,7 @@ function App() {
       .checkToken(jwt)
       .then((data) => {
         if (data) {
-          setEmail({ email: data.email });
+          setCurrentUser({ ...currentUser, name: data?.name, email: data?.email });
           setLoggedIn(true);
           navigate('/movies', { replace: true });
         }
@@ -155,6 +154,22 @@ function App() {
     localStorage.removeItem('jwt');
     navigate('/signin', { replace: true });
     setLoggedIn(false);
+  };
+
+  const handleUpdateUser = (options) => {
+    setBtnSubmitSaving(true);
+
+    mainApi.updateUser(options)
+      .then((res) => {
+        setCurrentUser(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        setUserError({ ...userError, isError: true });
+      })
+      .finally(() => {
+        setBtnSubmitSaving(false);
+      });
   };
 
   // ======================= Initial Profile, Cards ===========================
@@ -173,91 +188,94 @@ function App() {
     <div className="app">
       <div className="page">
         <Header loggedIn={loggedIn} />
-
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <PageWithFooter loggedIn={loggedIn}>
-                <Main />
-              </PageWithFooter>
-            }
-          />
-          <Route
-            path="/movies"
-            element={
-              <PageWithFooter
-                loggedIn={loggedIn}
-                isHidden={true}>
+        <CurrentUserContext.Provider value={currentUser}>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <PageWithFooter loggedIn={loggedIn}>
+                  <Main />
+                </PageWithFooter>
+              }
+            />
+            <Route
+              path="/movies"
+              element={
+                <PageWithFooter
+                  loggedIn={loggedIn}
+                  isHidden={true}>
+                  <ProtectedRouteElement
+                    component={Movies}
+                    onSearchForm={handleSearchMovies}
+                    dataMovies={dataMovies}
+                    onCardClick={handleCardClick}
+                    onCardDelete={handleCardDelete}
+                    onCardLike={handleCardLike}
+                    isPreload={isPreload}
+                    infoToolTip={infoToolTip}
+                    error={moviesError}
+                    loggedIn={loggedIn}
+                  />
+                </PageWithFooter>
+              }
+            />
+            <Route
+              path="/saved-movies"
+              element={
+                <PageWithFooter
+                  loggedIn={loggedIn}
+                  isHidden={true}>
+                  <ProtectedRouteElement
+                    component={SavedMovies}
+                    onSearchForm={handleSearchMovies}
+                    dataMovies={dataMovies}
+                    onCardClick={handleCardClick}
+                    onCardDelete={handleCardDelete}
+                    onCardLike={handleCardLike}
+                    loggedIn={loggedIn}
+                  />
+                </PageWithFooter>
+              }
+            />
+            <Route
+              path="/profile"
+              element={
                 <ProtectedRouteElement
-                  component={Movies}
-                  onSearchForm={handleSearchMovies}
-                  dataMovies={dataMovies}
-                  onCardClick={handleCardClick}
-                  onCardDelete={handleCardDelete}
-                  onCardLike={handleCardLike}
-                  isPreload={isPreload}
-                  infoToolTip={infoToolTip}
-                  error={error}
+                  component={Profile}
+                  buttonSubmitState={isBtnSubmitSaving}
+                  onUpdateUser={handleUpdateUser}
+                  onLogout={handleLogout}
+                  info={userError}
                   loggedIn={loggedIn}
                 />
-              </PageWithFooter>
-            }
-          />
-          <Route
-            path="/saved-movies"
-            element={
-              <PageWithFooter
-                loggedIn={loggedIn}
-                isHidden={true}>
-                <ProtectedRouteElement
-                  component={SavedMovies}
-                  onSearchForm={handleSearchMovies}
-                  dataMovies={dataMovies}
-                  onCardClick={handleCardClick}
-                  onCardDelete={handleCardDelete}
-                  onCardLike={handleCardLike}
-                  loggedIn={loggedIn}
+              }
+            />
+            <Route
+              path="/signin"
+              element={
+                <Login
+                  buttonSubmitState={isBtnSubmitSaving}
+                  onLogin={handleLogin}
+                  info={userError}
                 />
-              </PageWithFooter>
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRouteElement
-                component={Profile}
-                loggedIn={loggedIn}
-                userData={email}
-                onLogout={handleLogout}
-              />
-            }
-          />
-          <Route
-            path="/signin"
-            element={
-              <Login
-                buttonSubmitState={isBtnSubmitSaving}
-                onLogin={handleLogin}
-                info={infoAuth}
-              />
-            }
-          />
-          <Route
-            path="/signup"
-            element={
-              <Register
-                buttonSubmitState={isBtnSubmitSaving}
-                onRegister={handleRegister}
-                info={infoAuth}
-              />
-            }
-          />
-          <Route
-            path="*"
-            element={<PageNotFound />}
-          />
-        </Routes>
+              }
+            />
+            <Route
+              path="/signup"
+              element={
+                <Register
+                  buttonSubmitState={isBtnSubmitSaving}
+                  onRegister={handleRegister}
+                  info={userError}
+                />
+              }
+            />
+            <Route
+              path="*"
+              element={<PageNotFound />}
+            />
+          </Routes>
+        </CurrentUserContext.Provider>
       </div>
     </div>
   );
