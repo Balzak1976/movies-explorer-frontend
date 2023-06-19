@@ -37,6 +37,7 @@ const REGISTER = {
 };
 
 function Register({ buttonSubmitState, onRegister, info }) {
+  
   return (
     <div className="register">
       <Logo />

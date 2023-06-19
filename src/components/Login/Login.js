@@ -29,12 +29,17 @@ const LOGIN = {
   ],
 };
 
-function Login({ buttonSubmitState, onLogin, info }) {
+function Login({ buttonSubmitState, onLogin, info  }) {
   return (
     <div className="login">
       <Logo />
-      
-      <UserForm config={LOGIN} buttonSubmitState={buttonSubmitState} onUserForm={onLogin} info={info}/>
+
+      <UserForm
+        config={LOGIN}
+        buttonSubmitState={buttonSubmitState}
+        onUserForm={onLogin}
+        info={info}
+      />
     </div>
   );
 }

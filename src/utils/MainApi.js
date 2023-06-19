@@ -1,56 +1,39 @@
-const BASE_URL = 'https://api.skor.nomoredomains.monster';
-
+// const BASE_URL = 'https://api.skor.nomoredomains.monster';
+const BASE_URL = 'http://localhost:3000';
 
 class MainApi {
   constructor(params) {
     this._baseUrl = params.baseUrl;
   }
 
-  createQueueFetch() {
-    return Promise.all([this.getUserInfo(), this.getInitialCards()]);
+  register(options) {
+    return this._request('/signup', 'POST', options);
   }
 
-  getUserInfo() {
-    const url = `${this._baseUrl}users/me`;
-
-    return this._createFetch(url, 'GET');
+  authorize(options) {
+    return this._request('/signin', 'POST', options);
   }
 
-  setUserAvatar(dataAvatar) {
-    const url = `${this._baseUrl}users/me/avatar`;
-
-    return this._createFetch(url, 'PATCH', dataAvatar);
+  checkToken(token) {
+    return this._request('/users/me', 'GET', { token });
   }
 
-  setUserInfo(dataUser) {
-    const url = `${this._baseUrl}users/me`;
+  _request(url, typeMethod, { token, ...options }) {
+    return fetch(this._baseUrl + url, {
+      method: typeMethod,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: typeMethod === 'GET' ? null : JSON.stringify(options),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
 
-    return this._createFetch(url, 'PATCH', dataUser);
-  }
-
-  getInitialCards() {
-    const url = `${this._baseUrl}cards`;
-
-    return this._createFetch(url, 'GET');
-  }
-
-  addPlace(dataCards) {
-    const url = `${this._baseUrl}cards`;
-
-    return this._createFetch(url, 'POST', dataCards);
-  }
-
-  deleteCard(dataCardId) {
-    const url = `${this._baseUrl}cards/${dataCardId}`;
-
-    return this._createFetch(url, 'DELETE');
-  }
-
-  changeLikeCardStatus(cardId, isLiked) {
-    const url = `${this._baseUrl}cards/${cardId}/likes`;
-    const typeMethod = isLiked ? 'DELETE' : 'PUT';
-
-    return this._createFetch(url, typeMethod);
+      return Promise.reject(`Ошибка: ${res.status}`);
+    });
   }
 
   _createFetch(url, typeMethod, dataBody) {
@@ -73,4 +56,4 @@ class MainApi {
   }
 }
 
-export const mainApi = new MainApi({baseUrl: BASE_URL});
+export const mainApi = new MainApi({ baseUrl: BASE_URL });

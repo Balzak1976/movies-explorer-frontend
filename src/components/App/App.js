@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import { useState, useEffect } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -20,15 +20,19 @@ import {
   getAllMoviesFromStorage,
 } from '../../utils/utils';
 import { MovieCard } from '../../utils/MovieCard';
+import { mainApi } from '../../utils/MainApi';
 
 function App() {
   // ============================ STATES =======================================
   // const [infoToolTip, setInfoToolTip] = useState({});
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [isPreload, setIsPreload] = useState(false);
   const [infoToolTip, setInfoToolTip] = useState({});
   const [error, setError] = useState({});
   const [dataMovies, setDataMovies] = useState([]);
+  const [isBtnSubmitSaving, setBtnSubmitSaving] = useState(false);
+  const [email, setEmail] = useState({});
+  const [infoAuth, setInfoAuth] = useState({});
 
   // ============================ MOVIES =======================================
 
@@ -46,11 +50,11 @@ function App() {
         addMovieSearchResultToStorage(submitted, moviesCard); // добавляем результаты поиска фильмов в хранилище
 
         setDataMovies([...filtered]);
-        setInfoToolTip({ notFound: moviesCard.length === 0 });
+        setInfoToolTip({ ...infoToolTip, notFound: moviesCard.length === 0 });
       })
       .catch((err) => {
         console.log(err);
-        setError({ status: err.status, message: true });
+        setError({ ...error, status: err.status, message: true });
       })
       .finally(() => {
         setIsPreload(false);
@@ -88,14 +92,78 @@ function App() {
         console.log(err);
       }); */
   };
+  // ============================= AUTH =======================================
+
+  const navigate = useNavigate();
+
+  const handleRegister = (options) => {
+    setBtnSubmitSaving(true);
+    setInfoAuth({ ...infoAuth, isError: false });
+
+    mainApi
+      .register(options)
+      .then(() => {
+        navigate('/movies', { replace: true });
+      })
+      .catch((err) => {
+        console.log(err);
+        setInfoAuth({ ...infoAuth, isError: true });
+      })
+      .finally(() => {
+        setBtnSubmitSaving(false);
+      });
+  };
+
+  const handleLogin = (options) => {
+    setBtnSubmitSaving(true);
+    setInfoAuth({ ...infoAuth, isError: false });
+
+    return mainApi
+      .authorize(options)
+      .then((data) => {
+        if (data?.token) {
+          localStorage.setItem('jwt', data.token);
+          setLoggedIn(true);
+          navigate('/movies', { replace: true });
+          // очищаем форму в Login.js
+          return data;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setInfoAuth({ ...infoAuth, isError: true });
+      })
+      .finally(() => {
+        setBtnSubmitSaving(false);
+      });
+  };
+
+  const handleTokenCheck = (jwt) => {
+    mainApi
+      .checkToken(jwt)
+      .then((data) => {
+        if (data) {
+          setEmail({ email: data.email });
+          setLoggedIn(true);
+          navigate('/movies', { replace: true });
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('jwt');
+    navigate('/signin', { replace: true });
+    setLoggedIn(false);
+  };
 
   // ======================= Initial Profile, Cards ===========================
 
   useEffect(() => {
-    const jwt = true;
+    const jwt = localStorage.getItem('jwt');
 
     if (jwt) {
-      // movieApi
+      handleTokenCheck(jwt);
     }
   }, [loggedIn]);
 
@@ -118,7 +186,9 @@ function App() {
           <Route
             path="/movies"
             element={
-              <PageWithFooter loggedIn={loggedIn} isHidden={true}>
+              <PageWithFooter
+                loggedIn={loggedIn}
+                isHidden={true}>
                 <ProtectedRouteElement
                   component={Movies}
                   onSearchForm={handleSearchMovies}
@@ -137,7 +207,9 @@ function App() {
           <Route
             path="/saved-movies"
             element={
-              <PageWithFooter loggedIn={loggedIn} isHidden={true}>
+              <PageWithFooter
+                loggedIn={loggedIn}
+                isHidden={true}>
                 <ProtectedRouteElement
                   component={SavedMovies}
                   onSearchForm={handleSearchMovies}
@@ -150,14 +222,24 @@ function App() {
               </PageWithFooter>
             }
           />
-          <Route path="/profile" element={<ProtectedRouteElement component={Profile} loggedIn={loggedIn} />} />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRouteElement
+                component={Profile}
+                loggedIn={loggedIn}
+                userData={email}
+                onLogout={handleLogout}
+              />
+            }
+          />
           <Route
             path="/signin"
             element={
               <Login
-              // buttonSubmitState={isBtnSubmitSaving}
-              // onLogin={handleLogin}
-              // info={infoToolTip}
+                buttonSubmitState={isBtnSubmitSaving}
+                onLogin={handleLogin}
+                info={infoAuth}
               />
             }
           />
@@ -165,13 +247,16 @@ function App() {
             path="/signup"
             element={
               <Register
-              // buttonSubmitState={isBtnSubmitSaving}
-              // onRegister={handleRegister}
-              // info={infoToolTip}
+                buttonSubmitState={isBtnSubmitSaving}
+                onRegister={handleRegister}
+                info={infoAuth}
               />
             }
           />
-          <Route path="*" element={<PageNotFound />} />
+          <Route
+            path="*"
+            element={<PageNotFound />}
+          />
         </Routes>
       </div>
     </div>

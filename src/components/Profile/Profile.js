@@ -26,18 +26,21 @@ const PROFILE = {
     },
   ],
 };
-
-function Profile({onLogout, buttonSubmitState, onProfile, info }) {
+// userData={email} onSignOut={handleSignOut}
+function Profile({ onLogout, buttonSubmitState, onProfile, info, userData }) {
   return (
     <div className="profile">
-      <UserForm config={PROFILE} buttonSubmitState={buttonSubmitState} onUserForm={onProfile} info={info} />
-      
-      <button
-        className='profile__logout'
-        onClick={onLogout}
-        type="button"
-        aria-label="управление выходом из профиля"
-      >Выйти из аккаунта</button>
+      <UserForm
+        config={PROFILE}
+        buttonSubmitState={buttonSubmitState}
+        onUserForm={onProfile}
+        info={info}
+        userData={userData}
+      />
+
+      <button className="profile__logout" onClick={onLogout} type="button" aria-label="управление выходом из профиля">
+        Выйти из аккаунта
+      </button>
     </div>
   );
 }

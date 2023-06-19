@@ -1,12 +1,19 @@
 import './FormWithInput.css';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ValidationContext } from '../../../contexts/ValidationContext';
 import Input from '../Input/Input';
 
-function FormWithInput({ config, onSubmit, buttonSubmitState, info = true }) {
+function FormWithInput({ config, onSubmit, buttonSubmitState, info, userData }) {
+  const [infoAuth, setInfoAuth] = useState({})
+  console.log('infoAuth: ', infoAuth);
   const validation = useContext(ValidationContext);
 
   const [isValid, values, handleChange, errors] = validation;
+  
+  useEffect(() => {
+    setInfoAuth({...info})
+  }, [info])
+  
 
   return (
     <form className={`form form_type_${config.name}`} name={config.name} onSubmit={onSubmit} noValidate>
@@ -19,12 +26,13 @@ function FormWithInput({ config, onSubmit, buttonSubmitState, info = true }) {
               value={values[input.name]}
               onChange={handleChange}
               error={errors[input.name]}
+              userData={userData}
             />
           ))}
         </fieldset>
       )}
 
-      <div className={`form__info form__info_type_${config.name} ${info && 'form__info_active'}`}>
+      <div className={`form__info form__info_type_${config.name} ${infoAuth?.isError && 'form__info_active'}`}>
         {'Что-то пошло не так...'}
       </div>
 
