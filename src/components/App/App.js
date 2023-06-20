@@ -31,6 +31,7 @@ function App() {
   const [infoToolTip, setInfoToolTip] = useState({});
   const [moviesError, setMoviesError] = useState({});
   const [dataMovies, setDataMovies] = useState([]);
+  const [userMovies, setUserMovies] = useState([]);
   const [isBtnSubmitSaving, setBtnSubmitSaving] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [userError, setUserError] = useState({});
@@ -59,6 +60,19 @@ function App() {
       })
       .finally(() => {
         setIsPreload(false);
+      });
+  };
+
+  const handleGetUserMovies = () => {
+    mainApi
+      .getMovies()
+      .then((res) => { 
+        console.log('res: ', res);
+
+        setUserMovies(res)
+       })
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -159,7 +173,8 @@ function App() {
   const handleUpdateUser = (options) => {
     setBtnSubmitSaving(true);
 
-    mainApi.updateUser(options)
+    mainApi
+      .updateUser(options)
       .then((res) => {
         setCurrentUser(res);
       })
@@ -179,6 +194,7 @@ function App() {
 
     if (jwt) {
       handleTokenCheck(jwt);
+      handleGetUserMovies();
     }
   }, [loggedIn]);
 
@@ -226,12 +242,15 @@ function App() {
                   loggedIn={loggedIn}
                   isHidden={true}>
                   <ProtectedRouteElement
-                    component={SavedMovies}
+                    component={Movies}
                     onSearchForm={handleSearchMovies}
-                    dataMovies={dataMovies}
+                    dataMovies={userMovies}
                     onCardClick={handleCardClick}
                     onCardDelete={handleCardDelete}
                     onCardLike={handleCardLike}
+                    isPreload={isPreload}
+                    infoToolTip={infoToolTip}
+                    error={moviesError}
                     loggedIn={loggedIn}
                   />
                 </PageWithFooter>

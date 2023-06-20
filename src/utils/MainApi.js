@@ -24,6 +24,28 @@ class MainApi {
     return this._request('/users/me', 'GET', { token });
   }
 
+  getMovies(options) {
+    const token = localStorage.getItem('jwt');
+
+    return this._request('/movies', 'GET', { token, ...options });
+  }
+
+  saveMovie(options) {
+    const token = localStorage.getItem('jwt');
+
+    return this._request('/movies', 'POST', { token, ...options });
+  }
+
+  deleteMovie(options) {
+    const token = localStorage.getItem('jwt');
+
+    return this._request(`/movies/${options.id}`, 'DELETE', { token, ...options });
+  }
+
+  _getToken =() => {
+  return localStorage.getItem('jwt');
+}
+
   _request(url, typeMethod, { token, ...options }) {
     return fetch(this._baseUrl + url, {
       method: typeMethod,
