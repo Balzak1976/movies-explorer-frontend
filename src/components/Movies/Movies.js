@@ -4,11 +4,11 @@ import { useLimitedRenderCards } from '../../hooks/useLimitedRenderCards';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import Pagination from './Pagination/Pagination';
 import SearchPanel from './SearchPanel/SearchPanel';
-import { getMovieSearchResultFromStorage } from '../../utils/utils';
+// import { getMovieSearchResultFromStorage } from '../../utils/utils';
 import Preloader from '../Preloader/Preloader';
 import InfoToolTip from '../InfoToolTip/InfoToolTip';
 
-const foundMovies = getMovieSearchResultFromStorage();
+// const foundMovies = getMovieSearchResultFromStorage();
 
 function Movies({ onSearchForm, dataMovies, onCardClick, onCardDelete, onCardLike, isPreload, infoToolTip, error }) {
   const { cardsLimit, isNextPageBtn, handelAddNextCards, setInputData, resetCardList } = useLimitedRenderCards();
@@ -20,13 +20,12 @@ function Movies({ onSearchForm, dataMovies, onCardClick, onCardDelete, onCardLik
   };
 
   useEffect(() => {
-    const data = dataMovies.length === 0 ? foundMovies?.movies : dataMovies;
-    setInputData(data);
-  }, [dataMovies, foundMovies]);
+    setInputData(dataMovies);
+  }, [dataMovies]);
 
   return (
     <div className="movies">
-      <SearchPanel onSearchForm={handleSearchForm} searchData={foundMovies.searchData || {}} />
+      <SearchPanel onSearchForm={handleSearchForm} searchData={{}} />
 
       {isPreload && <Preloader />}
       {infoToolTip.notFound && <InfoToolTip infoToolTip={infoToolTip} error={error} />}

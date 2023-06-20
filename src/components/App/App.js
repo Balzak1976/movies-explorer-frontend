@@ -18,8 +18,9 @@ import {
   addMovieSearchResultToStorage,
   filterMovies,
   getAllMoviesFromStorage,
+  getMovieSearchResultFromStorage,
+  mergeWithUniqueMovieId,
 } from '../../utils/utils';
-import { MovieCard } from '../../utils/MovieCard';
 import { mainApi } from '../../utils/MainApi';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
@@ -47,7 +48,8 @@ function App() {
       .getAllMovies()
       .then(addAllMoviesToStorage)
       .then(() => {
-        const filtered = filterMovies(submitted.savedReq, [...getAllMoviesFromStorage()]);
+        const result = mergeWithUniqueMovieId(getAllMoviesFromStorage(), userMovies);
+        const filtered = filterMovies(submitted.savedReq, result);
         addMovieSearchResultToStorage(submitted, filtered);
 
         setMovies([...filtered]);
@@ -65,26 +67,25 @@ function App() {
   const handleGetUserMovies = () => {
     mainApi
       .getMovies()
-      .then((res) => { 
-        setUserMovies(res)
-       })
+      .then((res) => {
+        setUserMovies(res);
+      })
       .catch((err) => {
         console.log(err);
       });
   };
 
   const handleCardLike = (movie) => {
-    console.log('movie: ', movie);
-    mainApi.saveMovie(movie)
-      .then((newCard) => {
-        setUserMovies([...userMovies, {...newCard, isLiked: true}]);
+    mainApi
+      .saveMovie(movie)
+      .then((newMovies) => {
+        setUserMovies([...userMovies, ...newMovies]);
       })
       .catch((err) => {
         console.log(err);
       });
-    };
-    
-    console.log('userMovies: ', userMovies);
+  };
+
   const handleCardClick = (e) => {
     /* setSelectedCard({ cardLink: e.target.src, cardTitle: e.target.alt });
     setImagePopupOpen(true); */
@@ -107,7 +108,6 @@ function App() {
       }); */
   };
 
-  
   // ============================= USER =======================================
 
   const navigate = useNavigate();
@@ -192,10 +192,12 @@ function App() {
 
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
+    // const foundMovies = getMovieSearchResultFromStorage();
 
     if (jwt) {
       handleTokenCheck(jwt);
       handleGetUserMovies();
+      // setMovies([...foundMovies]);
     }
   }, [loggedIn]);
 
@@ -218,9 +220,7 @@ function App() {
             <Route
               path="/movies"
               element={
-                <PageWithFooter
-                  loggedIn={loggedIn}
-                  isHidden={true}>
+                <PageWithFooter loggedIn={loggedIn} isHidden={true}>
                   <ProtectedRouteElement
                     component={Movies}
                     onSearchForm={handleSearchMovies}
@@ -239,9 +239,7 @@ function App() {
             <Route
               path="/saved-movies"
               element={
-                <PageWithFooter
-                  loggedIn={loggedIn}
-                  isHidden={true}>
+                <PageWithFooter loggedIn={loggedIn} isHidden={true}>
                   <ProtectedRouteElement
                     component={SavedMovies}
                     onSearchForm={handleSearchMovies}
@@ -272,28 +270,13 @@ function App() {
             />
             <Route
               path="/signin"
-              element={
-                <Login
-                  buttonSubmitState={isBtnSubmitSaving}
-                  onLogin={handleLogin}
-                  info={userError}
-                />
-              }
+              element={<Login buttonSubmitState={isBtnSubmitSaving} onLogin={handleLogin} info={userError} />}
             />
             <Route
               path="/signup"
-              element={
-                <Register
-                  buttonSubmitState={isBtnSubmitSaving}
-                  onRegister={handleRegister}
-                  info={userError}
-                />
-              }
+              element={<Register buttonSubmitState={isBtnSubmitSaving} onRegister={handleRegister} info={userError} />}
             />
-            <Route
-              path="*"
-              element={<PageNotFound />}
-            />
+            <Route path="*" element={<PageNotFound />} />
           </Routes>
         </CurrentUserContext.Provider>
       </div>

@@ -14,7 +14,6 @@ const addAllMoviesToStorage = (res) => {
       movieId: v?.id,
       nameRU: v?.nameRU,
       nameEN: v?.nameEN,
-      isLiked: false,
     };
   });
 
@@ -23,7 +22,9 @@ const addAllMoviesToStorage = (res) => {
 
 const getAllMoviesFromStorage = () => JSON.parse(localStorage.getItem('allMovies'));
 
-const filterMovies = (req, movies) => movies.filter((movie) => movie.nameRU.toLowerCase().includes(req.toLowerCase()));
+const filterMovies = (req, movies) => {
+  return movies.filter((movie) => movie.nameRU.toLowerCase().includes(req.toLowerCase()));
+};
 
 const addMovieSearchResultToStorage = (searchData, movies) => {
   localStorage.setItem('foundMovies', JSON.stringify({ searchData, movies }));
@@ -31,10 +32,21 @@ const addMovieSearchResultToStorage = (searchData, movies) => {
 
 const getMovieSearchResultFromStorage = () => JSON.parse(localStorage.getItem('foundMovies')) || {};
 
+const mergeWithUniqueMovieId = (biggerArr, lowerArr) => {
+  return biggerArr.map((movie) => {
+    const userMovie = lowerArr.find((userMovie) => {
+      return movie.movieId === userMovie.movieId;
+    });
+
+    return userMovie ? userMovie : movie;
+  });
+};
+
 export {
   addAllMoviesToStorage,
   getAllMoviesFromStorage,
   filterMovies,
   addMovieSearchResultToStorage,
   getMovieSearchResultFromStorage,
+  mergeWithUniqueMovieId,
 };
