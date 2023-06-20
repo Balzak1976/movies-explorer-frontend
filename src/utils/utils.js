@@ -3,11 +3,18 @@ const addAllMoviesToStorage = (res) => {
   res.splice(30);
   const movies = res.map((v) => {
     return {
-      id: v?.id,
-      name: v?.nameRU,
-      link: url + v?.image?.url,
-      trailerLink: v?.trailerLink,
+      country: v?.country,
+      director: v?.director,
       duration: v?.duration,
+      year: v?.year,
+      description: v?.description,
+      image: url + v?.image?.url,
+      trailerLink: v?.trailerLink,
+      thumbnail: url + v?.image?.formats?.thumbnail?.url,
+      movieId: v?.id,
+      nameRU: v?.nameRU,
+      nameEN: v?.nameEN,
+      isLiked: false,
     };
   });
 
@@ -16,7 +23,7 @@ const addAllMoviesToStorage = (res) => {
 
 const getAllMoviesFromStorage = () => JSON.parse(localStorage.getItem('allMovies'));
 
-const filterMovies = (req, movies) => movies.filter((movie) => movie.name.toLowerCase().includes(req.toLowerCase()));
+const filterMovies = (req, movies) => movies.filter((movie) => movie.nameRU.toLowerCase().includes(req.toLowerCase()));
 
 const addMovieSearchResultToStorage = (searchData, movies) => {
   localStorage.setItem('foundMovies', JSON.stringify({ searchData, movies }));

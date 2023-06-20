@@ -30,7 +30,7 @@ function App() {
   const [isPreload, setIsPreload] = useState(false);
   const [infoToolTip, setInfoToolTip] = useState({});
   const [moviesError, setMoviesError] = useState({});
-  const [dataMovies, setDataMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [userMovies, setUserMovies] = useState([]);
   const [isBtnSubmitSaving, setBtnSubmitSaving] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
@@ -48,11 +48,10 @@ function App() {
       .then(addAllMoviesToStorage)
       .then(() => {
         const filtered = filterMovies(submitted.savedReq, [...getAllMoviesFromStorage()]);
-        const moviesCard = filtered.map((v) => new MovieCard(v)); // добавляем методы работы с карточкой
-        addMovieSearchResultToStorage(submitted, moviesCard); // добавляем результаты поиска фильмов в хранилище
+        addMovieSearchResultToStorage(submitted, filtered);
 
-        setDataMovies([...filtered]);
-        setInfoToolTip({ ...infoToolTip, notFound: moviesCard.length === 0 });
+        setMovies([...filtered]);
+        setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
       })
       .catch((err) => {
         console.log(err);
@@ -67,8 +66,6 @@ function App() {
     mainApi
       .getMovies()
       .then((res) => { 
-        console.log('res: ', res);
-
         setUserMovies(res)
        })
       .catch((err) => {
@@ -76,6 +73,18 @@ function App() {
       });
   };
 
+  const handleCardLike = (movie) => {
+    console.log('movie: ', movie);
+    mainApi.saveMovie(movie)
+      .then((newCard) => {
+        setUserMovies([...userMovies, {...newCard, isLiked: true}]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    };
+    
+    console.log('userMovies: ', userMovies);
   const handleCardClick = (e) => {
     /* setSelectedCard({ cardLink: e.target.src, cardTitle: e.target.alt });
     setImagePopupOpen(true); */
@@ -98,15 +107,7 @@ function App() {
       }); */
   };
 
-  const handleCardLike = ({ cardId, isLiked }) => {
-    /* api.changeLikeCardStatus(cardId, isLiked)
-      .then((newCard) => {
-        setCards((state) => state.map((c) => (c._id === cardId ? newCard : c)));
-      })
-      .catch((err) => {
-        console.log(err);
-      }); */
-  };
+  
   // ============================= USER =======================================
 
   const navigate = useNavigate();
@@ -223,7 +224,7 @@ function App() {
                   <ProtectedRouteElement
                     component={Movies}
                     onSearchForm={handleSearchMovies}
-                    dataMovies={dataMovies}
+                    dataMovies={movies}
                     onCardClick={handleCardClick}
                     onCardDelete={handleCardDelete}
                     onCardLike={handleCardLike}
@@ -242,7 +243,7 @@ function App() {
                   loggedIn={loggedIn}
                   isHidden={true}>
                   <ProtectedRouteElement
-                    component={Movies}
+                    component={SavedMovies}
                     onSearchForm={handleSearchMovies}
                     dataMovies={userMovies}
                     onCardClick={handleCardClick}

@@ -6,45 +6,47 @@ class MainApi {
     this._baseUrl = params.baseUrl;
   }
 
-  register(options) {
-    return this._request('/signup', 'POST', options);
+  register(newUser) {
+    return this._request('/signup', 'POST', newUser);
   }
 
-  authorize(options) {
-    return this._request('/signin', 'POST', options);
+  authorize(user) {
+    return this._request('/signin', 'POST', user);
   }
 
-  updateUser(options) {
+  updateUser(user) {
     const token = localStorage.getItem('jwt');
 
-    return this._request('/users/me', 'PATCH', { token, ...options });
+    return this._request('/users/me', 'PATCH', { token, ...user });
   }
 
   checkToken(token) {
     return this._request('/users/me', 'GET', { token });
   }
 
-  getMovies(options) {
+  getMovies(movies) {
     const token = localStorage.getItem('jwt');
 
-    return this._request('/movies', 'GET', { token, ...options });
+    return this._request('/movies', 'GET', { token, ...movies });
   }
 
-  saveMovie(options) {
+  saveMovie(movie) {
+    const token = localStorage.getItem('jwt');
+    delete movie.isLiked;
+    return this._request('/movies', 'POST', { token, ...movie });
+  }
+
+  deleteMovie(movie) {
     const token = localStorage.getItem('jwt');
 
-    return this._request('/movies', 'POST', { token, ...options });
+    return this._request(`/movies/${movie.id}`, 'DELETE', { token, ...movie });
   }
 
-  deleteMovie(options) {
-    const token = localStorage.getItem('jwt');
+  // changeStatusOfLikeCard() { };
 
-    return this._request(`/movies/${options.id}`, 'DELETE', { token, ...options });
-  }
-
-  _getToken =() => {
-  return localStorage.getItem('jwt');
-}
+  _getToken = () => {
+    return localStorage.getItem('jwt');
+  };
 
   _request(url, typeMethod, { token, ...options }) {
     return fetch(this._baseUrl + url, {
