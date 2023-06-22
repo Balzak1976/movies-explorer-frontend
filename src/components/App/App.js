@@ -32,7 +32,6 @@ function App() {
   const [moviesError, setMoviesError] = useState({});
   const [movies, setMovies] = useState([]);
   const [userMovies, setUserMovies] = useState([]);
-  console.dir(userMovies);
   const [isBtnSubmitSaving, setBtnSubmitSaving] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [userError, setUserError] = useState({});
