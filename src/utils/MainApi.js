@@ -39,10 +39,20 @@ class MainApi {
   deleteMovie(movie) {
     const token = localStorage.getItem('jwt');
 
-    return this._request(`/movies/${movie.id}`, 'DELETE', { token, ...movie });
+    return this._request(`/movies/${movie._id}`, 'DELETE', { token, ...movie });
   }
+  
+  /* saveDeleteMovie(movie) { 
+    const token = localStorage.getItem('jwt');
 
-  // changeStatusOfLikeCard() { };
+    if (movie.isLiked === true) {
+      delete movie.isLiked;
+      return this._request('/movies', 'POST', { token, ...movie });
+    } else {
+      delete movie.isLiked;
+      return this._request(`/movies/${movie.movieId}`, 'DELETE', { token, ...movie });
+    }
+   }; */
 
   _getToken = () => {
     return localStorage.getItem('jwt');

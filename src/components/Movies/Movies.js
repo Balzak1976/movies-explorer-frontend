@@ -10,7 +10,17 @@ import InfoToolTip from '../InfoToolTip/InfoToolTip';
 
 // const foundMovies = getMovieSearchResultFromStorage();
 
-function Movies({ onSearchForm, dataMovies, onCardClick, onCardDelete, onCardLike, isPreload, infoToolTip, error }) {
+function Movies({
+  onSearchForm,
+  dataMovies,
+  onCardClick,
+  onCardDelete,
+  onCardLike,
+  isPreload,
+  infoToolTip,
+  error,
+  isSavedMovies = false,
+}) {
   const { cardsLimit, isNextPageBtn, handelAddNextCards, setInputData, resetCardList } = useLimitedRenderCards();
 
   const handleSearchForm = (v) => {
@@ -37,6 +47,7 @@ function Movies({ onSearchForm, dataMovies, onCardClick, onCardDelete, onCardLik
           onCardClick={onCardClick}
           onCardDelete={onCardDelete}
           onCardLike={onCardLike}
+          isSavedMovies={isSavedMovies}
         />
       )}
 

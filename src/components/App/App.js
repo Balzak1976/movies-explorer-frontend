@@ -1,28 +1,27 @@
-import './App.css';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
+import './App.css';
 
-import Header from '../Header/Header';
-import Main from '../Main/Main';
-import Movies from '../Movies/Movies';
-import SavedMovies from '../SavedMovies/SavedMovies';
-import PageWithFooter from '../PageWithFooter/PageWithFooter';
-import Profile from '../Profile/Profile';
-import Login from '../Login/Login';
-import Register from '../Register/Register';
-import ProtectedRouteElement from '../parts/ProtectedRoute';
-import PageNotFound from '../PageNotFound/PageNotFound';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { mainApi } from '../../utils/MainApi';
 import { moviesApi } from '../../utils/MoviesApi';
 import {
   addAllMoviesToStorage,
   addMovieSearchResultToStorage,
   filterMovies,
   getAllMoviesFromStorage,
-  getMovieSearchResultFromStorage,
   mergeWithUniqueMovieId,
 } from '../../utils/utils';
-import { mainApi } from '../../utils/MainApi';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import Header from '../Header/Header';
+import Login from '../Login/Login';
+import Main from '../Main/Main';
+import Movies from '../Movies/Movies';
+import PageNotFound from '../PageNotFound/PageNotFound';
+import PageWithFooter from '../PageWithFooter/PageWithFooter';
+import Profile from '../Profile/Profile';
+import Register from '../Register/Register';
+import SavedMovies from '../SavedMovies/SavedMovies';
+import ProtectedRouteElement from '../parts/ProtectedRoute';
 
 function App() {
   // ============================ STATES =======================================
@@ -33,6 +32,7 @@ function App() {
   const [moviesError, setMoviesError] = useState({});
   const [movies, setMovies] = useState([]);
   const [userMovies, setUserMovies] = useState([]);
+  console.dir(userMovies);
   const [isBtnSubmitSaving, setBtnSubmitSaving] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [userError, setUserError] = useState({});
@@ -75,11 +75,23 @@ function App() {
       });
   };
 
-  const handleCardLike = (movie) => {
+  const handleCardLike = (movieData) => {
     mainApi
-      .saveMovie(movie)
-      .then((newMovies) => {
-        setUserMovies([...userMovies, ...newMovies]);
+      .saveMovie(movieData)
+      .then((newMovie) => {
+        setUserMovies([...userMovies, newMovie]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const handleCardDelete = (movieData) => {
+    const mongoId = movieData._id;
+    mainApi
+      .deleteMovie(movieData)
+      .then((res) => {
+        setUserMovies((state) => state.filter((c) => c._id !== mongoId));
       })
       .catch((err) => {
         console.log(err);
@@ -91,33 +103,16 @@ function App() {
     setImagePopupOpen(true); */
   };
 
-  const handleCardDelete = ({ cardId }) => {
-    /* setBtnSubmitSaving(true);
-
-    api.deleteCard(cardId)
-      .then(() => {
-        setCards((state) => state.filter((c) => c._id !== cardId));
-
-        closeAllPopups();
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setBtnSubmitSaving(false);
-      }); */
-  };
-
   // ============================= USER =======================================
 
   const navigate = useNavigate();
 
-  const handleRegister = (options) => {
+  const handleRegister = (userData) => {
     setBtnSubmitSaving(true);
     setUserError({ ...userError, isError: false });
 
     mainApi
-      .register(options)
+      .register(userData)
       .then(() => {
         navigate('/movies', { replace: true });
       })
@@ -130,12 +125,12 @@ function App() {
       });
   };
 
-  const handleLogin = (options) => {
+  const handleLogin = (userData) => {
     setBtnSubmitSaving(true);
     setUserError({ ...userError, isError: false });
 
     return mainApi
-      .authorize(options)
+      .authorize(userData)
       .then((data) => {
         if (data?.token) {
           localStorage.setItem('jwt', data.token);
@@ -171,11 +166,11 @@ function App() {
     setLoggedIn(false);
   };
 
-  const handleUpdateUser = (options) => {
+  const handleUpdateUser = (userData) => {
     setBtnSubmitSaving(true);
 
     mainApi
-      .updateUser(options)
+      .updateUser(userData)
       .then((res) => {
         setCurrentUser(res);
       })
