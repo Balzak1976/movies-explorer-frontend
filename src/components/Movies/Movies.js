@@ -18,7 +18,7 @@ function Movies({
   isSavedMovies = false,
 }) {
   const { cardsLimit, isNextPageBtn, handelAddNextCards, resetCardList } = useLimitedRenderCards(dataMovies);
-
+  
   const handleSearchForm = (v) => {
     onSearchForm(v);
     // очищаем cardList, чтобы не мелькали старые карточки

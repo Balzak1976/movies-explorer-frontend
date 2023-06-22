@@ -1,22 +1,4 @@
-const addAllMoviesToStorage = (res) => {
-  const url = 'https://api.nomoreparties.co';
-  res.splice(30);
-  const movies = res.map((v) => {
-    return {
-      country: v?.country,
-      director: v?.director,
-      duration: v?.duration,
-      year: v?.year,
-      description: v?.description,
-      image: url + v?.image?.url,
-      trailerLink: v?.trailerLink,
-      thumbnail: url + v?.image?.formats?.thumbnail?.url,
-      movieId: v?.id,
-      nameRU: v?.nameRU,
-      nameEN: v?.nameEN,
-    };
-  });
-
+const addAllMoviesToStorage = (movies) => {
   localStorage.setItem('allMovies', JSON.stringify(movies));
 };
 
@@ -34,11 +16,11 @@ const getMovieSearchResultFromStorage = () => JSON.parse(localStorage.getItem('f
 
 const mergeWithUniqueMovieId = (biggerArr, lowerArr) => {
   return biggerArr.map((movie) => {
-    const userMovie = lowerArr.find((userMovie) => {
-      return movie.movieId === userMovie.movieId;
+    const savedMovie = lowerArr.find((savedMovie) => {
+      return movie.movieId === savedMovie.movieId;
     });
 
-    return userMovie ? userMovie : movie;
+    return savedMovie ? savedMovie : movie;
   });
 };
 

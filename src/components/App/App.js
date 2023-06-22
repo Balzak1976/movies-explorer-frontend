@@ -25,13 +25,13 @@ import ProtectedRouteElement from '../parts/ProtectedRoute';
 
 function App() {
   // ============================ STATES =======================================
-  // const [infoToolTip, setInfoToolTip] = useState({});
+
   const [loggedIn, setLoggedIn] = useState(false);
   const [isPreload, setIsPreload] = useState(false);
   const [infoToolTip, setInfoToolTip] = useState({});
   const [moviesError, setMoviesError] = useState({});
   const [movies, setMovies] = useState([]);
-  const [userMovies, setUserMovies] = useState([]);
+  const [savedMovies, setSavedMovies] = useState([]);
   const [isBtnSubmitSaving, setBtnSubmitSaving] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [userError, setUserError] = useState({});
@@ -39,20 +39,52 @@ function App() {
   // ============================ MOVIES =======================================
 
   const handleSearchMovies = (submitted) => {
+    setInfoToolTip({ notFound: false });
+
+    const allMovies = null && getAllMoviesFromStorage();
+
+    if (allMovies) {
+      const result = mergeWithUniqueMovieId(allMovies, savedMovies);
+      const filtered = filterMovies(submitted.savedReq, result);
+      addMovieSearchResultToStorage(submitted, filtered);
+
+      setMovies([...filtered]);
+      setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
+    } else {
+      setIsPreload(true);
+      setMoviesError({ status: null, message: null });
+
+      moviesApi
+        .getAllMovies()
+        .then((allMovies) => {
+          const result = mergeWithUniqueMovieId(allMovies, savedMovies);
+          const filtered = filterMovies(submitted.savedReq, result);
+          
+          setMovies([...filtered]);
+          setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
+
+          addMovieSearchResultToStorage(submitted, filtered);
+          addAllMoviesToStorage(allMovies)
+        })
+        .catch((err) => {
+          console.log(err);
+          setMoviesError({ ...moviesError, status: err.status, message: true });
+        })
+        .finally(() => {
+          setIsPreload(false);
+        });
+    }
+  };
+
+  const handleGetSavedMovies = () => {
     setIsPreload(true);
     setInfoToolTip({ notFound: false });
     setMoviesError({ status: null, message: null });
 
-    moviesApi
-      .getAllMovies()
-      .then(addAllMoviesToStorage)
-      .then(() => {
-        const result = mergeWithUniqueMovieId(getAllMoviesFromStorage(), userMovies);
-        const filtered = filterMovies(submitted.savedReq, result);
-        addMovieSearchResultToStorage(submitted, filtered);
-
-        setMovies([...filtered]);
-        setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
+    mainApi
+      .getMovies()
+      .then((res) => {
+        setSavedMovies(res);
       })
       .catch((err) => {
         console.log(err);
@@ -63,22 +95,11 @@ function App() {
       });
   };
 
-  const handleGetUserMovies = () => {
-    mainApi
-      .getMovies()
-      .then((res) => {
-        setUserMovies(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
   const handleCardLike = (movieData) => {
     mainApi
       .saveMovie(movieData)
       .then((newMovie) => {
-        setUserMovies([...userMovies, newMovie]);
+        setSavedMovies([...savedMovies, newMovie]);
       })
       .catch((err) => {
         console.log(err);
@@ -90,7 +111,7 @@ function App() {
     mainApi
       .deleteMovie(movieData)
       .then((res) => {
-        setUserMovies((state) => state.filter((c) => c._id !== mongoId));
+        setSavedMovies((state) => state.filter((c) => c._id !== mongoId));
       })
       .catch((err) => {
         console.log(err);
@@ -182,7 +203,7 @@ function App() {
       });
   };
 
-  // ======================= Initial Profile, Cards ===========================
+  // ======================= Initial  ===========================
 
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
@@ -190,7 +211,7 @@ function App() {
 
     if (jwt) {
       handleTokenCheck(jwt);
-      handleGetUserMovies();
+      handleGetSavedMovies();
       // setMovies([...foundMovies]);
     }
   }, [loggedIn]);
@@ -237,7 +258,7 @@ function App() {
                   <ProtectedRouteElement
                     component={SavedMovies}
                     onSearchForm={handleSearchMovies}
-                    dataMovies={userMovies}
+                    dataMovies={savedMovies}
                     onCardClick={handleCardClick}
                     onCardDelete={handleCardDelete}
                     onCardLike={handleCardLike}
