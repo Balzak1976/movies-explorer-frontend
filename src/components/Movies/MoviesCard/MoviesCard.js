@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { CurrentUserContext } from '../../../contexts/CurrentUserContext';
 import { getFormattedDuration } from '../../../utils/movieCardUtils';
 
-function MoviesCard({ movie, onCardClick, onCardLike, onCardDelete, isSavedMovies }) {
+function MoviesCard({ movie, onCardLike, onCardDelete, isSavedMovies }) {
   const currentUser = useContext(CurrentUserContext);
 
   const isOwner = movie?.owner?.email === currentUser.email;
@@ -15,7 +15,7 @@ function MoviesCard({ movie, onCardClick, onCardLike, onCardDelete, isSavedMovie
   return (
     <article className="card">
       <a className="card__link" href={movie?.trailerLink} target="_blank" rel="noopener noreferrer">
-        <img className="card__img" src={movie?.image} alt={movie?.name} onClick={onCardClick} />
+        <img className="card__img" src={movie?.image} alt={movie?.name} />
       </a>
       <div className="card__body">
         <h2 className="card__title">{movie?.nameRU}</h2>

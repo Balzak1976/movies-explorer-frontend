@@ -1,7 +1,7 @@
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ movies, onCardClick, onCardDelete, onCardLike, isSavedMovies }) {
+function MoviesCardList({ movies, onCardDelete, onCardLike, isSavedMovies }) {
   return (
     <div className="cards">
       <ul className="cards__list reset-ul">
@@ -9,7 +9,6 @@ function MoviesCardList({ movies, onCardClick, onCardDelete, onCardLike, isSaved
           <li key={movie.movieId}>
             <MoviesCard
               movie={movie}
-              onCardClick={onCardClick}
               onCardDelete={onCardDelete}
               onCardLike={onCardLike}
               isSavedMovies={isSavedMovies}

@@ -134,11 +134,6 @@ function App() {
       });
   };
 
-  const handleCardClick = (e) => {
-    /* setSelectedCard({ cardLink: e.target.src, cardTitle: e.target.alt });
-    setImagePopupOpen(true); */
-  };
-
   // ============================= USER =======================================
 
   const navigate = useNavigate();
@@ -190,7 +185,6 @@ function App() {
         if (data) {
           setCurrentUser({ ...currentUser, name: data?.name, email: data?.email });
           setLoggedIn(true);
-          navigate('/movies', { replace: true });
         }
       })
       .catch((err) => console.log(err));
@@ -260,7 +254,6 @@ function App() {
                     onSearchForm={handleSearchMovies}
                     searchData={searchResult}
                     dataMovies={mixMoviesWithUniqueMovieId(movies, savedMovies)}
-                    onCardClick={handleCardClick}
                     onCardDelete={handleCardDelete}
                     onCardLike={handleCardLike}
                     isPreload={isPreload}
@@ -280,7 +273,6 @@ function App() {
                     onSearchForm={handleSearchMovies}
                     searchData={savedSearchResult}
                     dataMovies={savedMovies}
-                    onCardClick={handleCardClick}
                     onCardDelete={handleCardDelete}
                     onCardLike={handleCardLike}
                     isPreload={isPreload}

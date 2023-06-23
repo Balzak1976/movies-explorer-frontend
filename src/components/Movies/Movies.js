@@ -10,7 +10,6 @@ function Movies({
   onSearchForm,
   searchData,
   dataMovies,
-  onCardClick,
   onCardDelete,
   onCardLike,
   isPreload,
@@ -37,7 +36,6 @@ function Movies({
       {!isPreload && !infoToolTip.notFound && cardsLimit && (
         <MoviesCardList
           movies={cardsLimit}
-          onCardClick={onCardClick}
           onCardDelete={onCardDelete}
           onCardLike={onCardLike}
           isSavedMovies={isSavedMovies}
