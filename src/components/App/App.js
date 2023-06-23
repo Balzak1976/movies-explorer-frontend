@@ -145,7 +145,8 @@ function App() {
     mainApi
       .register(userData)
       .then(() => {
-        navigate('/movies', { replace: true });
+        delete userData.name
+        handleLogin(userData);
       })
       .catch((err) => {
         console.log(err);
