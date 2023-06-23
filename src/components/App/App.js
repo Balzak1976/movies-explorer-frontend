@@ -7,11 +7,11 @@ import { mainApi } from '../../utils/MainApi';
 import { moviesApi } from '../../utils/MoviesApi';
 import {
   addAllMoviesToStorage,
-  filterMovies,
   addMovieSearchResultToStorage,
   getMovieSearchResultFromStorage,
   mixMoviesWithUniqueMovieId,
 } from '../../utils/utils';
+import filterMovies from '../../utils/filterMovies';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
 import Main from '../Main/Main';
@@ -48,7 +48,7 @@ function App() {
     setInfoToolTip({ notFound: false });
 
     if (isSavedMovies === true) {
-      const filtered = filterMovies(submitted.savedReq, savedMovies);
+      const filtered = filterMovies(submitted, savedMovies);
 
       setSavedMovies([...filtered]);
       setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
@@ -66,7 +66,7 @@ function App() {
       moviesApi
         .getAllMovies()
         .then((allMovies) => {
-          const filtered = filterMovies(submitted.savedReq, allMovies);
+          const filtered = filterMovies(submitted, allMovies);
 
           setMovies([...filtered]);
           setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });

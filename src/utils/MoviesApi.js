@@ -22,7 +22,6 @@ class MoviesApi {
   }
 
   _formatData = (res) => {
-    res.splice(30);
     return res.map((v) => {
       return {
         country: v?.country,

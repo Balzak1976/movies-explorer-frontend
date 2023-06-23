@@ -4,12 +4,8 @@ const addAllMoviesToStorage = (movies) => {
 
 const getAllMoviesFromStorage = () => JSON.parse(localStorage.getItem('allMovies'));
 
-const filterMovies = (req, movies) => {
-  return movies.filter((movie) => movie.nameRU.toLowerCase().includes(req.toLowerCase()));
-};
-
-const addMovieSearchResultToStorage = ({searchData, movies, savedSearchData, savedMovies}) => {
-  localStorage.setItem('foundMovies', JSON.stringify({ searchData, movies, savedSearchData, savedMovies}));
+const addMovieSearchResultToStorage = ({ searchData, movies, savedSearchData, savedMovies }) => {
+  localStorage.setItem('foundMovies', JSON.stringify({ searchData, movies, savedSearchData, savedMovies }));
 };
 
 const getMovieSearchResultFromStorage = () => JSON.parse(localStorage.getItem('foundMovies')) || {};
@@ -27,7 +23,6 @@ const mixMoviesWithUniqueMovieId = (biggerArr, lowerArr) => {
 export {
   addAllMoviesToStorage,
   getAllMoviesFromStorage,
-  filterMovies,
   addMovieSearchResultToStorage,
   getMovieSearchResultFromStorage,
   mixMoviesWithUniqueMovieId,
