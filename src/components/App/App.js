@@ -1,6 +1,6 @@
+import './App.css';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import './App.css';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { mainApi } from '../../utils/MainApi';
@@ -10,7 +10,7 @@ import {
   addMovieSearchResultToStorage,
   filterMovies,
   getAllMoviesFromStorage,
-  mergeWithUniqueMovieId,
+  mixMoviesWithUniqueMovieId,
 } from '../../utils/utils';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
@@ -29,10 +29,10 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isPreload, setIsPreload] = useState(false);
   const [infoToolTip, setInfoToolTip] = useState({});
+  const [isBtnSubmitSaving, setBtnSubmitSaving] = useState(false);
   const [moviesError, setMoviesError] = useState({});
   const [movies, setMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
-  const [isBtnSubmitSaving, setBtnSubmitSaving] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [userError, setUserError] = useState({});
 
@@ -44,12 +44,12 @@ function App() {
     const allMovies = null && getAllMoviesFromStorage();
 
     if (allMovies) {
-      const result = mergeWithUniqueMovieId(allMovies, savedMovies);
-      const filtered = filterMovies(submitted.savedReq, result);
-      addMovieSearchResultToStorage(submitted, filtered);
+      const filtered = filterMovies(submitted.savedReq, allMovies);
 
       setMovies([...filtered]);
       setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
+
+      addMovieSearchResultToStorage(submitted, filtered);
     } else {
       setIsPreload(true);
       setMoviesError({ status: null, message: null });
@@ -57,15 +57,15 @@ function App() {
       moviesApi
         .getAllMovies()
         .then((allMovies) => {
-          const result = mergeWithUniqueMovieId(allMovies, savedMovies);
-          const filtered = filterMovies(submitted.savedReq, result);
-          
+          const filtered = filterMovies(submitted.savedReq, allMovies);
+
           setMovies([...filtered]);
           setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
 
           addMovieSearchResultToStorage(submitted, filtered);
-          addAllMoviesToStorage(allMovies)
+          addAllMoviesToStorage(allMovies);
         })
+
         .catch((err) => {
           console.log(err);
           setMoviesError({ ...moviesError, status: err.status, message: true });
@@ -101,6 +101,7 @@ function App() {
       .then((newMovie) => {
         setSavedMovies([...savedMovies, newMovie]);
       })
+
       .catch((err) => {
         console.log(err);
       });
@@ -113,6 +114,7 @@ function App() {
       .then((res) => {
         setSavedMovies((state) => state.filter((c) => c._id !== mongoId));
       })
+
       .catch((err) => {
         console.log(err);
       });
@@ -207,7 +209,7 @@ function App() {
 
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
-    // const foundMovies = getMovieSearchResultFromStorage();
+    // const savedSearchResult = getMovieSearchResultFromStorage();
 
     if (jwt) {
       handleTokenCheck(jwt);
@@ -239,7 +241,7 @@ function App() {
                   <ProtectedRouteElement
                     component={Movies}
                     onSearchForm={handleSearchMovies}
-                    dataMovies={movies}
+                    dataMovies={mixMoviesWithUniqueMovieId(movies, savedMovies)}
                     onCardClick={handleCardClick}
                     onCardDelete={handleCardDelete}
                     onCardLike={handleCardLike}
@@ -258,7 +260,7 @@ function App() {
                   <ProtectedRouteElement
                     component={SavedMovies}
                     onSearchForm={handleSearchMovies}
-                    dataMovies={savedMovies}
+                    dataMovies={savedMovies ?? []}
                     onCardClick={handleCardClick}
                     onCardDelete={handleCardDelete}
                     onCardLike={handleCardLike}

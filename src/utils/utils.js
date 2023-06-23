@@ -14,9 +14,9 @@ const addMovieSearchResultToStorage = (searchData, movies) => {
 
 const getMovieSearchResultFromStorage = () => JSON.parse(localStorage.getItem('foundMovies')) || {};
 
-const mergeWithUniqueMovieId = (biggerArr, lowerArr) => {
-  return biggerArr.map((movie) => {
-    const savedMovie = lowerArr.find((savedMovie) => {
+const mixMoviesWithUniqueMovieId = (biggerArr, lowerArr) => {
+  return biggerArr?.map((movie) => {
+    const savedMovie = lowerArr?.find((savedMovie) => {
       return movie.movieId === savedMovie.movieId;
     });
 
@@ -30,5 +30,5 @@ export {
   filterMovies,
   addMovieSearchResultToStorage,
   getMovieSearchResultFromStorage,
-  mergeWithUniqueMovieId,
+  mixMoviesWithUniqueMovieId,
 };
