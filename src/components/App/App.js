@@ -22,6 +22,8 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import ProtectedRouteElement from '../parts/ProtectedRoute';
+const USER_SUCCESS_MSG = 'данные успешно обновлены';
+const USER_ERROR_MSG = 'Что-то пошло не так...';
 
 function App() {
   // ============================ STATES =======================================
@@ -145,12 +147,12 @@ function App() {
     mainApi
       .register(userData)
       .then(() => {
-        delete userData.name
+        delete userData.name;
         handleLogin(userData);
       })
       .catch((err) => {
         console.log(err);
-        setUserError({ ...userError, isError: true });
+        setUserError({ ...userError, isError: true, message: USER_ERROR_MSG });
       })
       .finally(() => {
         setBtnSubmitSaving(false);
@@ -172,7 +174,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        setUserError({ ...userError, isError: true });
+        setUserError({ ...userError, isError: true, message: USER_ERROR_MSG });
       })
       .finally(() => {
         setBtnSubmitSaving(false);
@@ -204,10 +206,11 @@ function App() {
       .updateUser(userData)
       .then((res) => {
         setCurrentUser(res);
+        setUserError({ ...userError, isSuccess: true, message: USER_SUCCESS_MSG });
       })
       .catch((err) => {
         console.log(err);
-        setUserError({ ...userError, isError: true });
+        setUserError({ ...userError, isError: true, message: USER_ERROR_MSG });
       })
       .finally(() => {
         setBtnSubmitSaving(false);

@@ -19,6 +19,9 @@
 .form__info {
   flex-grow: 1;
   transform: translateY(-19px);
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 1.2;
   visibility: hidden;
 }
 
@@ -26,12 +29,14 @@
   transform: translateY(0);
 }
 
-.form__info_active {
+.form__info_error {
   visibility: visible;
-  font-weight: 400;
-  font-size: 10px;
-  line-height: 1.2;
   color: #ee3465;
+}
+
+.form__info_success {
+  visibility: visible;
+  color: var(--btn-color);
 }
 
 .form__submit {

@@ -9,11 +9,7 @@ function FormWithInput({ config, onSubmit, buttonSubmitState, info }) {
   const [isValid, values, handleChange, errors] = validation;
 
   return (
-    <form
-      className={`form form_type_${config.name}`}
-      name={config.name}
-      onSubmit={onSubmit}
-      noValidate>
+    <form className={`form form_type_${config.name}`} name={config.name} onSubmit={onSubmit} noValidate>
       {config.inputs && (
         <fieldset className="form__container">
           {config.inputs.map(({ id, ...input }) => (
@@ -28,8 +24,12 @@ function FormWithInput({ config, onSubmit, buttonSubmitState, info }) {
         </fieldset>
       )}
 
-      <div className={`form__info form__info_type_${config.name} ${info?.isError && 'form__info_active'}`}>
-        {'Что-то пошло не так...'}
+      <div className={
+        `form__info form__info_type_${config.name}
+         ${info?.isError && 'form__info_error'}
+         ${info?.isSuccess && 'form__info_success'}`
+      }>
+        {info?.message ?? ''}
       </div>
 
       <button
