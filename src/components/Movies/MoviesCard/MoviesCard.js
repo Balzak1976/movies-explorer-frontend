@@ -14,14 +14,18 @@ function MoviesCard({ movie, onCardClick, onCardLike, onCardDelete, isSavedMovie
 
   return (
     <article className="card">
-      <img className="card__img" src={movie?.image} alt={movie?.name} onClick={onCardClick} />
+      <a className="card__link" href={movie?.trailerLink} target="_blank" rel="noopener noreferrer">
+        <img className="card__img" src={movie?.image} alt={movie?.name} onClick={onCardClick} />
+      </a>
       <div className="card__body">
         <h2 className="card__title">{movie?.nameRU}</h2>
         <div className="card__duration">{getFormattedDuration(movie?.duration)}</div>
         {isSavedMovies ? (
           <button
             className="card__delete"
-            onClick={() => {onCardDelete(movie)}}
+            onClick={() => {
+              onCardDelete(movie);
+            }}
             type="button"
             aria-label="удалить карточку"
           />
