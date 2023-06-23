@@ -7,6 +7,7 @@ import { mainApi } from '../../utils/MainApi';
 import { moviesApi } from '../../utils/MoviesApi';
 import {
   addAllMoviesToStorage,
+  getAllMoviesFromStorage,
   addMovieSearchResultToStorage,
   getMovieSearchResultFromStorage,
   mixMoviesWithUniqueMovieId,
@@ -22,6 +23,7 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import ProtectedRouteElement from '../parts/ProtectedRoute';
+
 const USER_SUCCESS_MSG = 'данные успешно обновлены';
 const USER_ERROR_MSG = 'Что-то пошло не так...';
 
@@ -47,6 +49,7 @@ function App() {
 
   const handleSearchMovies = (submitted) => {
     const isSavedMovies = submitted.isSavedMovies;
+    const allMovies = getAllMoviesFromStorage();
     setInfoToolTip({ notFound: false });
 
     if (isSavedMovies === true) {
@@ -61,7 +64,15 @@ function App() {
         savedSearchData: submitted,
         savedMovies: filtered,
       });
+    } else if (allMovies) {
+      // console.log('данные с хранилища');
+      const filtered = filterMovies(submitted.savedReq, allMovies);
+
+      setMovies([...filtered]);
+      setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
+      addMovieSearchResultToStorage({ searchData: submitted, movies: filtered });
     } else {
+      // console.log('данные с сервера');
       setIsPreload(true);
       setMoviesError({ status: null, message: null });
 
@@ -159,12 +170,12 @@ function App() {
       });
   };
 
-  const handleLogin = ({email, password}) => {
+  const handleLogin = ({ email, password }) => {
     setBtnSubmitSaving(true);
     setUserError({ ...userError, isError: false });
 
     return mainApi
-      .authorize({email, password})
+      .authorize({ email, password })
       .then((data) => {
         if (data?.token) {
           localStorage.setItem('jwt', data.token);
