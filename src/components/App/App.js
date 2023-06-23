@@ -159,12 +159,12 @@ function App() {
       });
   };
 
-  const handleLogin = (userData) => {
+  const handleLogin = ({email, password}) => {
     setBtnSubmitSaving(true);
     setUserError({ ...userError, isError: false });
 
     return mainApi
-      .authorize(userData)
+      .authorize({email, password})
       .then((data) => {
         if (data?.token) {
           localStorage.setItem('jwt', data.token);
@@ -195,7 +195,9 @@ function App() {
 
   const handleLogout = () => {
     localStorage.removeItem('jwt');
-    navigate('/signin', { replace: true });
+    localStorage.removeItem('foundMovies');
+    localStorage.removeItem('allMovies');
+    navigate('/', { replace: true });
     setLoggedIn(false);
   };
 
@@ -300,14 +302,20 @@ function App() {
                 />
               }
             />
-            <Route
-              path="/signin"
-              element={<Login buttonSubmitState={isBtnSubmitSaving} onLogin={handleLogin} info={userError} />}
-            />
-            <Route
-              path="/signup"
-              element={<Register buttonSubmitState={isBtnSubmitSaving} onRegister={handleRegister} info={userError} />}
-            />
+            {!loggedIn && (
+              <Route
+                path="/signin"
+                element={<Login buttonSubmitState={isBtnSubmitSaving} onLogin={handleLogin} info={userError} />}
+              />
+            )}
+            {!loggedIn && (
+              <Route
+                path="/signup"
+                element={
+                  <Register buttonSubmitState={isBtnSubmitSaving} onRegister={handleRegister} info={userError} />
+                }
+              />
+            )}
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </CurrentUserContext.Provider>
