@@ -7,7 +7,6 @@ import { mainApi } from '../../utils/MainApi';
 import { moviesApi } from '../../utils/MoviesApi';
 import {
   addAllMoviesToStorage,
-  getAllMoviesFromStorage,
   filterMovies,
   addMovieSearchResultToStorage,
   getMovieSearchResultFromStorage,

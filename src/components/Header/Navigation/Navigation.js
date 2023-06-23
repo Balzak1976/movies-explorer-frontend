@@ -9,7 +9,21 @@ function Navigation({ loggedIn }) {
   return (
     <div className="navigation">
       <Routes>
-        <Route path="/" element={<><Logo/> <MenuAuth /></>}/>
+        <Route
+          path="/"
+          element={
+            <>
+              <Logo />
+              {loggedIn ? (
+                <div className="navigation__menu">
+                  <ProtectedRouteElement component={BtnBurgerWithMenuProfile} loggedIn={loggedIn} />
+                </div>
+              ) : (
+                <MenuAuth />
+              )}
+            </>
+          }
+        />
         <Route path={'/movies'} element={<>
           <Logo /><ProtectedRouteElement component={BtnBurgerWithMenuProfile} loggedIn={loggedIn} />
         </>} />
