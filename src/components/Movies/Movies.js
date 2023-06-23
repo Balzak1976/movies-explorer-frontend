@@ -8,6 +8,7 @@ import InfoToolTip from '../InfoToolTip/InfoToolTip';
 
 function Movies({
   onSearchForm,
+  searchData,
   dataMovies,
   onCardClick,
   onCardDelete,
@@ -18,7 +19,7 @@ function Movies({
   isSavedMovies = false,
 }) {
   const { cardsLimit, isNextPageBtn, handelAddNextCards, resetCardList } = useLimitedRenderCards(dataMovies);
-  
+
   const handleSearchForm = (v) => {
     onSearchForm(v);
     // очищаем cardList, чтобы не мелькали старые карточки
@@ -27,7 +28,7 @@ function Movies({
 
   return (
     <div className="movies">
-      <SearchPanel onSearchForm={handleSearchForm} searchData={{}} />
+      <SearchPanel onSearchForm={handleSearchForm} searchData={searchData} isSavedMovies={isSavedMovies} />
 
       {isPreload && <Preloader />}
       {infoToolTip.notFound && <InfoToolTip infoToolTip={infoToolTip} error={error} />}

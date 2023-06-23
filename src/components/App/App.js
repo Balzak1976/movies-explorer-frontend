@@ -7,9 +7,10 @@ import { mainApi } from '../../utils/MainApi';
 import { moviesApi } from '../../utils/MoviesApi';
 import {
   addAllMoviesToStorage,
-  addMovieSearchResultToStorage,
-  filterMovies,
   getAllMoviesFromStorage,
+  filterMovies,
+  addMovieSearchResultToStorage,
+  getMovieSearchResultFromStorage,
   mixMoviesWithUniqueMovieId,
 } from '../../utils/utils';
 import Header from '../Header/Header';
@@ -27,29 +28,38 @@ function App() {
   // ============================ STATES =======================================
 
   const [loggedIn, setLoggedIn] = useState(false);
+
   const [isPreload, setIsPreload] = useState(false);
   const [infoToolTip, setInfoToolTip] = useState({});
   const [isBtnSubmitSaving, setBtnSubmitSaving] = useState(false);
   const [moviesError, setMoviesError] = useState({});
+
+  const [searchResult, setSearchResult] = useState({});
   const [movies, setMovies] = useState([]);
+  const [savedSearchResult, setSavedSearchResult] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
+
   const [currentUser, setCurrentUser] = useState({});
   const [userError, setUserError] = useState({});
 
   // ============================ MOVIES =======================================
 
   const handleSearchMovies = (submitted) => {
+    const isSavedMovies = submitted.isSavedMovies;
     setInfoToolTip({ notFound: false });
 
-    const allMovies = null && getAllMoviesFromStorage();
+    if (isSavedMovies === true) {
+      const filtered = filterMovies(submitted.savedReq, savedMovies);
 
-    if (allMovies) {
-      const filtered = filterMovies(submitted.savedReq, allMovies);
-
-      setMovies([...filtered]);
+      setSavedMovies([...filtered]);
       setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
 
-      addMovieSearchResultToStorage(submitted, filtered);
+      addMovieSearchResultToStorage({
+        searchData: searchResult,
+        movies: movies,
+        savedSearchData: submitted,
+        savedMovies: filtered,
+      });
     } else {
       setIsPreload(true);
       setMoviesError({ status: null, message: null });
@@ -62,7 +72,12 @@ function App() {
           setMovies([...filtered]);
           setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
 
-          addMovieSearchResultToStorage(submitted, filtered);
+          addMovieSearchResultToStorage({
+            searchData: submitted,
+            movies: filtered,
+            savedSearchData: savedSearchResult,
+            savedMovies: savedMovies,
+          });
           addAllMoviesToStorage(allMovies);
         })
 
@@ -205,16 +220,19 @@ function App() {
       });
   };
 
-  // ======================= Initial  ===========================
+  // ======================= Initial  ==========================================
 
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
-    // const savedSearchResult = getMovieSearchResultFromStorage();
+    const { searchData = {}, movies = [], savedSearchData = {}, savedMovies = [] } = getMovieSearchResultFromStorage();
 
     if (jwt) {
       handleTokenCheck(jwt);
       handleGetSavedMovies();
-      // setMovies([...foundMovies]);
+      setSearchResult({ ...searchData });
+      setMovies([...movies]);
+      setSavedSearchResult({ ...savedSearchData });
+      setSavedMovies([...savedMovies]);
     }
   }, [loggedIn]);
 
@@ -241,6 +259,7 @@ function App() {
                   <ProtectedRouteElement
                     component={Movies}
                     onSearchForm={handleSearchMovies}
+                    searchData={searchResult}
                     dataMovies={mixMoviesWithUniqueMovieId(movies, savedMovies)}
                     onCardClick={handleCardClick}
                     onCardDelete={handleCardDelete}
@@ -260,7 +279,8 @@ function App() {
                   <ProtectedRouteElement
                     component={SavedMovies}
                     onSearchForm={handleSearchMovies}
-                    dataMovies={savedMovies ?? []}
+                    searchData={savedSearchResult}
+                    dataMovies={savedMovies}
                     onCardClick={handleCardClick}
                     onCardDelete={handleCardDelete}
                     onCardLike={handleCardLike}

@@ -8,8 +8,8 @@ const filterMovies = (req, movies) => {
   return movies.filter((movie) => movie.nameRU.toLowerCase().includes(req.toLowerCase()));
 };
 
-const addMovieSearchResultToStorage = (searchData, movies) => {
-  localStorage.setItem('foundMovies', JSON.stringify({ searchData, movies }));
+const addMovieSearchResultToStorage = ({searchData, movies, savedSearchData, savedMovies}) => {
+  localStorage.setItem('foundMovies', JSON.stringify({ searchData, movies, savedSearchData, savedMovies}));
 };
 
 const getMovieSearchResultFromStorage = () => JSON.parse(localStorage.getItem('foundMovies')) || {};
