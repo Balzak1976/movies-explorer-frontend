@@ -9,4 +9,4 @@ Backend: https://skor.nomoredomains.monster
  https://disk.yandex.ru/d/iZqG_yXe4sC74A
 
 ## Ссылка на пулриквест:
- https://github.com/Balzak1976/movies-explorer-frontend/pull/4
+ https://github.com/Balzak1976/movies-explorer-frontend/pull/5
