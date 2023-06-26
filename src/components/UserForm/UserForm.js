@@ -19,7 +19,9 @@ function UserForm({ config: { title, text, link, ...rest }, buttonSubmitState, o
 
   useEffect(() => {
     setUserInfo({ ...info });
-    setValues({ name: currentUser.name, email: currentUser.email });
+    if (currentUser.name && currentUser.email) {
+      setValues({ ...values, name: currentUser.name, email: currentUser.email });
+    }
   }, [currentUser, info]);
 
   return (
@@ -27,20 +29,13 @@ function UserForm({ config: { title, text, link, ...rest }, buttonSubmitState, o
       <h2 className={`user-form__title user-form__title_type_${rest.name}`}>{title}</h2>
 
       <ValidationContext.Provider value={[isValid, values, handleChange, errors]}>
-        <FormWithInput
-          config={rest}
-          onSubmit={onSubmit}
-          buttonSubmitState={buttonSubmitState}
-          info={userInfo}
-        />
+        <FormWithInput config={rest} onSubmit={onSubmit} buttonSubmitState={buttonSubmitState} info={userInfo} />
       </ValidationContext.Provider>
 
       {link && (
         <p className="user-form__text">
           {text}
-          <Link
-            className={`button button_type_user-form button_type_${rest.name}`}
-            to={link.to}>
+          <Link className={`button button_type_user-form button_type_${rest.name}`} to={link.to}>
             {link.text}
           </Link>
         </p>
