@@ -29,7 +29,7 @@ const LOGIN = {
   ],
 };
 
-function Login({ buttonSubmitState, onLogin, info  }) {
+function Login({ buttonSubmitState, onLogin, info, onResetInfo }) {
   return (
     <div className="login">
       <Logo />
@@ -39,6 +39,7 @@ function Login({ buttonSubmitState, onLogin, info  }) {
         buttonSubmitState={buttonSubmitState}
         onUserForm={onLogin}
         info={info}
+        onResetInfo={onResetInfo}
       />
     </div>
   );

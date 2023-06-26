@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { ValidationContext } from '../../../contexts/ValidationContext';
 import Input from '../Input/Input';
 
-function FormWithInput({ config, onSubmit, buttonSubmitState, info }) {
+function FormWithInput({ config, onSubmit, buttonSubmitState, info, onResetInfo }) {
   const validation = useContext(ValidationContext);
 
   const [isValid, values, handleChange, errors] = validation;
@@ -19,6 +19,7 @@ function FormWithInput({ config, onSubmit, buttonSubmitState, info }) {
               value={values[input.name]}
               onChange={handleChange}
               error={errors[input.name]}
+              onResetInfo={onResetInfo}
             />
           ))}
         </fieldset>

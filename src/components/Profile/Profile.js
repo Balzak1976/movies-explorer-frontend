@@ -27,7 +27,7 @@ const PROFILE = {
   ],
 };
 
-function Profile({ buttonSubmitState, onUpdateUser, onLogout, info }) {
+function Profile({ buttonSubmitState, onUpdateUser, onLogout, info, onResetInfo }) {
   const currentUser = useContext(CurrentUserContext);
 
   PROFILE.title = `Привет, ${currentUser.name}`;
@@ -39,6 +39,7 @@ function Profile({ buttonSubmitState, onUpdateUser, onLogout, info }) {
         buttonSubmitState={buttonSubmitState}
         onUserForm={onUpdateUser}
         info={info}
+        onResetInfo={onResetInfo}
       />
 
       <button

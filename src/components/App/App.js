@@ -230,6 +230,10 @@ function App() {
       });
   };
 
+  const resetUserInfoToolTip = () => {
+    setUserInfoToolTip();
+  };
+
   // ======================= Initial  ==========================================
 
   useEffect(() => {
@@ -309,6 +313,7 @@ function App() {
                   onUpdateUser={handleUpdateUser}
                   onLogout={handleLogout}
                   info={userInfoToolTip}
+                  onResetInfo={resetUserInfoToolTip}
                   loggedIn={loggedIn}
                 />
               }
@@ -316,14 +321,26 @@ function App() {
             {!loggedIn && (
               <Route
                 path="/signin"
-                element={<Login buttonSubmitState={isBtnSubmitSaving} onLogin={handleLogin} info={userInfoToolTip} />}
+                element={
+                  <Login
+                    buttonSubmitState={isBtnSubmitSaving}
+                    onLogin={handleLogin}
+                    info={userInfoToolTip}
+                    onResetInfo={resetUserInfoToolTip}
+                  />
+                }
               />
             )}
             {!loggedIn && (
               <Route
                 path="/signup"
                 element={
-                  <Register buttonSubmitState={isBtnSubmitSaving} onRegister={handleRegister} info={userInfoToolTip} />
+                  <Register
+                    buttonSubmitState={isBtnSubmitSaving}
+                    onRegister={handleRegister}
+                    info={userInfoToolTip}
+                    onResetInfo={resetUserInfoToolTip}
+                  />
                 }
               />
             )}

@@ -36,13 +36,18 @@ const REGISTER = {
   ],
 };
 
-function Register({ buttonSubmitState, onRegister, info }) {
-  
+function Register({ buttonSubmitState, onRegister, info, onResetInfo }) {
   return (
     <div className="register">
       <Logo />
-      
-      <UserForm config={REGISTER} buttonSubmitState={buttonSubmitState} onUserForm={onRegister} info={info} />
+
+      <UserForm
+        config={REGISTER}
+        buttonSubmitState={buttonSubmitState}
+        onUserForm={onRegister}
+        info={info}
+        onResetInfo={onResetInfo}
+      />
     </div>
   );
 }

@@ -6,7 +6,7 @@ import './UserForm.css';
 import { useContext, useEffect, useState } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function UserForm({ config: { title, text, link, ...rest }, buttonSubmitState, onUserForm, info }) {
+function UserForm({ config: { title, text, link, ...rest }, buttonSubmitState, onUserForm, info, onResetInfo }) {
   const { values, handleChange, errors, isValid, setValues } = useFormAndValidation();
   const currentUser = useContext(CurrentUserContext);
   const [userInfo, setUserInfo] = useState({});
@@ -29,7 +29,13 @@ function UserForm({ config: { title, text, link, ...rest }, buttonSubmitState, o
       <h2 className={`user-form__title user-form__title_type_${rest.name}`}>{title}</h2>
 
       <ValidationContext.Provider value={[isValid, values, handleChange, errors]}>
-        <FormWithInput config={rest} onSubmit={onSubmit} buttonSubmitState={buttonSubmitState} info={userInfo} />
+        <FormWithInput
+          config={rest}
+          onSubmit={onSubmit}
+          buttonSubmitState={buttonSubmitState}
+          info={userInfo}
+          onResetInfo={onResetInfo}
+        />
       </ValidationContext.Provider>
 
       {link && (

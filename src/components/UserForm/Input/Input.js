@@ -5,13 +5,19 @@ function Input({
   value,
   onChange,
   error,
+  onResetInfo,
 }) {
+  const handleChange = (event) => {
+    onChange(event);
+    onResetInfo();
+  };
+
   return (
     <label className={`form__field form__field_type_${type}`}>
       <span className={`form__input-title form__input-title_type_${type}`}>{title}</span>
       <input
         value={value ?? ''}
-        onChange={onChange}
+        onChange={handleChange}
         className={`form__input form__input_type_${type}`}
         placeholder={placeholder ?? ''}
         name={name}
