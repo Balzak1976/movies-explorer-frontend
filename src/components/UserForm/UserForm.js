@@ -7,7 +7,7 @@ import { useContext, useEffect, useState } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
 function UserForm({ config: { title, text, link, ...rest }, buttonSubmitState, onUserForm, info }) {
-  const { values, handleChange, errors, isValid, resetForm, setValues } = useFormAndValidation();
+  const { values, handleChange, errors, isValid, setValues } = useFormAndValidation();
   const currentUser = useContext(CurrentUserContext);
   const [userInfo, setUserInfo] = useState({});
 
@@ -19,7 +19,6 @@ function UserForm({ config: { title, text, link, ...rest }, buttonSubmitState, o
 
   useEffect(() => {
     setUserInfo({ ...info });
-    resetForm();
     setValues({ name: currentUser.name, email: currentUser.email });
   }, [currentUser, info]);
 

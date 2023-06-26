@@ -1,5 +1,5 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
@@ -43,7 +43,7 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]);
 
   const [currentUser, setCurrentUser] = useState({});
-  const [userError, setUserError] = useState({});
+  const [userInfoToolTip, setUserInfoToolTip] = useState({});
 
   // ============================ MOVIES =======================================
 
@@ -153,7 +153,7 @@ function App() {
 
   const handleRegister = (userData) => {
     setBtnSubmitSaving(true);
-    setUserError({ ...userError, isError: false });
+    setUserInfoToolTip({ ...userInfoToolTip, isError: false });
 
     mainApi
       .register(userData)
@@ -163,7 +163,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        setUserError({ ...userError, isError: true, message: USER_ERROR_MSG });
+        setUserInfoToolTip({ ...userInfoToolTip, isError: true, message: USER_ERROR_MSG });
       })
       .finally(() => {
         setBtnSubmitSaving(false);
@@ -172,7 +172,7 @@ function App() {
 
   const handleLogin = ({ email, password }) => {
     setBtnSubmitSaving(true);
-    setUserError({ ...userError, isError: false });
+    setUserInfoToolTip({ ...userInfoToolTip, isError: false });
 
     return mainApi
       .authorize({ email, password })
@@ -185,7 +185,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        setUserError({ ...userError, isError: true, message: USER_ERROR_MSG });
+        setUserInfoToolTip({ ...userInfoToolTip, isError: true, message: USER_ERROR_MSG });
       })
       .finally(() => {
         setBtnSubmitSaving(false);
@@ -219,11 +219,11 @@ function App() {
       .updateUser(userData)
       .then((res) => {
         setCurrentUser(res);
-        setUserError({ ...userError, isSuccess: true, message: USER_SUCCESS_MSG });
+        setUserInfoToolTip({ ...userInfoToolTip, isSuccess: true, message: USER_SUCCESS_MSG });
       })
       .catch((err) => {
         console.log(err);
-        setUserError({ ...userError, isError: true, message: USER_ERROR_MSG });
+        setUserInfoToolTip({ ...userInfoToolTip, isError: true, message: USER_ERROR_MSG });
       })
       .finally(() => {
         setBtnSubmitSaving(false);
@@ -308,7 +308,7 @@ function App() {
                   buttonSubmitState={isBtnSubmitSaving}
                   onUpdateUser={handleUpdateUser}
                   onLogout={handleLogout}
-                  info={userError}
+                  info={userInfoToolTip}
                   loggedIn={loggedIn}
                 />
               }
@@ -316,14 +316,14 @@ function App() {
             {!loggedIn && (
               <Route
                 path="/signin"
-                element={<Login buttonSubmitState={isBtnSubmitSaving} onLogin={handleLogin} info={userError} />}
+                element={<Login buttonSubmitState={isBtnSubmitSaving} onLogin={handleLogin} info={userInfoToolTip} />}
               />
             )}
             {!loggedIn && (
               <Route
                 path="/signup"
                 element={
-                  <Register buttonSubmitState={isBtnSubmitSaving} onRegister={handleRegister} info={userError} />
+                  <Register buttonSubmitState={isBtnSubmitSaving} onRegister={handleRegister} info={userInfoToolTip} />
                 }
               />
             )}
