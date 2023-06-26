@@ -9,7 +9,6 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 function UserForm({ config: { title, text, link, ...rest }, buttonSubmitState, onUserForm, info, onResetInfo }) {
   const { values, handleChange, errors, isValid, setValues } = useFormAndValidation();
   const currentUser = useContext(CurrentUserContext);
-  const [userInfo, setUserInfo] = useState({});
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -18,11 +17,10 @@ function UserForm({ config: { title, text, link, ...rest }, buttonSubmitState, o
   };
 
   useEffect(() => {
-    setUserInfo({ ...info });
     if (currentUser.name && currentUser.email) {
       setValues({ ...values, name: currentUser.name, email: currentUser.email });
     }
-  }, [currentUser, info]);
+  }, [currentUser]);
 
   return (
     <section className="user-form">
@@ -33,7 +31,7 @@ function UserForm({ config: { title, text, link, ...rest }, buttonSubmitState, o
           config={rest}
           onSubmit={onSubmit}
           buttonSubmitState={buttonSubmitState}
-          info={userInfo}
+          info={info}
           onResetInfo={onResetInfo}
         />
       </ValidationContext.Provider>
