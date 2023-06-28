@@ -92,7 +92,6 @@ function App() {
           });
           addAllMoviesToStorage(allMovies);
         })
-
         .catch((err) => {
           console.log(err);
           setMoviesError({ ...moviesError, status: err.status, message: true });
@@ -115,6 +114,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
+        
         setMoviesError({ ...moviesError, status: err.status, message: true });
       })
       .finally(() => {
@@ -128,10 +128,7 @@ function App() {
       .then((newMovie) => {
         setSavedMovies([...savedMovies, newMovie]);
       })
-
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(console.log);
   };
 
   const handleCardDelete = (movieData) => {
@@ -141,10 +138,7 @@ function App() {
       .then((res) => {
         setSavedMovies((state) => state.filter((c) => c._id !== mongoId));
       })
-
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(console.log);
   };
 
   // ============================= USER =======================================
@@ -163,7 +157,9 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        setUserInfoToolTip({ ...userInfoToolTip, isError: true, message: USER_ERROR_MSG });
+        const message = err.message || USER_ERROR_MSG;
+
+        setUserInfoToolTip({ ...userInfoToolTip, isError: true, message: message });
       })
       .finally(() => {
         setBtnSubmitSaving(false);
@@ -185,7 +181,9 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        setUserInfoToolTip({ ...userInfoToolTip, isError: true, message: USER_ERROR_MSG });
+        const message = err.message || USER_ERROR_MSG;
+
+        setUserInfoToolTip({ ...userInfoToolTip, isError: true, message: message });
       })
       .finally(() => {
         setBtnSubmitSaving(false);
@@ -201,7 +199,7 @@ function App() {
           setLoggedIn(true);
         }
       })
-      .catch((err) => console.log(err));
+      .catch(console.log);
   };
 
   const handleLogout = () => {
@@ -223,7 +221,9 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        setUserInfoToolTip({ ...userInfoToolTip, isError: true, message: USER_ERROR_MSG });
+        const message = err.message || USER_ERROR_MSG;
+
+        setUserInfoToolTip({ ...userInfoToolTip, isError: true, message: message });
       })
       .finally(() => {
         setBtnSubmitSaving(false);

@@ -52,11 +52,14 @@ class MainApi {
       },
       body: typeMethod === 'GET' ? null : JSON.stringify(options),
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка: ${res.status}`);
+      return res.json().then((data) => {
+        if (res.ok) {
+          return data;
+        }
+        data.status = res.status
+        
+        return Promise.reject(data);
+      });
     });
   }
 }
