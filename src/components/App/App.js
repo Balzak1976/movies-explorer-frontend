@@ -53,6 +53,7 @@ function App() {
     setInfoToolTip({ notFound: false });
 
     if (isSavedMovies === true) {
+      console.log('ищем в сохраненных фильмах');
       const filtered = filterMovies(submitted, savedMovies);
 
       setSavedMovies([...filtered]);
@@ -64,14 +65,14 @@ function App() {
         savedSearchData: submitted,
       });
     } else if (allMovies) {
-      // console.log('данные с хранилища');
-      const filtered = filterMovies(submitted.savedReq, allMovies);
+      console.log('данные с хранилища');
+      const filtered = filterMovies(submitted, allMovies);
 
       setMovies([...filtered]);
       setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
       addMovieSearchResultToStorage({ searchData: submitted, movies: filtered });
     } else {
-      // console.log('данные с сервера');
+      console.log('данные с сервера');
       setIsPreload(true);
       setMoviesError({ status: null, message: null });
 
