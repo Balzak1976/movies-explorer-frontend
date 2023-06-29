@@ -1,5 +1,5 @@
 import './App.css';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
@@ -30,7 +30,7 @@ const USER_ERROR_MSG = 'Что-то пошло не так...';
 function App() {
   // ============================ STATES =======================================
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(localStorage.getItem('loggedIn') || false);
 
   const [isPreload, setIsPreload] = useState(false);
   const [infoToolTip, setInfoToolTip] = useState({});
@@ -48,7 +48,7 @@ function App() {
   // ============================ MOVIES =======================================
 
   const handleSearchMovies = (submitted) => {
-    const isSavedMovies = submitted.isSavedMovies;
+    const isSavedMovies = submitted.isSavedMovies; // показывает, что запрос из /saved-movies
     const allMovies = getAllMoviesFromStorage();
     setInfoToolTip({ notFound: false });
 
@@ -62,7 +62,6 @@ function App() {
         searchData: searchResult,
         movies: movies,
         savedSearchData: submitted,
-        savedMovies: filtered,
       });
     } else if (allMovies) {
       // console.log('данные с хранилища');
@@ -88,7 +87,6 @@ function App() {
             searchData: submitted,
             movies: filtered,
             savedSearchData: savedSearchResult,
-            savedMovies: savedMovies,
           });
           addAllMoviesToStorage(allMovies);
         })
@@ -114,7 +112,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        
+
         setMoviesError({ ...moviesError, status: err.status, message: true });
       })
       .finally(() => {
@@ -175,6 +173,7 @@ function App() {
       .then((data) => {
         if (data?.token) {
           localStorage.setItem('jwt', data.token);
+          localStorage.setItem('loggedIn', JSON.stringify(true));
           setLoggedIn(true);
           navigate('/movies', { replace: true });
         }
@@ -206,6 +205,7 @@ function App() {
     localStorage.removeItem('jwt');
     localStorage.removeItem('foundMovies');
     localStorage.removeItem('allMovies');
+    localStorage.removeItem('loggedIn');
     navigate('/', { replace: true });
     setLoggedIn(false);
   };
@@ -238,7 +238,7 @@ function App() {
 
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
-    const { searchData = {}, movies = [], savedSearchData = {}, savedMovies = [] } = getMovieSearchResultFromStorage();
+    const { searchData = {}, movies = [], savedSearchData = {} } = getMovieSearchResultFromStorage();
 
     if (jwt) {
       handleTokenCheck(jwt);
