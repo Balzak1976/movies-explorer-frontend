@@ -3,7 +3,7 @@
 
 ## Ссылки на проект
 
-Backend: https://skor.nomoredomains.monster
+Frontend: https://skor.nomoredomains.monster
 
 ## Ссылка на макет:
  https://disk.yandex.ru/d/iZqG_yXe4sC74A
