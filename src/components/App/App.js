@@ -299,6 +299,7 @@ function App() {
                 <PageWithFooter loggedIn={loggedIn} isHidden={true}>
                   <ProtectedRouteElement
                     component={SavedMovies}
+                    onGetSavedMovies={handleGetSavedMovies}
                     onSearchForm={handleSearchMovies}
                     searchData={savedSearchResult}
                     dataMovies={savedMovies}

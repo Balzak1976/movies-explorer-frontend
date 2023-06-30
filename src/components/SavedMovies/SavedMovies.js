@@ -1,7 +1,12 @@
 import './SavedMovies.css';
+import { useEffect } from 'react';
 import Movies from '../Movies/Movies';
 
-function SavedMovies(props) {
+function SavedMovies({ onGetSavedMovies, ...props }) {
+  useEffect(() => {
+    onGetSavedMovies();
+  }, []);
+
   return <Movies {...props} isSavedMovies={true} />;
 }
 
