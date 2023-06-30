@@ -39,6 +39,7 @@ function App() {
 
   const [movies, setMovies] = useState([]);
   const [searchResult, setSearchResult] = useState({});
+  console.log('searchResult: ', searchResult.savedReq);
   const [savedMovies, setSavedMovies] = useState([]);
   const [savedSearchResult, setSavedSearchResult] = useState({});
 
@@ -57,20 +58,25 @@ function App() {
       const filtered = filterMovies(submitted, savedMovies);
 
       setSavedMovies([...filtered]);
-      setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
-
+      setSavedSearchResult(submitted);
+      
       addMovieSearchResultToStorage({
         localMovies: movies,
         localSearchData: searchResult,
         localSavedSearchData: submitted,
       });
+      
+      setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
     } else if (allMovies) {
       console.log('данные с хранилища');
       const filtered = filterMovies(submitted, allMovies);
 
       setMovies([...filtered]);
-      setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
+      setSearchResult(submitted);
+      
       addMovieSearchResultToStorage({ localMovies: filtered, localSearchData: submitted });
+
+      setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
     } else {
       console.log('данные с сервера');
       setIsPreload(true);
@@ -82,14 +88,16 @@ function App() {
           const filtered = filterMovies(submitted, allMovies);
 
           setMovies([...filtered]);
-          setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
-
+          setSearchResult(submitted);
+          
           addMovieSearchResultToStorage({
             localMovies: filtered,
             localSearchData: submitted,
             localSavedSearchData: savedSearchResult,
           });
           addAllMoviesToStorage(allMovies);
+
+          setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
         })
         .catch((err) => {
           console.log(err);
@@ -236,8 +244,9 @@ function App() {
   };
 
   // ======================= Initial  ==========================================
-
+  
   useEffect(() => {
+    console.log('Initial: ');
     const jwt = localStorage.getItem('jwt');
     const { localMovies = [], localSearchData = {}, localSavedSearchData = {} } = getMovieSearchResultFromStorage();
 
