@@ -39,7 +39,6 @@ function App() {
 
   const [movies, setMovies] = useState([]);
   const [searchResult, setSearchResult] = useState({});
-  console.log('searchResult: ', searchResult.savedReq);
   const [savedMovies, setSavedMovies] = useState([]);
   const [savedSearchResult, setSavedSearchResult] = useState({});
 
@@ -54,31 +53,31 @@ function App() {
     setInfoToolTip({ notFound: false });
 
     if (isSavedMovies === true) {
-      console.log('ищем в сохраненных фильмах');
+      // console.log('ищем в сохраненных фильмах');
       const filtered = filterMovies(submitted, savedMovies);
 
       setSavedMovies([...filtered]);
       setSavedSearchResult(submitted);
-      
+
       addMovieSearchResultToStorage({
         localMovies: movies,
         localSearchData: searchResult,
         localSavedSearchData: submitted,
       });
-      
+
       setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
     } else if (allMovies) {
-      console.log('данные с хранилища');
+      // console.log('данные с хранилища');
       const filtered = filterMovies(submitted, allMovies);
 
       setMovies([...filtered]);
       setSearchResult(submitted);
-      
+
       addMovieSearchResultToStorage({ localMovies: filtered, localSearchData: submitted });
 
       setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
     } else {
-      console.log('данные с сервера');
+      // console.log('данные с сервера');
       setIsPreload(true);
       setMoviesError({ status: null, message: null });
 
@@ -89,7 +88,7 @@ function App() {
 
           setMovies([...filtered]);
           setSearchResult(submitted);
-          
+
           addMovieSearchResultToStorage({
             localMovies: filtered,
             localSearchData: submitted,
@@ -243,14 +242,14 @@ function App() {
     setUserInfoToolTip();
   };
 
-  // ======================= Initial  ==========================================
-  
+  // ======================= START  ==========================================
+
   useEffect(() => {
-    console.log('Initial: ');
     const jwt = localStorage.getItem('jwt');
-    const { localMovies = [], localSearchData = {}, localSavedSearchData = {} } = getMovieSearchResultFromStorage();
 
     if (jwt) {
+      const { localMovies = [], localSearchData = {}, localSavedSearchData = {} } = getMovieSearchResultFromStorage();
+
       handleTokenCheck(jwt);
       handleGetSavedMovies(); // savedMovies from movies-explorer-api
       setMovies([...localMovies]);
