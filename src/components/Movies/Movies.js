@@ -1,5 +1,4 @@
 import './Movies.css';
-import { useLimitedRenderCards } from '../../hooks/useLimitedRenderCards';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import Pagination from './Pagination/Pagination';
 import SearchPanel from './SearchPanel/SearchPanel';
@@ -16,26 +15,20 @@ function Movies({
   infoToolTip,
   error,
   isSavedMovies = false,
+  onAddNextCards,
+  isNextPageBtn,
 }) {
-  const { cardsLimit, isNextPageBtn, handelAddNextCards, resetCardList } = useLimitedRenderCards(dataMovies);
-  
-  const handleSearchForm = (v) => {
-    onSearchForm(v);
-    // очищаем cardList, чтобы не мелькали старые карточки
-    resetCardList();
-  };
-
   return (
     <div className="movies">
-      <SearchPanel onSearchForm={handleSearchForm} searchData={searchData} isSavedMovies={isSavedMovies} />
+      <SearchPanel onSearchForm={onSearchForm} searchData={searchData} />
 
       {isPreload && <Preloader />}
       {infoToolTip.notFound && <InfoToolTip infoToolTip={infoToolTip} error={error} />}
       {error?.status && <InfoToolTip infoToolTip={infoToolTip} error={error} />}
 
-      {!isPreload && !infoToolTip.notFound && cardsLimit && (
+      {!isPreload && !infoToolTip.notFound && dataMovies && (
         <MoviesCardList
-          movies={cardsLimit}
+          movies={dataMovies}
           onCardDelete={onCardDelete}
           onCardLike={onCardLike}
           isSavedMovies={isSavedMovies}
@@ -43,7 +36,7 @@ function Movies({
       )}
 
       {!isPreload && !infoToolTip.notFound && (
-        <Pagination onAddNextCards={handelAddNextCards} isNextPageBtn={isNextPageBtn} />
+        <Pagination onAddNextCards={onAddNextCards} isNextPageBtn={isNextPageBtn} />
       )}
     </div>
   );

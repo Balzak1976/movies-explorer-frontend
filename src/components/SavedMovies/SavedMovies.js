@@ -1,4 +1,3 @@
-import './SavedMovies.css';
 import { useEffect } from 'react';
 import Movies from '../Movies/Movies';
 

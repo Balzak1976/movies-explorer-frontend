@@ -48,25 +48,10 @@ function App() {
   // ============================ MOVIES =======================================
 
   const handleSearchMovies = (submitted) => {
-    const isSavedMovies = submitted.isSavedMovies; // показывает, что запрос из /saved-movies
     const allMovies = getAllMoviesFromStorage();
     setInfoToolTip({ notFound: false });
 
-    if (isSavedMovies === true) {
-      // console.log('ищем в сохраненных фильмах');
-      const filtered = filterMovies(submitted, savedMovies);
-
-      setSavedMovies([...filtered]);
-      setSavedSearchResult(submitted);
-
-      addMovieSearchResultToStorage({
-        localMovies: movies,
-        localSearchData: searchResult,
-        localSavedSearchData: submitted,
-      });
-
-      setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
-    } else if (allMovies) {
+    if (allMovies) {
       // console.log('данные с хранилища');
       const filtered = filterMovies(submitted, allMovies);
 
@@ -108,9 +93,22 @@ function App() {
     }
   };
 
+  const handleSearchSavedMovies = (submitted) => {
+    // console.log('поиск в сохраненных фильмах')
+    setInfoToolTip({ notFound: false });
+
+    const filtered = filterMovies(submitted, savedMovies);
+
+    setSavedMovies([...filtered]);
+    setSavedSearchResult(submitted);
+
+    localStorage.setItem('savedMovies', JSON.stringify({ localSavedSearchData: submitted }));
+
+    setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
+  };
+
   const handleGetSavedMovies = () => {
     setIsPreload(true);
-    setInfoToolTip({ notFound: false });
     setMoviesError({ status: null, message: null });
 
     mainApi
@@ -211,8 +209,9 @@ function App() {
 
   const handleLogout = () => {
     localStorage.removeItem('jwt');
-    localStorage.removeItem('foundMovies');
     localStorage.removeItem('allMovies');
+    localStorage.removeItem('movies');
+    localStorage.removeItem('savedMovies');
     localStorage.removeItem('loggedIn');
     navigate('/', { replace: true });
     setLoggedIn(false);
@@ -248,7 +247,8 @@ function App() {
     const jwt = localStorage.getItem('jwt');
 
     if (jwt) {
-      const { localMovies = [], localSearchData = {}, localSavedSearchData = {} } = getMovieSearchResultFromStorage();
+      const { localMovies = [], localSearchData = {} } = getMovieSearchResultFromStorage();
+      const { localSavedSearchData = {} } = JSON.parse(localStorage.getItem('savedMovies')) || {};
 
       handleTokenCheck(jwt);
       handleGetSavedMovies(); // savedMovies from movies-explorer-api
@@ -288,6 +288,8 @@ function App() {
                     isPreload={isPreload}
                     infoToolTip={infoToolTip}
                     error={moviesError}
+                    onAddNextCards={null}
+                    isNextPageBtn={false}
                     loggedIn={loggedIn}
                   />
                 </PageWithFooter>
@@ -300,7 +302,7 @@ function App() {
                   <ProtectedRouteElement
                     component={SavedMovies}
                     onGetSavedMovies={handleGetSavedMovies}
-                    onSearchForm={handleSearchMovies}
+                    onSearchForm={handleSearchSavedMovies}
                     searchData={savedSearchResult}
                     dataMovies={savedMovies}
                     onCardDelete={handleCardDelete}

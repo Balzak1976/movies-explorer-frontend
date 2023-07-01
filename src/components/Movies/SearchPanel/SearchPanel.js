@@ -3,14 +3,13 @@ import { useEffect, useState } from 'react';
 import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 
-function SearchPanel({ onSearchForm, searchData: { isShortMovies = false, savedReq }, isSavedMovies }) {
+function SearchPanel({ onSearchForm, searchData: { isShortMovies = false, savedReq } }) {
   const [checkedFilter, setCheckedFilter] = useState(false);
 
   const handelSearchForm = (value) => {
     onSearchForm({
       isShortMovies: checkedFilter,
       savedReq: value,
-      isSavedMovies: isSavedMovies,
     });
   };
 

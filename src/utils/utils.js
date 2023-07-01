@@ -4,11 +4,11 @@ const addAllMoviesToStorage = (movies) => {
 
 const getAllMoviesFromStorage = () => JSON.parse(localStorage.getItem('allMovies'));
 
-const addMovieSearchResultToStorage = ({ localMovies, localSearchData, localSavedSearchData }) => {
-  localStorage.setItem('foundMovies', JSON.stringify({ localMovies, localSearchData, localSavedSearchData }));
+const addMovieSearchResultToStorage = (value) => {
+  localStorage.setItem('movies', JSON.stringify(value));
 };
 
-const getMovieSearchResultFromStorage = () => JSON.parse(localStorage.getItem('foundMovies')) || {};
+const getMovieSearchResultFromStorage = () => JSON.parse(localStorage.getItem('movies')) || {};
 
 const mixMoviesWithUniqueMovieId = (biggerArr, lowerArr) => {
   return biggerArr?.map((movie) => {
