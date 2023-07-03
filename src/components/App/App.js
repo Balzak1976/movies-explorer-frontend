@@ -35,7 +35,8 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(localStorage.getItem('loggedIn') || false);
 
   const [isPreload, setIsPreload] = useState(false);
-  const [infoToolTip, setInfoToolTip] = useState({});
+  const [infoMovies, setInfoMovies] = useState({});
+  const [infoSavedMovies, setInfoSavedMovies] = useState({});
   const [isBtnSubmitSaving, setBtnSubmitSaving] = useState(false);
   const [moviesError, setMoviesError] = useState({});
 
@@ -51,7 +52,7 @@ function App() {
 
   const handleSearchMovies = (submitted) => {
     const allMovies = getAllMoviesFromStorage();
-    setInfoToolTip({ notFound: false });
+    setInfoMovies({ notFound: false });
 
     if (allMovies) {
       // console.log('данные с хранилища');
@@ -62,7 +63,7 @@ function App() {
 
       addMovieSearchResultToStorage({ localMovies: filtered, localSearchData: submitted });
 
-      setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
+      setInfoMovies({ ...infoMovies, notFound: filtered.length === 0 });
     } else {
       // console.log('данные с сервера');
       setIsPreload(true);
@@ -79,11 +80,10 @@ function App() {
           addMovieSearchResultToStorage({
             localMovies: filtered,
             localSearchData: submitted,
-            localSavedSearchData: savedSearchResult,
           });
           addAllMoviesToStorage(allMovies);
 
-          setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
+          setInfoMovies({ ...infoMovies, notFound: filtered.length === 0 });
         })
         .catch((err) => {
           console.log(err);
@@ -97,7 +97,7 @@ function App() {
 
   const handleSearchSavedMovies = (submitted) => {
     // console.log('поиск в сохраненных фильмах')
-    setInfoToolTip({ notFound: false });
+    setInfoSavedMovies({ notFound: false });
 
     const filtered = filterMovies(submitted, savedMovies);
 
@@ -106,7 +106,7 @@ function App() {
 
     localStorage.setItem('savedMovies', JSON.stringify({ localSavedSearchData: submitted }));
 
-    setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
+    setInfoSavedMovies({ ...infoSavedMovies, notFound: filtered.length === 0 });
   };
 
   const handleGetSavedMovies = () => {
@@ -288,7 +288,7 @@ function App() {
                     onCardDelete={handleCardDelete}
                     onCardLike={handleCardLike}
                     isPreload={isPreload}
-                    infoToolTip={infoToolTip}
+                    infoToolTip={infoMovies}
                     error={moviesError}
                     onAddNextCards={handelAddNextCards}
                     isNextPageBtn={isNextPageBtn}
@@ -310,7 +310,7 @@ function App() {
                     onCardDelete={handleCardDelete}
                     onCardLike={handleCardLike}
                     isPreload={isPreload}
-                    infoToolTip={infoToolTip}
+                    infoToolTip={infoSavedMovies}
                     error={moviesError}
                     loggedIn={loggedIn}
                   />
