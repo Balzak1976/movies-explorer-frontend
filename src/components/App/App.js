@@ -39,6 +39,7 @@ function App() {
   const [infoSavedMovies, setInfoSavedMovies] = useState({});
   const [isBtnSubmitSaving, setBtnSubmitSaving] = useState(false);
   const [moviesError, setMoviesError] = useState({});
+  const [savedMoviesError, setSavedMoviesError] = useState({});
 
   const { setMovies, limitedCards, isNextPageBtn, handelAddNextCards } = useLimitedRenderCards()
   const [searchResult, setSearchResult] = useState({});
@@ -121,7 +122,7 @@ function App() {
       .catch((err) => {
         console.log(err);
 
-        setMoviesError({ ...moviesError, status: err.status, message: true });
+        setSavedMoviesError({ ...savedMoviesError, status: err.status, message: true });
       })
       .finally(() => {
         setIsPreload(false);
@@ -311,7 +312,7 @@ function App() {
                     onCardLike={handleCardLike}
                     isPreload={isPreload}
                     infoToolTip={infoSavedMovies}
-                    error={moviesError}
+                    error={savedMoviesError}
                     loggedIn={loggedIn}
                   />
                 </PageWithFooter>
