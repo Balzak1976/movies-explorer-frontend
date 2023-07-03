@@ -1,15 +1,16 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 
 const getScreenWidth = () => window.screen.width;
 
-export function useLimitedRenderCards(dataMovies) {
-  const [cardsLimit, setCardsLimit] = useState([]);
+export function useLimitedRenderCards() {
+  const [movies, setMovies] = useState([]);
+  const [limitedCards, setLimitedCards] = useState([]);
   const [currentWidth, setCurrentWidth] = useState(getScreenWidth());
 
-  const isNextPageBtn = cardsLimit.length < dataMovies?.length;
+  const isNextPageBtn = limitedCards.length < movies?.length;
 
   const handelAddNextCards = () => {
-    const startsWith = cardsLimit.length; // откуда резать
+    const startsWith = limitedCards.length; // откуда резать
     let endsWith = 0;
 
     if (currentWidth >= 1280) {
@@ -22,20 +23,20 @@ export function useLimitedRenderCards(dataMovies) {
       endsWith = startsWith + 1;
     }
 
-    setCardsLimit([...cardsLimit, ...dataMovies.slice(startsWith, endsWith)]);
+    setLimitedCards([...limitedCards, ...movies.slice(startsWith, endsWith)]);
   };
 
   useEffect(() => {
     if (currentWidth >= 1280) {
-      setCardsLimit(dataMovies.slice(0, 16));
+      setLimitedCards(movies.slice(0, 16));
     } else if (currentWidth < 1280 && currentWidth >= 1024) {
-      setCardsLimit(dataMovies.slice(0, 12));
+      setLimitedCards(movies.slice(0, 12));
     } else if (currentWidth < 1024 && currentWidth >= 768) {
-      setCardsLimit(dataMovies.slice(0, 8));
+      setLimitedCards(movies.slice(0, 8));
     } else if (currentWidth < 768) {
-      setCardsLimit(dataMovies.slice(0, 5));
+      setLimitedCards(movies.slice(0, 5));
     }
-  }, [dataMovies, currentWidth]);
+  }, [movies, currentWidth]);
 
   useEffect(() => {
     let timeOutId = null;
@@ -54,12 +55,5 @@ export function useLimitedRenderCards(dataMovies) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const resetCardList = useCallback(
-    (newData = []) => {
-      setCardsLimit(newData);
-    },
-    [setCardsLimit]
-  );
-
-  return { cardsLimit, isNextPageBtn, handelAddNextCards, resetCardList };
+  return { setMovies, limitedCards, isNextPageBtn, handelAddNextCards };
 }

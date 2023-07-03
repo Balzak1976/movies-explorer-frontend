@@ -1,6 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useLimitedRenderCards } from '../../hooks/useLimitedRenderCards';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { mainApi } from '../../utils/MainApi';
@@ -13,6 +14,7 @@ import {
   mixMoviesWithUniqueMovieId,
 } from '../../utils/utils';
 import filterMovies from '../../utils/filterMovies';
+
 import Header from '../Header/Header';
 import Login from '../Login/Login';
 import Main from '../Main/Main';
@@ -37,7 +39,7 @@ function App() {
   const [isBtnSubmitSaving, setBtnSubmitSaving] = useState(false);
   const [moviesError, setMoviesError] = useState({});
 
-  const [movies, setMovies] = useState([]);
+  const { setMovies, limitedCards, isNextPageBtn, handelAddNextCards } = useLimitedRenderCards()
   const [searchResult, setSearchResult] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
   const [savedSearchResult, setSavedSearchResult] = useState({});
@@ -282,14 +284,14 @@ function App() {
                     component={Movies}
                     onSearchForm={handleSearchMovies}
                     searchData={searchResult}
-                    dataMovies={mixMoviesWithUniqueMovieId(movies, savedMovies)}
+                    dataMovies={mixMoviesWithUniqueMovieId(limitedCards, savedMovies)}
                     onCardDelete={handleCardDelete}
                     onCardLike={handleCardLike}
                     isPreload={isPreload}
                     infoToolTip={infoToolTip}
                     error={moviesError}
-                    onAddNextCards={null}
-                    isNextPageBtn={false}
+                    onAddNextCards={handelAddNextCards}
+                    isNextPageBtn={isNextPageBtn}
                     loggedIn={loggedIn}
                   />
                 </PageWithFooter>
