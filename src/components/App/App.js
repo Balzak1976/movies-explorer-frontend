@@ -41,7 +41,7 @@ function App() {
   const [moviesError, setMoviesError] = useState({});
   const [savedMoviesError, setSavedMoviesError] = useState({});
 
-  const { setMovies, limitedCards, isNextPageBtn, handelAddNextCards } = useLimitedRenderCards()
+  const [ setMovies, limitedNumberOfMovies, isNextPageBtn, handelAddNextCards ] = useLimitedRenderCards()
   const [searchResult, setSearchResult] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
   const [savedSearchResult, setSavedSearchResult] = useState({});
@@ -285,7 +285,7 @@ function App() {
                     component={Movies}
                     onSearchForm={handleSearchMovies}
                     searchData={searchResult}
-                    dataMovies={mixMoviesWithUniqueMovieId(limitedCards, savedMovies)}
+                    dataMovies={mixMoviesWithUniqueMovieId(limitedNumberOfMovies, savedMovies)}
                     onCardDelete={handleCardDelete}
                     onCardLike={handleCardLike}
                     isPreload={isPreload}
