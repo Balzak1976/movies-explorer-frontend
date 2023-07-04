@@ -11,9 +11,8 @@ import {
   getAllMoviesFromStorage,
   addMovieSearchResultToStorage,
   getMovieSearchResultFromStorage,
-  mixMoviesWithUniqueMovieId,
 } from '../../utils/utils';
-import filterMovies from '../../utils/filterMovies';
+import { filterMovies, mixMoviesWithUniqueMovieId } from '../../utils/movieCardUtils';
 
 import Header from '../Header/Header';
 import Login from '../Login/Login';
@@ -41,7 +40,7 @@ function App() {
   const [moviesError, setMoviesError] = useState({});
   const [savedMoviesError, setSavedMoviesError] = useState({});
 
-  const [ setMovies, limitedNumberOfMovies, isNextPageBtn, handelAddNextCards ] = useLimitedRenderCards()
+  const [setMovies, limitedNumberOfMovies, isNextPageBtn, handelAddNextCards] = useLimitedRenderCards();
   const [searchResult, setSearchResult] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
   const [savedSearchResult, setSavedSearchResult] = useState({});

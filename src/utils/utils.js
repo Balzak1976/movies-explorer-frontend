@@ -10,20 +10,9 @@ const addMovieSearchResultToStorage = (value) => {
 
 const getMovieSearchResultFromStorage = () => JSON.parse(localStorage.getItem('movies')) || {};
 
-const mixMoviesWithUniqueMovieId = (biggerArr, lowerArr) => {
-  return biggerArr?.map((movie) => {
-    const savedMovie = lowerArr?.find((savedMovie) => {
-      return movie.movieId === savedMovie.movieId;
-    });
-
-    return savedMovie ? savedMovie : movie;
-  });
-};
-
 export {
   addAllMoviesToStorage,
   getAllMoviesFromStorage,
   addMovieSearchResultToStorage,
   getMovieSearchResultFromStorage,
-  mixMoviesWithUniqueMovieId,
 };
