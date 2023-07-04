@@ -1,19 +1,21 @@
-import './App.css';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useLimitedRenderCards } from '../../hooks/useLimitedRenderCards';
+import './App.css';
 
+import { DATA_UPDATE_SUCCESS_MSG } from '../../constants/infoToolTipMessage';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { mainApi } from '../../utils/MainApi';
 import { moviesApi } from '../../utils/MoviesApi';
+import { filterMovies, mixMoviesWithUniqueMovieId } from '../../utils/movieCardUtils';
 import {
   addAllMoviesToStorage,
-  getAllMoviesFromStorage,
   addMovieSearchResultToStorage,
+  getAllMoviesFromStorage,
   getMovieSearchResultFromStorage,
 } from '../../utils/utils';
-import { filterMovies, mixMoviesWithUniqueMovieId } from '../../utils/movieCardUtils';
 
+import { handleServerErrors } from '../../utils/handleServerErrors';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
 import Main from '../Main/Main';
@@ -24,9 +26,6 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import ProtectedRouteElement from '../parts/ProtectedRoute';
-
-const USER_SUCCESS_MSG = 'данные успешно обновлены';
-const USER_ERROR_MSG = 'Что-то пошло не так...';
 
 function App() {
   // ============================ STATES =======================================
@@ -163,7 +162,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        const message = err.message || USER_ERROR_MSG;
+        const message = handleServerErrors(err);
 
         setUserInfoToolTip({ ...userInfoToolTip, isError: true, message: message });
       })
@@ -188,7 +187,7 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        const message = err.message || USER_ERROR_MSG;
+        const message = handleServerErrors(err);
 
         setUserInfoToolTip({ ...userInfoToolTip, isError: true, message: message });
       })
@@ -226,11 +225,11 @@ function App() {
       .updateUser(userData)
       .then((res) => {
         setCurrentUser(res);
-        setUserInfoToolTip({ ...userInfoToolTip, isSuccess: true, message: USER_SUCCESS_MSG });
+        setUserInfoToolTip({ ...userInfoToolTip, isSuccess: true, message: DATA_UPDATE_SUCCESS_MSG });
       })
       .catch((err) => {
         console.log(err);
-        const message = err.message || USER_ERROR_MSG;
+        const message = handleServerErrors(err);
 
         setUserInfoToolTip({ ...userInfoToolTip, isError: true, message: message });
       })
