@@ -215,8 +215,9 @@ function App() {
     localStorage.removeItem('movies');
     localStorage.removeItem('savedMovies');
     localStorage.removeItem('loggedIn');
-    navigate('/', { replace: true });
+    setCurrentUser({});
     setLoggedIn(false);
+    navigate('/', { replace: true });
   };
 
   const handleUpdateUser = (userData) => {
