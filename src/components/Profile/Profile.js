@@ -16,6 +16,7 @@ const PROFILE = {
       name: 'name',
       title: 'Имя',
       typeAttribute: 'text',
+      pattern: '^[A-Za-zА-Яа-яЁё-s]+$',
     },
     {
       id: 2,
@@ -23,6 +24,7 @@ const PROFILE = {
       name: 'email',
       title: 'E-mail',
       typeAttribute: 'email',
+      pattern: '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$',
     },
   ],
 };
@@ -43,11 +45,7 @@ function Profile({ buttonSubmitState, onUpdateUser, onLogout, info, onResetInfo 
         isProfile={true}
       />
 
-      <button
-        className="profile__logout"
-        onClick={onLogout}
-        type="button"
-        aria-label="управление выходом из профиля">
+      <button className="profile__logout" onClick={onLogout} type="button" aria-label="управление выходом из профиля">
         Выйти из аккаунта
       </button>
     </div>

@@ -1,7 +1,7 @@
 import './Input.css';
 
 function Input({
-  config: { type, name, title, placeholder, typeAttribute, minLength, maxLength },
+  config: { type, name, title, placeholder, typeAttribute, minLength, maxLength, pattern },
   value,
   onChange,
   error,
@@ -25,6 +25,7 @@ function Input({
         minLength={minLength}
         maxLength={maxLength}
         required
+        pattern={pattern}
       />
       <span className={`form__input-error form__input-error_type_${type} ${error && 'form__input-error_active'}`}>
         {error}
