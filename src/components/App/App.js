@@ -3,6 +3,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useLimitedRenderCards } from '../../hooks/useLimitedRenderCards';
 import './App.css';
 
+import { NO_MOVIES } from '../../constants/movieCardUtils';
 import { DATA_UPDATE_SUCCESS_MSG } from '../../constants/infoToolTipMessage';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { mainApi } from '../../utils/MainApi';
@@ -62,7 +63,7 @@ function App() {
 
       addMovieSearchResultToStorage({ localMovies: filtered, localSearchData: submitted });
 
-      setInfoMovies({ ...infoMovies, notFound: filtered.length === 0 });
+      setInfoMovies({ ...infoMovies, notFound: filtered.length === NO_MOVIES });
     } else {
       // console.log('данные с сервера');
       setIsPreload(true);
@@ -82,7 +83,7 @@ function App() {
           });
           addAllMoviesToStorage(allMovies);
 
-          setInfoMovies({ ...infoMovies, notFound: filtered.length === 0 });
+          setInfoMovies({ ...infoMovies, notFound: filtered.length === NO_MOVIES });
         })
         .catch((err) => {
           console.log(err);
@@ -105,7 +106,7 @@ function App() {
 
     localStorage.setItem('savedMovies', JSON.stringify({ localSavedSearchData: submitted }));
 
-    setInfoSavedMovies({ ...infoSavedMovies, notFound: filtered.length === 0 });
+    setInfoSavedMovies({ ...infoSavedMovies, notFound: filtered.length === NO_MOVIES });
   };
 
   const handleGetSavedMovies = () => {
