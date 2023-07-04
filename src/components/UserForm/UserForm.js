@@ -1,17 +1,25 @@
+import './UserForm.css';
 import { Link } from 'react-router-dom';
 import { ValidationContext } from '../../contexts/ValidationContext';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 import FormWithInput from './FormWithInput/FormWithInput';
-import './UserForm.css';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function UserForm({ config: { title, text, link, ...rest }, buttonSubmitState, onUserForm, info, onResetInfo }) {
-  const { values, handleChange, errors, isValid, setValues } = useFormAndValidation();
+function UserForm({
+  config: { title, text, link, ...rest },
+  buttonSubmitState,
+  onUserForm,
+  info,
+  onResetInfo,
+  isProfile = false,
+}) {
+  const { values, handleChange, errors, isValid, resetForm, setValues, setIsValid } = useFormAndValidation();
   const currentUser = useContext(CurrentUserContext);
 
   const onSubmit = (e) => {
     e.preventDefault();
+    resetForm();
 
     onUserForm(values);
   };
@@ -21,6 +29,13 @@ function UserForm({ config: { title, text, link, ...rest }, buttonSubmitState, o
       setValues({ ...values, name: currentUser.name, email: currentUser.email });
     }
   }, [currentUser]);
+
+  useEffect(() => {
+    if (isProfile) {
+      const isMatch = currentUser.name !== values.name || currentUser.email !== values.email;
+      setIsValid((prev) => prev && isMatch);
+    }
+  }, [values]);
 
   return (
     <section className="user-form">

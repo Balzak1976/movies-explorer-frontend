@@ -40,6 +40,7 @@ function Profile({ buttonSubmitState, onUpdateUser, onLogout, info, onResetInfo 
         onUserForm={onUpdateUser}
         info={info}
         onResetInfo={onResetInfo}
+        isProfile={true}
       />
 
       <button
