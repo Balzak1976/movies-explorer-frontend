@@ -1,4 +1,4 @@
-import { DURATION_SHORT_MOVIES_MINUTES, HOUR_IN_MINUTES } from '../constants/movieCardUtils';
+import { DURATION_SHORT_MOVIES_MINUTES, HOUR_IN_MINUTES } from '../constants/movieCard';
 
 function getFormattedDuration(duration) {
   const hours = Math.floor(duration / HOUR_IN_MINUTES); // целое количество часов
@@ -30,4 +30,5 @@ const mixMoviesWithUniqueMovieId = (biggerArr, lowerArr) => {
   });
 };
 
-export { getFormattedDuration, filterMovies, mixMoviesWithUniqueMovieId };
+export { filterMovies, getFormattedDuration, mixMoviesWithUniqueMovieId };
+

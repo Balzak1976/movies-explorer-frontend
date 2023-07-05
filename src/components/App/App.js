@@ -3,8 +3,8 @@ import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useLimitedRenderCards } from '../../hooks/useLimitedRenderCards';
 import './App.css';
 
-import { NO_MOVIES } from '../../constants/movieCardUtils';
 import { DATA_UPDATE_SUCCESS_MSG } from '../../constants/infoToolTipMessage';
+import { NO_MOVIES } from '../../constants/movieCard';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { mainApi } from '../../utils/MainApi';
 import { moviesApi } from '../../utils/MoviesApi';
@@ -35,7 +35,6 @@ function App() {
 
   const [isPreload, setIsPreload] = useState(false);
   const [infoMovies, setInfoMovies] = useState({});
-  const [infoSavedMovies, setInfoSavedMovies] = useState({});
   const [isBtnSubmitSaving, setBtnSubmitSaving] = useState(false);
   const [moviesError, setMoviesError] = useState({});
   const [savedMoviesError, setSavedMoviesError] = useState({});
@@ -43,7 +42,7 @@ function App() {
   const [setMovies, limitedNumberOfMovies, isNextPageBtn, handelAddNextCards] = useLimitedRenderCards();
   const [searchResult, setSearchResult] = useState({});
   const [savedMovies, setSavedMovies] = useState([]);
-  const [savedSearchResult, setSavedSearchResult] = useState({});
+  
 
   const [currentUser, setCurrentUser] = useState({});
   const [userInfoToolTip, setUserInfoToolTip] = useState({});
@@ -95,19 +94,7 @@ function App() {
     }
   };
 
-  const handleSearchSavedMovies = (submitted) => {
-    // console.log('поиск в сохраненных фильмах')
-    setInfoSavedMovies({ notFound: false });
-
-    const filtered = filterMovies(submitted, savedMovies);
-
-    setSavedMovies([...filtered]);
-    setSavedSearchResult(submitted);
-
-    localStorage.setItem('savedMovies', JSON.stringify({ localSavedSearchData: submitted }));
-
-    setInfoSavedMovies({ ...infoSavedMovies, notFound: filtered.length === NO_MOVIES });
-  };
+  
 
   const handleGetSavedMovies = () => {
     setIsPreload(true);
@@ -251,13 +238,13 @@ function App() {
 
     if (jwt) {
       const { localMovies = [], localSearchData = {} } = getMovieSearchResultFromStorage();
-      const { localSavedSearchData = {} } = JSON.parse(localStorage.getItem('savedMovies')) || {};
+      
 
       handleTokenCheck(jwt);
       handleGetSavedMovies(); // savedMovies from movies-explorer-api
       setMovies([...localMovies]);
       setSearchResult({ ...localSearchData });
-      setSavedSearchResult({ ...localSavedSearchData });
+      
     }
   }, [loggedIn]);
 
@@ -305,13 +292,10 @@ function App() {
                   <ProtectedRouteElement
                     component={SavedMovies}
                     onGetSavedMovies={handleGetSavedMovies}
-                    onSearchForm={handleSearchSavedMovies}
-                    searchData={savedSearchResult}
-                    dataMovies={savedMovies}
+                    savedMovies={savedMovies}
                     onCardDelete={handleCardDelete}
                     onCardLike={handleCardLike}
                     isPreload={isPreload}
-                    infoToolTip={infoSavedMovies}
                     error={savedMoviesError}
                     loggedIn={loggedIn}
                   />

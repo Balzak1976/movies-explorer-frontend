@@ -1,12 +1,46 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { NO_MOVIES } from '../../constants/movieCard';
+import { filterMovies } from '../../utils/movieCardUtils';
 import Movies from '../Movies/Movies';
 
-function SavedMovies({ onGetSavedMovies, ...props }) {
+let filtered = null;
+
+function SavedMovies({ savedMovies, onCardDelete, onCardLike, isPreload, error }) {
+  const [infoSavedMovies, setInfoSavedMovies] = useState({});
+  const [savedSearchResult, setSavedSearchResult] = useState({});
+
+  const handleSearchSavedMovies = (submitted) => {
+    // console.log('поиск в сохраненных фильмах')
+    setInfoSavedMovies({ notFound: false });
+
+    filtered = filterMovies(submitted, savedMovies);
+
+    setSavedSearchResult(submitted);
+
+    localStorage.setItem('savedMovies', JSON.stringify({ localSavedSearchData: submitted }));
+
+    setInfoSavedMovies({ ...infoSavedMovies, notFound: filtered.length === NO_MOVIES });
+  };
+
   useEffect(() => {
-    onGetSavedMovies();
+    const { localSavedSearchData = {} } = JSON.parse(localStorage.getItem('savedMovies')) || {};
+    setSavedSearchResult({ ...localSavedSearchData });
+    filtered = null;
   }, []);
 
-  return <Movies {...props} isSavedMovies={true} />;
+  return (
+    <Movies
+      onSearchForm={handleSearchSavedMovies}
+      searchData={savedSearchResult}
+      dataMovies={filtered ? filtered : savedMovies}
+      onCardDelete={onCardDelete}
+      onCardLike={onCardLike}
+      isPreload={isPreload}
+      infoToolTip={infoSavedMovies}
+      error={error}
+      isSavedMovies={true}
+    />
+  );
 }
 
 export default SavedMovies;
