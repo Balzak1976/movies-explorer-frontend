@@ -16,6 +16,7 @@ const LOGIN = {
       name: 'email',
       title: 'E-mail',
       typeAttribute: 'email',
+      pattern: '[a-z0-9._%+\\-]+@[a-z0-9.\\-]+\\.[a-z]{2,}',
     },
     {
       id: 3,
@@ -25,6 +26,7 @@ const LOGIN = {
       typeAttribute: 'password',
       minLength: '2',
       maxLength: '14',
+      pattern: '[!-z]',
     },
   ],
 };

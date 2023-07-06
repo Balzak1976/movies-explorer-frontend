@@ -16,7 +16,9 @@ const PROFILE = {
       name: 'name',
       title: 'Имя',
       typeAttribute: 'text',
-      pattern: '^[A-Za-zА-Яа-яЁё-s]+$',
+      minLength: 2,
+      maxLength: 30,
+      pattern: '[\\w\\sА-яЁё]+',
     },
     {
       id: 2,
@@ -24,7 +26,7 @@ const PROFILE = {
       name: 'email',
       title: 'E-mail',
       typeAttribute: 'email',
-      pattern: '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$',
+      pattern: '[a-z0-9._%+\\-]+@[a-z0-9.\\-]+\\.[a-z]{2,}',
     },
   ],
 };

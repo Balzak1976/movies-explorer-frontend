@@ -16,7 +16,9 @@ const REGISTER = {
       name: 'name',
       title: 'Имя',
       typeAttribute: 'text',
-      pattern: '^[A-Za-zА-Яа-яЁё-s]+$',
+      minlength: 2,
+      maxlength: 30,
+      pattern: '[\\w\\sА-яЁё]+',
     },
     {
       id: 2,
@@ -24,7 +26,7 @@ const REGISTER = {
       name: 'email',
       title: 'E-mail',
       typeAttribute: 'email',
-      pattern: '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$',
+      pattern: '[a-z0-9._%+\\-]+@[a-z0-9.\\-]+\\.[a-z]{2,}',
     },
     {
       id: 3,
@@ -32,9 +34,9 @@ const REGISTER = {
       name: 'password',
       title: 'Пароль',
       typeAttribute: 'password',
-      minLength: '2',
+      minLength: '8',
       maxLength: '14',
-      pattern: '^[!-z]{2,14}$',
+      pattern: '[!-z]',
     },
   ],
 };
