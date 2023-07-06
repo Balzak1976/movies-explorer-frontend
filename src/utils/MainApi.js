@@ -1,5 +1,5 @@
-const BASE_URL = 'https://api.skor.nomoredomains.monster';
-// const BASE_URL = 'http://localhost:3000';
+// const BASE_URL = 'https://api.skor.nomoredomains.monster';
+const BASE_URL = 'http://localhost:3000';
 
 class MainApi {
   constructor(params) {

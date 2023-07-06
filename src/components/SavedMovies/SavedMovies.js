@@ -2,30 +2,26 @@ import { useEffect, useState } from 'react';
 import { NO_MOVIES } from '../../constants/movieCard';
 import { filterMovies } from '../../utils/movieCardUtils';
 import Movies from '../Movies/Movies';
-
-let filtered = null;
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 function SavedMovies({ savedMovies, onCardDelete, onCardLike, isPreload, error }) {
   const [infoSavedMovies, setInfoSavedMovies] = useState({});
-  const [savedSearchResult, setSavedSearchResult] = useState({});
+  const [savedSearchResult, setSavedSearchResult] = useLocalStorage({}, 'savedMovies');
+  const [filtered, setFiltered] = useState(null);
 
   const handleSearchSavedMovies = (submitted) => {
     // console.log('поиск в сохраненных фильмах')
     setInfoSavedMovies({ notFound: false });
 
-    filtered = filterMovies(submitted, savedMovies);
+    setFiltered(filterMovies(submitted, savedMovies));
 
     setSavedSearchResult(submitted);
 
-    localStorage.setItem('savedMovies', JSON.stringify({ localSavedSearchData: submitted }));
-
-    setInfoSavedMovies({ ...infoSavedMovies, notFound: filtered.length === NO_MOVIES });
+    setInfoSavedMovies({ ...infoSavedMovies, notFound: filtered?.length === NO_MOVIES });
   };
 
   useEffect(() => {
-    const { localSavedSearchData = {} } = JSON.parse(localStorage.getItem('savedMovies')) || {};
-    setSavedSearchResult({ ...localSavedSearchData });
-    filtered = null;
+    setFiltered(null);
   }, []);
 
   return (

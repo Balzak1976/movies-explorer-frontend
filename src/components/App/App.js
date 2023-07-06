@@ -1,7 +1,7 @@
+import './App.css';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useLimitedRenderCards } from '../../hooks/useLimitedRenderCards';
-import './App.css';
 
 import { DATA_UPDATE_SUCCESS_MSG } from '../../constants/infoToolTipMessage';
 import { NO_MOVIES } from '../../constants/movieCard';
@@ -9,12 +9,6 @@ import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { mainApi } from '../../utils/MainApi';
 import { moviesApi } from '../../utils/MoviesApi';
 import { filterMovies, mixMoviesWithUniqueMovieId } from '../../utils/movieCardUtils';
-import {
-  addAllMoviesToStorage,
-  addMovieSearchResultToStorage,
-  getAllMoviesFromStorage,
-  getMovieSearchResultFromStorage,
-} from '../../utils/utils';
 
 import { handleServerErrors } from '../../utils/handleServerErrors';
 import Header from '../Header/Header';
@@ -27,11 +21,12 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import ProtectedRouteElement from '../parts/ProtectedRoute';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 function App() {
   // ============================ STATES =======================================
 
-  const [loggedIn, setLoggedIn] = useState(localStorage.getItem('loggedIn') || false);
+  const [loggedIn, setLoggedIn] = useLocalStorage(false, 'loggedIn');
 
   const [isPreload, setIsPreload] = useState(false);
   const [infoMovies, setInfoMovies] = useState({});
@@ -39,10 +34,10 @@ function App() {
   const [moviesError, setMoviesError] = useState({});
   const [savedMoviesError, setSavedMoviesError] = useState({});
 
+  const [allMovies, setAllMovies] = useLocalStorage(null, 'allMovies');
   const [setMovies, limitedNumberOfMovies, isNextPageBtn, handelAddNextCards] = useLimitedRenderCards();
-  const [searchResult, setSearchResult] = useState({});
+  const [searchResult, setSearchResult] = useLocalStorage({}, 'movies');
   const [savedMovies, setSavedMovies] = useState([]);
-  
 
   const [currentUser, setCurrentUser] = useState({});
   const [userInfoToolTip, setUserInfoToolTip] = useState({});
@@ -50,7 +45,6 @@ function App() {
   // ============================ MOVIES =======================================
 
   const handleSearchMovies = (submitted) => {
-    const allMovies = getAllMoviesFromStorage();
     setInfoMovies({ notFound: false });
 
     if (allMovies) {
@@ -58,9 +52,8 @@ function App() {
       const filtered = filterMovies(submitted, allMovies);
 
       setMovies([...filtered]);
-      setSearchResult(submitted);
 
-      addMovieSearchResultToStorage({ localMovies: filtered, localSearchData: submitted });
+      setSearchResult({ localMovies: filtered, localSearchData: submitted });
 
       setInfoMovies({ ...infoMovies, notFound: filtered.length === NO_MOVIES });
     } else {
@@ -76,11 +69,8 @@ function App() {
           setMovies([...filtered]);
           setSearchResult(submitted);
 
-          addMovieSearchResultToStorage({
-            localMovies: filtered,
-            localSearchData: submitted,
-          });
-          addAllMoviesToStorage(allMovies);
+          setSearchResult({ localMovies: filtered, localSearchData: submitted });
+          setAllMovies(allMovies);
 
           setInfoMovies({ ...infoMovies, notFound: filtered.length === NO_MOVIES });
         })
@@ -93,8 +83,6 @@ function App() {
         });
     }
   };
-
-  
 
   const handleGetSavedMovies = () => {
     setIsPreload(true);
@@ -168,7 +156,6 @@ function App() {
       .then((data) => {
         if (data?.token) {
           localStorage.setItem('jwt', data.token);
-          localStorage.setItem('loggedIn', JSON.stringify(true));
           setLoggedIn(true);
           navigate('/movies', { replace: true });
         }
@@ -202,8 +189,9 @@ function App() {
     localStorage.removeItem('movies');
     localStorage.removeItem('savedMovies');
     localStorage.removeItem('loggedIn');
-    setCurrentUser({});
     setLoggedIn(false);
+    setCurrentUser({});
+    setSearchResult({});
     navigate('/', { replace: true });
   };
 
@@ -237,14 +225,11 @@ function App() {
     const jwt = localStorage.getItem('jwt');
 
     if (jwt) {
-      const { localMovies = [], localSearchData = {} } = getMovieSearchResultFromStorage();
-      
+      const { localMovies = [] } = searchResult;
 
       handleTokenCheck(jwt);
       handleGetSavedMovies(); // savedMovies from movies-explorer-api
       setMovies([...localMovies]);
-      setSearchResult({ ...localSearchData });
-      
     }
   }, [loggedIn]);
 
@@ -271,7 +256,7 @@ function App() {
                   <ProtectedRouteElement
                     component={Movies}
                     onSearchForm={handleSearchMovies}
-                    searchData={searchResult}
+                    searchData={searchResult.localSearchData}
                     dataMovies={mixMoviesWithUniqueMovieId(limitedNumberOfMovies, savedMovies)}
                     onCardDelete={handleCardDelete}
                     onCardLike={handleCardLike}
