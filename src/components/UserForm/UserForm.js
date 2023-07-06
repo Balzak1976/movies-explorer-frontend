@@ -1,27 +1,41 @@
+import './UserForm.css';
 import { Link } from 'react-router-dom';
 import { ValidationContext } from '../../contexts/ValidationContext';
 import { useFormAndValidation } from '../../hooks/useFormAndValidation';
 import FormWithInput from './FormWithInput/FormWithInput';
-import './UserForm.css';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function UserForm({ config: { title, text, link, ...rest }, buttonSubmitState, onUserForm, info }) {
-  const { values, handleChange, errors, isValid, resetForm, setValues } = useFormAndValidation();
+function UserForm({
+  config: { title, text, link, ...rest },
+  buttonSubmitState,
+  onUserForm,
+  info,
+  onResetInfo,
+  isProfile = false,
+}) {
+  const { values, handleChange, errors, isValid, resetForm, setValues, setIsValid } = useFormAndValidation();
   const currentUser = useContext(CurrentUserContext);
-  const [userInfo, setUserInfo] = useState({});
 
   const onSubmit = (e) => {
     e.preventDefault();
+    resetForm();
 
     onUserForm(values);
   };
 
   useEffect(() => {
-    setUserInfo({ ...info });
-    resetForm();
-    setValues({ name: currentUser.name, email: currentUser.email });
-  }, [currentUser, info]);
+    if (currentUser.name && currentUser.email) {
+      setValues({ ...values, name: currentUser.name, email: currentUser.email });
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
+    if (isProfile) {
+      const isMatch = currentUser.name !== values.name || currentUser.email !== values.email;
+      setIsValid((prev) => prev && isMatch);
+    }
+  }, [values]);
 
   return (
     <section className="user-form">
@@ -32,16 +46,15 @@ function UserForm({ config: { title, text, link, ...rest }, buttonSubmitState, o
           config={rest}
           onSubmit={onSubmit}
           buttonSubmitState={buttonSubmitState}
-          info={userInfo}
+          info={info}
+          onResetInfo={onResetInfo}
         />
       </ValidationContext.Provider>
 
       {link && (
         <p className="user-form__text">
           {text}
-          <Link
-            className={`button button_type_user-form button_type_${rest.name}`}
-            to={link.to}>
+          <Link className={`button button_type_user-form button_type_${rest.name}`} to={link.to}>
             {link.text}
           </Link>
         </p>

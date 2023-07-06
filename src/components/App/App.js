@@ -1,18 +1,16 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
+import { useLimitedRenderCards } from '../../hooks/useLimitedRenderCards';
 
+import { DATA_UPDATE_SUCCESS_MSG } from '../../constants/infoToolTipMessage';
+import { NO_MOVIES } from '../../constants/movieCard';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import { mainApi } from '../../utils/MainApi';
 import { moviesApi } from '../../utils/MoviesApi';
-import {
-  addAllMoviesToStorage,
-  getAllMoviesFromStorage,
-  addMovieSearchResultToStorage,
-  getMovieSearchResultFromStorage,
-  mixMoviesWithUniqueMovieId,
-} from '../../utils/utils';
-import filterMovies from '../../utils/filterMovies';
+import { filterMovies, mixMoviesWithUniqueMovieId } from '../../utils/movieCardUtils';
+
+import { handleServerErrors } from '../../utils/handleServerErrors';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
 import Main from '../Main/Main';
@@ -23,54 +21,41 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import ProtectedRouteElement from '../parts/ProtectedRoute';
-
-const USER_SUCCESS_MSG = 'данные успешно обновлены';
-const USER_ERROR_MSG = 'Что-то пошло не так...';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 function App() {
   // ============================ STATES =======================================
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useLocalStorage(false, 'loggedIn');
 
   const [isPreload, setIsPreload] = useState(false);
-  const [infoToolTip, setInfoToolTip] = useState({});
+  const [infoMovies, setInfoMovies] = useState({});
   const [isBtnSubmitSaving, setBtnSubmitSaving] = useState(false);
   const [moviesError, setMoviesError] = useState({});
+  const [savedMoviesError, setSavedMoviesError] = useState({});
 
-  const [searchResult, setSearchResult] = useState({});
-  const [movies, setMovies] = useState([]);
-  const [savedSearchResult, setSavedSearchResult] = useState({});
+  const [allMovies, setAllMovies] = useLocalStorage(null, 'allMovies');
+  const [setMovies, limitedNumberOfMovies, isNextPageBtn, handelAddNextCards] = useLimitedRenderCards();
+  const [searchResult, setSearchResult] = useLocalStorage({}, 'movies');
   const [savedMovies, setSavedMovies] = useState([]);
 
   const [currentUser, setCurrentUser] = useState({});
-  const [userError, setUserError] = useState({});
+  const [userInfoToolTip, setUserInfoToolTip] = useState({});
 
   // ============================ MOVIES =======================================
 
   const handleSearchMovies = (submitted) => {
-    const isSavedMovies = submitted.isSavedMovies;
-    const allMovies = getAllMoviesFromStorage();
-    setInfoToolTip({ notFound: false });
+    setInfoMovies({ notFound: false });
 
-    if (isSavedMovies === true) {
-      const filtered = filterMovies(submitted, savedMovies);
-
-      setSavedMovies([...filtered]);
-      setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
-
-      addMovieSearchResultToStorage({
-        searchData: searchResult,
-        movies: movies,
-        savedSearchData: submitted,
-        savedMovies: filtered,
-      });
-    } else if (allMovies) {
+    if (allMovies) {
       // console.log('данные с хранилища');
-      const filtered = filterMovies(submitted.savedReq, allMovies);
+      const filtered = filterMovies(submitted, allMovies);
 
       setMovies([...filtered]);
-      setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
-      addMovieSearchResultToStorage({ searchData: submitted, movies: filtered });
+
+      setSearchResult({ localMovies: filtered, localSearchData: submitted });
+
+      setInfoMovies({ ...infoMovies, notFound: filtered.length === NO_MOVIES });
     } else {
       // console.log('данные с сервера');
       setIsPreload(true);
@@ -82,17 +67,13 @@ function App() {
           const filtered = filterMovies(submitted, allMovies);
 
           setMovies([...filtered]);
-          setInfoToolTip({ ...infoToolTip, notFound: filtered.length === 0 });
+          setSearchResult(submitted);
 
-          addMovieSearchResultToStorage({
-            searchData: submitted,
-            movies: filtered,
-            savedSearchData: savedSearchResult,
-            savedMovies: savedMovies,
-          });
-          addAllMoviesToStorage(allMovies);
+          setSearchResult({ localMovies: filtered, localSearchData: submitted });
+          setAllMovies(allMovies);
+
+          setInfoMovies({ ...infoMovies, notFound: filtered.length === NO_MOVIES });
         })
-
         .catch((err) => {
           console.log(err);
           setMoviesError({ ...moviesError, status: err.status, message: true });
@@ -105,7 +86,6 @@ function App() {
 
   const handleGetSavedMovies = () => {
     setIsPreload(true);
-    setInfoToolTip({ notFound: false });
     setMoviesError({ status: null, message: null });
 
     mainApi
@@ -115,7 +95,8 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        setMoviesError({ ...moviesError, status: err.status, message: true });
+
+        setSavedMoviesError({ ...savedMoviesError, status: err.status, message: true });
       })
       .finally(() => {
         setIsPreload(false);
@@ -128,10 +109,7 @@ function App() {
       .then((newMovie) => {
         setSavedMovies([...savedMovies, newMovie]);
       })
-
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(console.log);
   };
 
   const handleCardDelete = (movieData) => {
@@ -141,10 +119,7 @@ function App() {
       .then((res) => {
         setSavedMovies((state) => state.filter((c) => c._id !== mongoId));
       })
-
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch(console.log);
   };
 
   // ============================= USER =======================================
@@ -153,7 +128,7 @@ function App() {
 
   const handleRegister = (userData) => {
     setBtnSubmitSaving(true);
-    setUserError({ ...userError, isError: false });
+    setUserInfoToolTip({ ...userInfoToolTip, isError: false });
 
     mainApi
       .register(userData)
@@ -163,7 +138,9 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        setUserError({ ...userError, isError: true, message: USER_ERROR_MSG });
+        const message = handleServerErrors(err);
+
+        setUserInfoToolTip({ ...userInfoToolTip, isError: true, message: message });
       })
       .finally(() => {
         setBtnSubmitSaving(false);
@@ -172,7 +149,7 @@ function App() {
 
   const handleLogin = ({ email, password }) => {
     setBtnSubmitSaving(true);
-    setUserError({ ...userError, isError: false });
+    setUserInfoToolTip({ ...userInfoToolTip, isError: false });
 
     return mainApi
       .authorize({ email, password })
@@ -185,7 +162,9 @@ function App() {
       })
       .catch((err) => {
         console.log(err);
-        setUserError({ ...userError, isError: true, message: USER_ERROR_MSG });
+        const message = handleServerErrors(err);
+
+        setUserInfoToolTip({ ...userInfoToolTip, isError: true, message: message });
       })
       .finally(() => {
         setBtnSubmitSaving(false);
@@ -201,15 +180,19 @@ function App() {
           setLoggedIn(true);
         }
       })
-      .catch((err) => console.log(err));
+      .catch(console.log);
   };
 
   const handleLogout = () => {
     localStorage.removeItem('jwt');
-    localStorage.removeItem('foundMovies');
     localStorage.removeItem('allMovies');
-    navigate('/', { replace: true });
+    localStorage.removeItem('movies');
+    localStorage.removeItem('savedMovies');
+    localStorage.removeItem('loggedIn');
     setLoggedIn(false);
+    setCurrentUser({});
+    setSearchResult({});
+    navigate('/', { replace: true });
   };
 
   const handleUpdateUser = (userData) => {
@@ -219,30 +202,34 @@ function App() {
       .updateUser(userData)
       .then((res) => {
         setCurrentUser(res);
-        setUserError({ ...userError, isSuccess: true, message: USER_SUCCESS_MSG });
+        setUserInfoToolTip({ ...userInfoToolTip, isSuccess: true, message: DATA_UPDATE_SUCCESS_MSG });
       })
       .catch((err) => {
         console.log(err);
-        setUserError({ ...userError, isError: true, message: USER_ERROR_MSG });
+        const message = handleServerErrors(err);
+
+        setUserInfoToolTip({ ...userInfoToolTip, isError: true, message: message });
       })
       .finally(() => {
         setBtnSubmitSaving(false);
       });
   };
 
-  // ======================= Initial  ==========================================
+  const resetUserInfoToolTip = () => {
+    setUserInfoToolTip();
+  };
+
+  // ======================= START  ==========================================
 
   useEffect(() => {
     const jwt = localStorage.getItem('jwt');
-    const { searchData = {}, movies = [], savedSearchData = {}, savedMovies = [] } = getMovieSearchResultFromStorage();
 
     if (jwt) {
+      const { localMovies = [] } = searchResult;
+
       handleTokenCheck(jwt);
-      handleGetSavedMovies();
-      setSearchResult({ ...searchData });
-      setMovies([...movies]);
-      setSavedSearchResult({ ...savedSearchData });
-      setSavedMovies([...savedMovies]);
+      handleGetSavedMovies(); // savedMovies from movies-explorer-api
+      setMovies([...localMovies]);
     }
   }, [loggedIn]);
 
@@ -269,13 +256,15 @@ function App() {
                   <ProtectedRouteElement
                     component={Movies}
                     onSearchForm={handleSearchMovies}
-                    searchData={searchResult}
-                    dataMovies={mixMoviesWithUniqueMovieId(movies, savedMovies)}
+                    searchData={searchResult.localSearchData}
+                    dataMovies={mixMoviesWithUniqueMovieId(limitedNumberOfMovies, savedMovies)}
                     onCardDelete={handleCardDelete}
                     onCardLike={handleCardLike}
                     isPreload={isPreload}
-                    infoToolTip={infoToolTip}
+                    infoToolTip={infoMovies}
                     error={moviesError}
+                    onAddNextCards={handelAddNextCards}
+                    isNextPageBtn={isNextPageBtn}
                     loggedIn={loggedIn}
                   />
                 </PageWithFooter>
@@ -287,14 +276,12 @@ function App() {
                 <PageWithFooter loggedIn={loggedIn} isHidden={true}>
                   <ProtectedRouteElement
                     component={SavedMovies}
-                    onSearchForm={handleSearchMovies}
-                    searchData={savedSearchResult}
-                    dataMovies={savedMovies}
+                    onGetSavedMovies={handleGetSavedMovies}
+                    savedMovies={savedMovies}
                     onCardDelete={handleCardDelete}
                     onCardLike={handleCardLike}
                     isPreload={isPreload}
-                    infoToolTip={infoToolTip}
-                    error={moviesError}
+                    error={savedMoviesError}
                     loggedIn={loggedIn}
                   />
                 </PageWithFooter>
@@ -308,7 +295,8 @@ function App() {
                   buttonSubmitState={isBtnSubmitSaving}
                   onUpdateUser={handleUpdateUser}
                   onLogout={handleLogout}
-                  info={userError}
+                  info={userInfoToolTip}
+                  onResetInfo={resetUserInfoToolTip}
                   loggedIn={loggedIn}
                 />
               }
@@ -316,14 +304,26 @@ function App() {
             {!loggedIn && (
               <Route
                 path="/signin"
-                element={<Login buttonSubmitState={isBtnSubmitSaving} onLogin={handleLogin} info={userError} />}
+                element={
+                  <Login
+                    buttonSubmitState={isBtnSubmitSaving}
+                    onLogin={handleLogin}
+                    info={userInfoToolTip}
+                    onResetInfo={resetUserInfoToolTip}
+                  />
+                }
               />
             )}
             {!loggedIn && (
               <Route
                 path="/signup"
                 element={
-                  <Register buttonSubmitState={isBtnSubmitSaving} onRegister={handleRegister} info={userError} />
+                  <Register
+                    buttonSubmitState={isBtnSubmitSaving}
+                    onRegister={handleRegister}
+                    info={userInfoToolTip}
+                    onResetInfo={resetUserInfoToolTip}
+                  />
                 }
               />
             )}

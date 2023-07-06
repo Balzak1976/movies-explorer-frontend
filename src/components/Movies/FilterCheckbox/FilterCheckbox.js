@@ -1,6 +1,6 @@
 import './FilterCheckbox.css';
 
-function FilterCheckbox({checked, onChange}) {
+function FilterCheckbox({checked = false, onChange}) {
   return (
     <div className="filter">
       <label className="checkbox">

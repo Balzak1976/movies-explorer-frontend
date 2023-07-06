@@ -16,6 +16,7 @@ const LOGIN = {
       name: 'email',
       title: 'E-mail',
       typeAttribute: 'email',
+      pattern: '[a-z0-9._%+\\-]+@[a-z0-9.\\-]+\\.[a-z]{2,}',
     },
     {
       id: 3,
@@ -29,7 +30,7 @@ const LOGIN = {
   ],
 };
 
-function Login({ buttonSubmitState, onLogin, info  }) {
+function Login({ buttonSubmitState, onLogin, info, onResetInfo }) {
   return (
     <div className="login">
       <Logo />
@@ -39,6 +40,7 @@ function Login({ buttonSubmitState, onLogin, info  }) {
         buttonSubmitState={buttonSubmitState}
         onUserForm={onLogin}
         info={info}
+        onResetInfo={onResetInfo}
       />
     </div>
   );

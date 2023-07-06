@@ -1,41 +1,73 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
+import {
+  DESKTOP_SCREEN_WIDTH,
+  TABLET_SCREEN_WIDTH,
+  MOBILE_SCREEN_WIDTH,
+  DESKTOP_ADDED_CARD_ROW,
+  DESKTOP_TABLET_ADDED_CARD_ROW,
+  TABLET_MOBILE_ADDED_CARD_ROW,
+  MOBILE_ADDED_CARD_ROW,
+  FROM_FIRST_CARD,
+  TO_DESKTOP_INITIAL_NUMBER_CARDS,
+  TO_DESKTOP_TABLET_INITIAL_NUMBER_CARDS,
+  TO_TABLET_MOBILE_INITIAL_NUMBER_CARDS,
+  TO_MOBILE_INITIAL_NUMBER_CARDS,
+  TIME_DELAY_MS,
+} from '../constants/limitedRenderCards';
 
 const getScreenWidth = () => window.screen.width;
 
-export function useLimitedRenderCards(dataMovies) {
-  const [cardsLimit, setCardsLimit] = useState([]);
+export function useLimitedRenderCards() {
+  const [initialCards, setInitialCards] = useState([]);
+  const [limitedCards, setLimitedCards] = useState([]);
   const [currentWidth, setCurrentWidth] = useState(getScreenWidth());
 
-  const isNextPageBtn = cardsLimit.length < dataMovies?.length;
+  const isNextPageBtn = limitedCards.length < initialCards?.length;
 
   const handelAddNextCards = () => {
-    const startsWith = cardsLimit.length; // откуда резать
-    let endsWith = 0;
+    const fromCard = limitedCards.length; // откуда резать
+    let toCard = 0;
 
-    if (currentWidth >= 1280) {
-      endsWith = startsWith + 4; // до куда резать
-    } else if (currentWidth < 1280 && currentWidth >= 1024) {
-      endsWith = startsWith + 3;
-    } else if (currentWidth < 1024 && currentWidth >= 768) {
-      endsWith = startsWith + 2;
-    } else if (currentWidth < 768) {
-      endsWith = startsWith + 1;
+    if (
+      currentWidth >= DESKTOP_SCREEN_WIDTH
+    ) {
+      toCard = fromCard + DESKTOP_ADDED_CARD_ROW; // до куда резать
+    } else if (
+      currentWidth < DESKTOP_SCREEN_WIDTH && currentWidth >= TABLET_SCREEN_WIDTH
+    ) {
+      toCard = fromCard + DESKTOP_TABLET_ADDED_CARD_ROW;
+    } else if (
+      currentWidth < TABLET_SCREEN_WIDTH && currentWidth >= MOBILE_SCREEN_WIDTH
+    ) {
+      toCard = fromCard + TABLET_MOBILE_ADDED_CARD_ROW;
+    } else if (
+      currentWidth < MOBILE_SCREEN_WIDTH
+    ) {
+      toCard = fromCard + MOBILE_ADDED_CARD_ROW;
     }
 
-    setCardsLimit([...cardsLimit, ...dataMovies.slice(startsWith, endsWith)]);
+    setLimitedCards([...limitedCards, ...initialCards.slice(fromCard, toCard)]);
   };
 
   useEffect(() => {
-    if (currentWidth >= 1280) {
-      setCardsLimit(dataMovies.slice(0, 16));
-    } else if (currentWidth < 1280 && currentWidth >= 1024) {
-      setCardsLimit(dataMovies.slice(0, 12));
-    } else if (currentWidth < 1024 && currentWidth >= 768) {
-      setCardsLimit(dataMovies.slice(0, 8));
-    } else if (currentWidth < 768) {
-      setCardsLimit(dataMovies.slice(0, 5));
+    if (
+      currentWidth >= DESKTOP_SCREEN_WIDTH
+    ) {
+      setLimitedCards(initialCards.slice(FROM_FIRST_CARD, TO_DESKTOP_INITIAL_NUMBER_CARDS));
+    } else if (
+      currentWidth < DESKTOP_SCREEN_WIDTH && currentWidth >= TABLET_SCREEN_WIDTH
+    ) {
+      setLimitedCards(initialCards.slice(FROM_FIRST_CARD, TO_DESKTOP_TABLET_INITIAL_NUMBER_CARDS));
+    } else if (
+      currentWidth < TABLET_SCREEN_WIDTH && currentWidth >= MOBILE_SCREEN_WIDTH
+    ) {
+      setLimitedCards(initialCards.slice(FROM_FIRST_CARD, TO_TABLET_MOBILE_INITIAL_NUMBER_CARDS));
+    } else if (
+      currentWidth < MOBILE_SCREEN_WIDTH
+    ) {
+      setLimitedCards(initialCards.slice(FROM_FIRST_CARD, TO_MOBILE_INITIAL_NUMBER_CARDS));
     }
-  }, [dataMovies, currentWidth]);
+  }, [initialCards, currentWidth]);
 
   useEffect(() => {
     let timeOutId = null;
@@ -46,7 +78,7 @@ export function useLimitedRenderCards(dataMovies) {
 
       timeOutId = setTimeout(() => {
         setCurrentWidth(getScreenWidth());
-      }, 150);
+      }, TIME_DELAY_MS);
     };
 
     window.addEventListener('resize', handleResize);
@@ -54,12 +86,5 @@ export function useLimitedRenderCards(dataMovies) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const resetCardList = useCallback(
-    (newData = []) => {
-      setCardsLimit(newData);
-    },
-    [setCardsLimit]
-  );
-
-  return { cardsLimit, isNextPageBtn, handelAddNextCards, resetCardList };
+  return [ setInitialCards, limitedCards, isNextPageBtn, handelAddNextCards ];
 }

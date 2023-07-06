@@ -16,6 +16,9 @@ const PROFILE = {
       name: 'name',
       title: 'Имя',
       typeAttribute: 'text',
+      minLength: 2,
+      maxLength: 30,
+      pattern: '[\\w\\sА-яЁё]+',
     },
     {
       id: 2,
@@ -23,11 +26,12 @@ const PROFILE = {
       name: 'email',
       title: 'E-mail',
       typeAttribute: 'email',
+      pattern: '[a-z0-9._%+\\-]+@[a-z0-9.\\-]+\\.[a-z]{2,}',
     },
   ],
 };
 
-function Profile({ buttonSubmitState, onUpdateUser, onLogout, info }) {
+function Profile({ buttonSubmitState, onUpdateUser, onLogout, info, onResetInfo }) {
   const currentUser = useContext(CurrentUserContext);
 
   PROFILE.title = `Привет, ${currentUser.name}`;
@@ -39,13 +43,11 @@ function Profile({ buttonSubmitState, onUpdateUser, onLogout, info }) {
         buttonSubmitState={buttonSubmitState}
         onUserForm={onUpdateUser}
         info={info}
+        onResetInfo={onResetInfo}
+        isProfile={true}
       />
 
-      <button
-        className="profile__logout"
-        onClick={onLogout}
-        type="button"
-        aria-label="управление выходом из профиля">
+      <button className="profile__logout" onClick={onLogout} type="button" aria-label="управление выходом из профиля">
         Выйти из аккаунта
       </button>
     </div>
