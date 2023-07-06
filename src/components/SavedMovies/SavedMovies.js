@@ -2,11 +2,10 @@ import { useEffect, useState } from 'react';
 import { NO_MOVIES } from '../../constants/movieCard';
 import { filterMovies } from '../../utils/movieCardUtils';
 import Movies from '../Movies/Movies';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 function SavedMovies({ savedMovies, onCardDelete, onCardLike, isPreload, error }) {
   const [infoSavedMovies, setInfoSavedMovies] = useState({});
-  const [savedSearchResult, setSavedSearchResult] = useLocalStorage({}, 'savedMovies');
+  const [searchResult, setSearchResult] = useState({});
   const [filtered, setFiltered] = useState(null);
 
   const handleSearchSavedMovies = (submitted) => {
@@ -15,9 +14,9 @@ function SavedMovies({ savedMovies, onCardDelete, onCardLike, isPreload, error }
 
     setFiltered(filterMovies(submitted, savedMovies));
 
-    setSavedSearchResult(submitted);
+    setSearchResult(submitted);
 
-    setInfoSavedMovies({ ...infoSavedMovies, notFound: filtered?.length === NO_MOVIES });
+    setInfoSavedMovies({ notFound: filtered?.length === NO_MOVIES });
   };
 
   useEffect(() => {
@@ -27,7 +26,7 @@ function SavedMovies({ savedMovies, onCardDelete, onCardLike, isPreload, error }
   return (
     <Movies
       onSearchForm={handleSearchSavedMovies}
-      searchData={savedSearchResult}
+      searchData={searchResult}
       dataMovies={filtered ? filtered : savedMovies}
       onCardDelete={onCardDelete}
       onCardLike={onCardLike}
