@@ -26,7 +26,6 @@ const LOGIN = {
       typeAttribute: 'password',
       minLength: '2',
       maxLength: '14',
-      pattern: '[!-z]',
     },
   ],
 };

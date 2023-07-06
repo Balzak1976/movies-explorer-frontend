@@ -36,7 +36,6 @@ const REGISTER = {
       typeAttribute: 'password',
       minLength: '8',
       maxLength: '14',
-      pattern: '[!-z]',
     },
   ],
 };
