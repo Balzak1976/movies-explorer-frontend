@@ -15,13 +15,11 @@ function SavedMovies({ savedMovies, onCardDelete, onCardLike, isPreload, error }
     setFiltered(filterMovies(submitted, savedMovies));
 
     setSearchResult(submitted);
-
-    setInfoSavedMovies({ notFound: filtered?.length === NO_MOVIES });
   };
 
   useEffect(() => {
-    setFiltered(null);
-  }, []);
+    setInfoSavedMovies({ notFound: filtered?.length === NO_MOVIES });
+  }, [filtered]);
 
   return (
     <Movies
