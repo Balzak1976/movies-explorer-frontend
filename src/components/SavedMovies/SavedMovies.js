@@ -1,41 +1,38 @@
-import './SavedMovies.css';
-import SearchPanel from '../Movies/SearchPanel/SearchPanel';
-import MoviesCardList from '../Movies/MoviesCardList/MoviesCardList';
-import Pagination from '../Movies/Pagination/Pagination';
+import { useEffect, useState } from 'react';
+import { NO_MOVIES } from '../../constants/movieCard';
+import { filterMovies } from '../../utils/movieCardUtils';
+import Movies from '../Movies/Movies';
 
-const testImg =
-  'https://static.tildacdn.com/tild3439-6264-4437-b130-353631643363/kot-zhalost.jpg';
+function SavedMovies({ savedMovies, onCardDelete, onCardLike, isPreload, error }) {
+  const [infoSavedMovies, setInfoSavedMovies] = useState({});
+  const [searchResult, setSearchResult] = useState({});
+  const [filtered, setFiltered] = useState(null);
 
-const movies = [
-  {
-    link: testImg,
-    name: '33 слова о дизайне',
-    duration: '1ч42м',
-    isShortMovie: true,
-  },
-  {
-    link: testImg,
-    name: '33 слова о дизайне',
-    duration: '1ч42м',
-    isShortMovie: true,
-  },
-  {
-    link: testImg,
-    name: '33 слова о дизайне',
-    duration: '1ч42м',
-    isShortMovie: true,
-  },
-];
+  const handleSearchSavedMovies = (submitted) => {
+    // console.log('поиск в сохраненных фильмах')
+    setInfoSavedMovies({ notFound: false });
 
-const isSavedMovie = true;
+    setFiltered(filterMovies(submitted, savedMovies));
 
-function SavedMovies() {
+    setSearchResult(submitted);
+  };
+
+  useEffect(() => {
+    setInfoSavedMovies({ notFound: filtered?.length === NO_MOVIES });
+  }, [filtered]);
+
   return (
-    <div className="movies">
-      <SearchPanel />
-      <MoviesCardList movies={movies} isSavedMovie={isSavedMovie} />
-      <Pagination isNextPage={false} />
-    </div>
+    <Movies
+      onSearchForm={handleSearchSavedMovies}
+      searchData={searchResult}
+      dataMovies={filtered ? filtered : savedMovies}
+      onCardDelete={onCardDelete}
+      onCardLike={onCardLike}
+      isPreload={isPreload}
+      infoToolTip={infoSavedMovies}
+      error={error}
+      isSavedMovies={true}
+    />
   );
 }
 

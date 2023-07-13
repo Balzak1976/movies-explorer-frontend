@@ -1,117 +1,43 @@
 import './Movies.css';
-import SearchPanel from './SearchPanel/SearchPanel';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import Pagination from './Pagination/Pagination';
+import SearchPanel from './SearchPanel/SearchPanel';
+import Preloader from '../Preloader/Preloader';
+import InfoToolTip from '../InfoToolTip/InfoToolTip';
 
-const testImg =
-  'https://vsegda-pomnim.com/uploads/posts/2022-04/1648929945_58-vsegda-pomnim-com-p-avatar-les-foto-68.jpg';
-
-const movies = [
-  {
-    link: testImg,
-    name: '33 слова о дизайне',
-    duration: '1ч42м',
-    isShortMovie: false,
-  },
-  {
-    link: testImg,
-    name: '33 слова о дизайне',
-    duration: '1ч42м',
-    isShortMovie: true,
-  },
-  {
-    link: testImg,
-    name: '33 слова о дизайне',
-    duration: '1ч42м',
-    isShortMovie: false,
-  },
-  {
-    link: testImg,
-    name: '33 слова о дизайне',
-    duration: '1ч42м',
-    isShortMovie: false,
-  },
-  {
-    link: testImg,
-    name: '33 слова о дизайне',
-    duration: '1ч42м',
-    isShortMovie: false,
-  },
-  {
-    link: testImg,
-    name: '33 слова о дизайне',
-    duration: '1ч42м',
-    isShortMovie: true,
-  },
-  {
-    link: testImg,
-    name: '33 слова о дизайне',
-    duration: '1ч42м',
-    isShortMovie: false,
-  },
-  {
-    link: testImg,
-    name: '33 слова о дизайне',
-    duration: '1ч42м',
-    isShortMovie: false,
-  },
-  {
-    link: testImg,
-    name: '33 слова о дизайне',
-    duration: '1ч42м',
-    isShortMovie: false,
-  },
-  {
-    link: testImg,
-    name: '33 слова о дизайне',
-    duration: '1ч42м',
-    isShortMovie: true,
-  },
-  {
-    link: testImg,
-    name: '33 слова о дизайне',
-    duration: '1ч42м',
-    isShortMovie: false,
-  },
-  {
-    link: testImg,
-    name: '33 слова о дизайне',
-    duration: '1ч42м',
-    isShortMovie: false,
-  },
-  {
-    link: testImg,
-    name: '33 слова о дизайне',
-    duration: '1ч42м',
-    isShortMovie: false,
-  },
-  {
-    link: testImg,
-    name: '33 слова о дизайне',
-    duration: '1ч42м',
-    isShortMovie: true,
-  },
-  {
-    link: testImg,
-    name: '33 слова о дизайне',
-    duration: '1ч42м',
-    isShortMovie: false,
-  },
-  {
-    link: testImg,
-    name: '33 слова о дизайне',
-    duration: '1ч42м',
-    isShortMovie: false,
-  },
-];
-
-function Movies() {
-
+function Movies({
+  onSearchForm,
+  searchData,
+  dataMovies,
+  onCardDelete,
+  onCardLike,
+  isPreload,
+  infoToolTip,
+  error,
+  isSavedMovies = false,
+  onAddNextCards,
+  isNextPageBtn,
+}) {
   return (
     <div className="movies">
-      <SearchPanel />
-      <MoviesCardList movies={movies} />
-      <Pagination isNextPage={true} />
+      <SearchPanel onSearchForm={onSearchForm} searchData={searchData} />
+
+      {isPreload && <Preloader />}
+      {infoToolTip.notFound && <InfoToolTip infoToolTip={infoToolTip} error={error} />}
+      {error?.status && <InfoToolTip infoToolTip={infoToolTip} error={error} />}
+
+      {!isPreload && !infoToolTip.notFound && dataMovies && (
+        <MoviesCardList
+          movies={dataMovies}
+          onCardDelete={onCardDelete}
+          onCardLike={onCardLike}
+          isSavedMovies={isSavedMovies}
+        />
+      )}
+
+      {!isPreload && !infoToolTip.notFound && (
+        <Pagination onAddNextCards={onAddNextCards} isNextPageBtn={isNextPageBtn} />
+      )}
     </div>
   );
 }

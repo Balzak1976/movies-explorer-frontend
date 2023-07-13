@@ -1,10 +1,14 @@
 import './Pagination.css';
 
-function Pagination({ isNextPage }) {
+function Pagination({ onAddNextCards, isNextPageBtn }) {
   return (
     <div className="pagination">
-      {isNextPage && (
-        <button className="pagination__btn" type="button" aria-label="переход на следующую страницу">
+      {isNextPageBtn && (
+        <button
+          className="pagination__btn"
+          onClick={onAddNextCards}
+          type="button"
+          aria-label="переход на следующую страницу">
           Ещё
         </button>
       )}

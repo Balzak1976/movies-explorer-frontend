@@ -5,3 +5,14 @@
   align-items: center;
   gap: 50px;
 }
+
+.navigation__menu {
+  --color-burger: #fff;
+  color: #fff;
+}
+
+@media screen and (max-width: 770px) {
+  .navigation__menu {
+    color: #000;
+  }
+}

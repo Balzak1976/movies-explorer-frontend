@@ -26,9 +26,8 @@
   padding: 2px;
   box-sizing: border-box;
   border-radius: 20px;
-  background-color: var(--btn-color);
+  background-color: #9e9e9e;
   display: flex;
-  justify-content: flex-end;
   align-items: center;
 }
 
@@ -46,8 +45,8 @@
 }
 
 .checkbox__input:checked + .checkbox__content {
-  background-color: #9e9e9e;
-  justify-content: flex-start;
+  background-color: var(--btn-color);
+  justify-content: flex-end;
 }
 
 @media screen and (max-width: 770px) {

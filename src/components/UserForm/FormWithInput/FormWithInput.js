@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { ValidationContext } from '../../../contexts/ValidationContext';
 import Input from '../Input/Input';
 
-function FormWithInput({ config, onSubmit, buttonSubmitState, info = true }) {
+function FormWithInput({ config, onSubmit, buttonSubmitState, info, onResetInfo }) {
   const validation = useContext(ValidationContext);
 
   const [isValid, values, handleChange, errors] = validation;
@@ -19,13 +19,18 @@ function FormWithInput({ config, onSubmit, buttonSubmitState, info = true }) {
               value={values[input.name]}
               onChange={handleChange}
               error={errors[input.name]}
+              onResetInfo={onResetInfo}
             />
           ))}
         </fieldset>
       )}
 
-      <div className={`form__info form__info_type_${config.name} ${info && 'form__info_active'}`}>
-        {'Что-то пошло не так...'}
+      <div className={
+        `form__info form__info_type_${config.name}
+         ${info?.isError && 'form__info_error'}
+         ${info?.isSuccess && 'form__info_success'}`
+      }>
+        {info?.message ?? ''}
       </div>
 
       <button
