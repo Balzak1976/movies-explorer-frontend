@@ -3,6 +3,10 @@
   transition: opacity 0.5s ease-in;
 }
 
+.logo * {
+  fill: var(--btn-color);
+}
+
 .logo:hover {
   cursor: pointer;
   opacity: 0.5;
