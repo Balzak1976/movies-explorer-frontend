@@ -37,7 +37,7 @@
 клонировать репозиторий 
 
 ```javascript
-git clone https://github.com/Balzak1976/movies-explorer-frontend
+git clone https://github.com/Balzak1976/movies-explorer-frontend.git
 ```
 
 установить зависимости
