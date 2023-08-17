@@ -1,33 +1,5 @@
 # movies-explorer-frontend
-
-<table>
-<colgroup>
-<col>
-<col>
-<col>
-<col>
-<col>
-<col>
-</colgroup>
-<thead>
-    <th colspan="6">Стек и технологии</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <td colspan="3">Frontend</td>
-    <td colspan="3">Backend</td>
-  </tr>
-  <tr>
-    <td>React</td>
-    <td>HTML</td>
-    <td>CSS</td=>
-    <td>Express</td=>
-    <td>Node.js</td=>
-    <td>MongoDB</td=>
-  </tr>
-</tbody>
-</table>
+#### Ссылка на сайт: https://skor.nomoredomains.monster
 
 
 ## Описание и функциональность проекта
@@ -47,17 +19,25 @@
 
 Начальная страница | Фильмы | Авторизация
 :---: | :---: | :---:
-[![Начальная страница](src/images/page1.png)](https://skor.nomoredomains.monster) |![Фильмы](src/images/page2.png) | ![Авторизация](src/images/page3.png)
+[![Начальная страница](screenshots/page1.png)](https://skor.nomoredomains.monster) |![Фильмы](screenshots/page2.png) | ![Авторизация](screenshots/page3.png)
 
 
-#### Ссылка на сайт: https://skor.nomoredomains.monster
+
+## Стэк технологий
+
+| <a href="https://html.spec.whatwg.org/multipage/" target="_blank" rel="noreferrer"><img width="45" height="45" alt="HTML5" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain.svg" /></a> | <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"><img width="45" height="45" alt="CSS3" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain.svg" /></a> | <a href="https://react.dev/" target="_blank" rel="noreferrer"><img width="45" height="45" alt="React" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" /></a> | <a href="https://expressjs.com/" target="_blank"><img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/express-original-wordmark.svg" alt="Express.js" height="45" /></a> | <a href="https://nodejs.org/" target="_blank"><img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/nodejs-original-wordmark.svg" alt="Node.js" height="45" /></a> | <a href="https://www.mongodb.com/" target="_blank"><img style="margin: 10px" src="https://profilinator.rishav.dev/skills-assets/mongodb-original-wordmark.svg" alt="MongoDB" height="45" /></a> |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+| HTML | CSS  | React | Express | Node.js | MongoDB |
+
+<br>
+
 
 ## Запуск проекта
 
 клонировать репозиторий 
 
 ```javascript
-git clone https://github.com/Balzak1976/movies-explorer-frontend.git
+git clone https://github.com/Balzak1976/vodolux-pos.git
 ```
 
 установить зависимости
